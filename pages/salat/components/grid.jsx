@@ -1,11 +1,10 @@
 import React from "react";
 import styles from "/styles/Home.module.css";
-import Step from "./step";
-import data from "../data/steps.json";
+import Step from "/pages/salat/components/step";
+import { steps } from "/data/steps";
 
 const Grid = () => {
   const getSalatSteps = () => {
-    const { steps } = data;
     return steps.map((step) => <Step key={step.name} data={step} />);
   };
   const salatSteps = getSalatSteps();
