@@ -103,6 +103,18 @@
   line-height: 1.5;
 }
 
+.paragraphs {
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+  text-align: left;
+  display: block;
+}
+
+.instruction {
+  margin-top: 0.2rem;
+  margin-bottom: 2rem;
+}
+
 .logo {
   height: 1em;
   margin-left: 0.5rem;
