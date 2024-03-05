@@ -1,32 +1,33 @@
 import styles from "/styles/Navbar.module.css";
+import Link from "next/link";
 
 const Navbar = () => {
   return (
     <nav className={styles.navbar}>
       <div className={styles.container}>
-        <a className={styles.navbarBrand} href="/">
+        <Link className={styles.navbarBrand} href="/">
           Logo
-        </a>
+        </Link>
         <ul className={styles.navbarNav}>
           <li className={styles.navItem}>
-            <a className={styles.navLink} href="/">
+            <Link className={styles.navLink} href="/">
               Inicio
-            </a>
+            </Link>
           </li>
           <li className={styles.navItem}>
-            <a className={styles.navLink} href="/">
+            <Link className={styles.navLink} href="/">
               Acerca de
-            </a>
+            </Link>
           </li>
           <li className={styles.navItem}>
-            <a className={styles.navLink} href="/">
+            <Link className={styles.navLink} href="/">
               Servicios
-            </a>
+            </Link>
           </li>
           <li className={styles.navItem}>
-            <a className={styles.navLink} href="/">
+            <Link className={styles.navLink} href="/">
               Contacto
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
