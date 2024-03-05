@@ -1,0 +1,30 @@
+.header {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  padding: 40px;
+  text-align: center;
+  font-size: 56px;
+  margin: 0;
+}
+
+.upperHeader {
+  color: #fff5ff;
+  background-color: #064f61;
+}
+
+.description {
+  text-align: center;
+}
+
+/* Estilos responsivos */
+@media screen and (max-width: 768px) {
+  .header {
+    font-size: 48px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .header {
+    font-size: 42px;
+  }
+}

@@ -7,9 +7,12 @@ const Step = ({ data }) => {
       <p>Repite:</p>
       <div>
         {data.tripleText.map((lang, index) => (
-          <p key={"p" + index} className={styles.paragraph}>
-            {lang}
-          </p>
+          <>
+            <p key={"p" + index} className={styles.paragraph}>
+              {lang}
+            </p>
+            <br />
+          </>
         ))}
       </div>
     </>

@@ -5,7 +5,7 @@ const Salat = () => {
   return (
     <>
       <h2>Salat </h2>
-      <p>Aprende a rezar como el Profeta</p>
+      <p>Aprende a rezar como el Profeta &#65018;</p>
     </>
   );
 };
