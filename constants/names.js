@@ -27,7 +27,7 @@ export const WELCOME_PAGE_CARDS = [
     title: "Recursos y Lecturas",
     description:
       "Accede a materiales educativos, libros y recursos sobre el Islam.",
-    url: "/example",
+    url: "/salat",
     img: "/example.jpg",
   },
   {
