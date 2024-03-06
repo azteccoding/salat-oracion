@@ -10,7 +10,7 @@ const pageNotFound = () => {
           Disculpa, la página que buscabas no existe
         </p>
         <div className={styles.buttonContainer}>
-          <Link href="/main" className={styles.button}>
+          <Link href="/" className={styles.button}>
             Volver al inicio
           </Link>
         </div>
