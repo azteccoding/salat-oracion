@@ -29,7 +29,7 @@ export const steps = [
     instruction: "Recita Sura al-Fatiha ",
     tripleText: [
       "بِسۡمِ ٱللَّهِ ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ.ٱلۡحَمۡدُ لِلَّهِ رَبِّ ٱلۡعَٰلَمِينَ .ٱلرَّحۡمَٰنِ ٱلرَّحِيمِ .مَٰلِكِ يَوۡمِ ٱلدِّينِ .إِيَّاكَ نَعۡبُدُ وَإِيَّاكَ نَسۡتَعِينُ .ٱهۡدِنَا ٱلصِّرَٰطَ ٱلۡمُسۡتَقِيمَ .صِرَٰطَ ٱلَّذِينَ أَنۡعَمۡتَ عَلَيۡهِمۡ غَيۡرِ ٱلۡمَغۡضُوبِ عَلَيۡهِمۡ وَلَا ٱلضَّآلِّينَ",
-      "Bi-smi-llāhi r-raḥmāni r-raḥīm. Al-ḥamdu li-llāhi rabbi l-`ālamīn. Ar-raḥmāni r-raḥīm. Māliki yawmi d-dīn. Iyyāka na`budu wa-iyyāka nasta`īn. Ihdinā ṣ-ṣirāṭa l-mustaqīm. Ṣirāṭa l-laḏīna an`amta `alay-him ġayri l-maġḍūbi `alay-him wa-lā ḍ-ḍāālīn",
+      "Bi-smi-llāhi r-raḥmāni r-raḥīm. Al-ḥamdu li-llāhi rabbi l-`ālamīn. Ar-raḥmāni r-raḥīm. Māliki yawmi d-dīn. Iyyāka na`budu wa-iyyāka nasta`īn. Ihdinā ṣ-ṣirāṭa l-mustaqīm. Ṣirāṭa l-laḏīna an`amta `alay-hum ġayri l-maġḍūbi `alay-hum wa-lā ḍ-ḍāālīn",
       "En el nombre de Dios, el Compasivo con toda la creación, el Misericordioso con los creyentes. Todas las alabanzas son para Dios, Señor1 de todo cuanto existe,el Compasivo, el Misericordioso. Soberano absoluto del Día del Juicio Final, solo a Ti te adoramos y solo de Ti imploramos ayuda.¡Guíanos por el camino recto! El camino de los que has colmado con Tus favores, no el de los que han caído en Tu ira, ni el de los que se extraviaron.",
     ],
   },
@@ -41,7 +41,7 @@ export const steps = [
     instruction: "Recita otra sura del Corán. Por ejemplo Sura 112",
     tripleText: [
       "قُلْ هُوَ ٱللَّهُ أَحَدٌ .ٱللَّهُ ٱلصَّمَدُ .لَمْ يَلِدْ وَلَمْ يُولَدْ .وَلَمْ يَكُن لَّهُۥ كُفُوًا أَحَدٌۢ",
-      "Bismi l-lāhi r-raḥmāni r-raḥīm. Qul huwa l-lāhu 'aḥad. 'allāhu ṣ-ṣamad. Lam yalid walam yūlad. Walam yaku n-lahū kufuwan 'aḥad",
+      "Bismi l-lāhi r-raḥmāni r-raḥīm. Qul huwa l-lāhu 'aḥad. 'allāhu ṣ-ṣamad. Lam yalid walam yūlad. Walam yaku n-lahū kuf'an 'aḥad",
       "Di: Él es Al-lah, Uno. Al-lah es el Absoluto. No engendró ni fue engendrado. Y no hay nada ni nadie que sea semejante a Él.",
     ],
   },

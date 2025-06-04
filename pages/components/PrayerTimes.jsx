@@ -2,7 +2,7 @@ const PrayerTimes = () => {
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
       <iframe
-        id="iframe"
+        id="iframe-islamicFinder"
         title="prayerWidget"
         language="ES-MX"
         className="widget-m-top"

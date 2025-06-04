@@ -10,6 +10,7 @@ export default function Home() {
       <Header />
 
       <Content title={ASSOCIATION_NAME} />
+
       <PrayerTimes />
       <Footer />
     </>
