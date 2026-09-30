@@ -1,0 +1,60 @@
+/* Letrero corrido de la fecha en la barra superior.
+   El carril ocupa todo el espacio a la derecha del saludo. La fecha entra por la orilla derecha,
+   cruza, y al salir por la orilla izquierda queda oculta —"detrás" del saludo—; luego reaparece
+   por la derecha. */
+.carril {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: clip !important;
+  display: flex;
+  align-items: center;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 28px, #000 calc(100% - 12px), transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 28px, #000 calc(100% - 12px), transparent 100%);
+}
+
+/* La pista mide "ancho del carril + ancho de la fecha": el relleno izquierdo del 100% coloca
+   la fecha justo fuera de la orilla derecha, y desplazar la pista su propio ancho completo
+   la lleva justo fuera de la orilla izquierda. */
+.pista {
+  display: inline-flex;
+  flex-shrink: 0;
+  min-width: 100%;
+  padding-left: 100%;
+  white-space: nowrap;
+  animation: corre var(--duracion, 18s) linear var(--retraso, 0s) infinite;
+  will-change: transform;
+}
+
+/* Primera carga: la fecha aparece ya colocada y espera antes de correr */
+.quieta {
+  animation-play-state: paused;
+}
+
+.carril:hover .pista {
+  animation-play-state: paused;
+}
+
+@keyframes corre {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* Quien prefiere menos movimiento ve la fecha fija, alineada a la derecha */
+@media (prefers-reduced-motion: reduce) {
+  .carril {
+    justify-content: flex-end;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .pista {
+    animation: none;
+    padding-left: 0;
+    min-width: 0;
+  }
+}

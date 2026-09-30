@@ -67,7 +67,7 @@ export const VALORES = [
 
 // Tesoros de la hermandad
 export const TESOROS = [
-  "Un dhikr escrito de puño y letra del sheij Ahmad ibn Mustafa al-Alawi.",
+  "Un dhikr escrito de puño y letra de un alumno del sheij Ahmad ibn Mustafa al-Alawi.",
   "Manuscritos de un opúsculo de dhikr en árabe, con su traducción al francés, dictado por el sheij Abu Musa y conseguido en un viaje.",
   "Monedas de oro y plata de la herencia de maulana ʿIyad, repartidas entre sus alumnos para la compra de libros.",
   "Manuscrito del Corán proveniente del Imperio Otomano siglo XVIII",

@@ -7,7 +7,10 @@ import Seo from "@/components/Seo";
 import EmptyFataawa from "@/components/fataawa/EmptyFataawa";
 import FatwaCard from "@/components/fataawa/FatwaCard";
 import { FATAAWA_PATH, FATWA_TOPICS } from "@/constants/fataawa";
+import { NUESTRO_SHEIJ } from "@/constants/content";
 import { SITE_DESCRIPTION, SITE_NAME } from "@/constants/site";
+import { corridos } from "@/data/corridos";
+import { descargas } from "@/data/descargas";
 import { sortedFataawa } from "@/data/fataawa";
 import styles from "@/styles/site/Home.module.css";
 import fx from "@/styles/site/Fataawa.module.css";
@@ -152,6 +155,37 @@ export default function Home({ latest }) {
               })}
             </div>
           </section>
+
+          <section id="musica" className={styles.musica}>
+            <p className={styles.musicaEyebrow}>¿Sabías que…?</p>
+            <h2>En el fiqh ẓāhirī se puede escuchar música</h2>
+            <p>
+              El Imam Ibn Ḥazm revisó uno por uno los ḥadīṯ que se citan para prohibir la música y concluyó que ninguno
+              es auténtico. En <em>al-Muḥallā</em> la declara permitida y enseña que su valor depende de la intención:
+              «las acciones valen según las intenciones». Quien escucha para descansar el alma y fortalecerse en la
+              obediencia a Allah, obra bien. Es una postura minoritaria frente a las demás escuelas, pero firme en sus
+              pruebas.
+            </p>
+            <p>Escucha los corridos tumbados de Banda Jorgilios:</p>
+            <div className={styles.videos}>
+              {corridos.map((v) => (
+                <figure key={v.id} className={styles.video}>
+                  <iframe
+                    src={`https://www.youtube-nocookie.com/embed/${v.id}`}
+                    title={v.titulo}
+                    loading="lazy"
+                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                  <figcaption>
+                    <a href={`https://www.youtube.com/watch?v=${v.id}`} target="_blank" rel="noopener noreferrer">
+                      {v.titulo} <Icon name="external" size={14} />
+                    </a>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </section>
         </div>
 
         <aside className={styles.side}>
@@ -171,12 +205,32 @@ export default function Home({ latest }) {
 
           <section className={`${ui.card} ${ui.cardPad} ${styles.downloadCard}`}>
             <h2 className={ui.cardTitle}>
-              <Icon name="download" size={18} /> Descarga gratuita
+              <Icon name="download" size={18} /> Descargas gratuitas
             </h2>
-            <h3>Taʿlīm al-islām: selección sobre Ramaḍān</h3>
-            <p>Una selección para prepararse y vivir el mes del ayuno.</p>
+            {descargas.map((d) => (
+              <div key={d.slug} className={styles.downloadItem}>
+                <h3>
+                  <Link href={`/descargas/${d.slug}`}>{d.title}</Link>
+                </h3>
+                <p>{d.teaser}</p>
+              </div>
+            ))}
             <Link href="/descargas" className={`${ui.btn} ${ui.btnPrimary}`}>
               Ver descargas
+            </Link>
+          </section>
+
+          <section className={`${ui.card} ${ui.cardPad} ${styles.sheijCard}`}>
+            <h2 className={ui.cardTitle}>
+              <Icon name="book" size={18} /> {NUESTRO_SHEIJ.titulo}
+            </h2>
+            <p className={styles.sheijArabe} lang="ar">
+              {NUESTRO_SHEIJ.nombreArabe}
+            </p>
+            <h3>{NUESTRO_SHEIJ.nombre}</h3>
+            <p>{NUESTRO_SHEIJ.resumen}</p>
+            <Link href="/nuestro-sheij" className={`${ui.btn} ${ui.btnPrimary}`}>
+              Conocer al Sheij
             </Link>
           </section>
         </aside>
@@ -212,6 +266,27 @@ export default function Home({ latest }) {
             Nuestras fatāwá siguen el método ẓāhirī de Ibn Ḥazm de Córdoba: volver al texto del Corán y de la Sunna
             auténtica, con respeto a todas las escuelas y a la unidad de los musulmanes.
           </p>
+        </div>
+      </section>
+
+      {/* ---------- Imam Ibn Hazm (esta página solo se enlaza desde aquí) ---------- */}
+      <section className={`contenedor ${styles.ibnHazm}`}>
+        <div className={styles.ibnHazmInner}>
+          <p className={styles.ibnHazmAr} lang="ar">
+            ابن حزم الأندلسي
+          </p>
+          <p className={ui.eyebrow} style={{ color: "var(--dorado)" }}>
+            Nuestro imam en el fiqh
+          </p>
+          <h2>Imam Ibn Hazm de Córdoba</h2>
+          <p>
+            Poeta, visir, jurista y teólogo de al-Andalus. Escribió sobre el amor en <em>El Collar de la Paloma</em> y
+            sobre la ley en <em>al-Muḥallā</em>, y enseñó a volver siempre al texto revelado. Te invitamos a conocer su
+            vida, sus obras y su escuela.
+          </p>
+          <Link href="/imam-ibn-hazm" className={`${ui.btn} ${ui.btnGold}`}>
+            Conocer al Imam <Icon name="arrow" size={18} />
+          </Link>
         </div>
       </section>
     </>

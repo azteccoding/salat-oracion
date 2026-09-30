@@ -249,6 +249,39 @@
   font-size: 15px;
 }
 
+.downloadItem {
+  margin-bottom: 14px;
+}
+
+.downloadItem h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.downloadItem h3 a:hover {
+  text-decoration: underline;
+}
+
+.sheijCard h3 {
+  font-size: 19px;
+  margin-bottom: 6px;
+}
+
+.sheijCard p {
+  color: var(--tenue);
+  font-size: 15px;
+  margin-bottom: 14px;
+}
+
+.sheijCard .sheijArabe {
+  font-family: var(--f-arabe);
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--dorado);
+  direction: rtl;
+  margin-bottom: 4px;
+}
+
 /* ---------- Lo esencial ---------- */
 .essentials {
   display: grid;
@@ -453,5 +486,106 @@ a.essCard:hover {
     padding: 0 16px;
     height: 42px;
     flex-shrink: 0;
+  }
+}
+
+/* ---------- ¿Sabías que…? Música ---------- */
+.musica {
+  margin-top: 56px;
+  padding: 32px;
+  background: var(--oro-100);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+}
+
+.musica h2 {
+  font-size: clamp(24px, 3vw, 30px);
+  margin: 0 0 12px;
+}
+
+.musica p {
+  color: var(--tinta-2);
+}
+
+.musicaEyebrow {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--oro-700);
+  margin: 0 0 4px;
+}
+
+.videos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.video {
+  margin: 0;
+}
+
+.video iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  border-radius: var(--radio-sm);
+  background: #000;
+}
+
+.video figcaption {
+  margin-top: 8px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.video figcaption a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ---------- Invitación: Imam Ibn Hazm ---------- */
+.ibnHazm {
+  margin-top: 80px;
+  margin-bottom: 24px;
+}
+
+.ibnHazmInner {
+  padding: 48px 40px;
+  text-align: center;
+  background: var(--azul-800);
+  color: #fff;
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-2);
+}
+
+.ibnHazmInner h2 {
+  color: #fff;
+  font-size: clamp(28px, 3.6vw, 40px);
+  margin: 0 0 12px;
+}
+
+.ibnHazmInner p {
+  max-width: 60ch;
+  margin: 0 auto 20px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.ibnHazmAr {
+  font-family: var(--f-arabe);
+  font-size: clamp(30px, 4vw, 42px);
+  line-height: 1.5;
+  color: var(--oro-500) !important;
+  margin-bottom: 4px !important;
+}
+
+@media (max-width: 600px) {
+  .musica,
+  .ibnHazmInner {
+    padding: 24px 20px;
   }
 }

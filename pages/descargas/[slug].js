@@ -4,13 +4,11 @@ import Seo from "@/components/Seo";
 import { descargas } from "@/data/descargas";
 import styles from "@/styles/site/Descargas.module.css";
 
-const item = descargas.find((d) => d.slug === "talim-ul-islam-ramadan-seleccion");
-
-export default function Downloadables() {
+export default function Descarga({ item }) {
   return (
     <>
       <Seo title={item.title} description={item.description} />
-      <PageHero title={item.title} crumbs={[{ href: "/descargas", label: "Descargas" }, { label: "Ramaḍān" }]}>
+      <PageHero title={item.title} crumbs={[{ href: "/descargas", label: "Descargas" }, { label: item.title }]}>
         <p>{item.description}</p>
       </PageHero>
       <div className={`contenedor ${styles.list}`}>
@@ -18,4 +16,16 @@ export default function Downloadables() {
       </div>
     </>
   );
+}
+
+export function getStaticPaths() {
+  return {
+    paths: descargas.map((d) => ({ params: { slug: d.slug } })),
+    fallback: false,
+  };
+}
+
+export function getStaticProps({ params }) {
+  const item = descargas.find((d) => d.slug === params.slug);
+  return { props: { item } };
 }
