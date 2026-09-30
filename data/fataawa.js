@@ -1,9 +1,10 @@
 import { FATAAWA_PATH, topicOfCode } from "@/constants/fataawa";
+import { fatawaEscritas } from "./fataawa-escritas/fataawaEscritasArray";
 
 /**
  * Fatāwá de fiqh ẓāhirī
  * ---------------------
- * Cada objeto de este arreglo se publica automáticamente en
+ * Cada fatwa se publica automáticamente en
  *   /fataawa-zahiri-fiqh/<slug>-<codigo>      p. ej. /fataawa-zahiri-fiqh/lo-que-anula-el-wudu-3500
  * y aparece en el índice de la sección y en la página de inicio.
  *
@@ -36,90 +37,16 @@ import { FATAAWA_PATH, topicOfCode } from "@/constants/fataawa";
  *                       Quítalo al publicar.
  *
  * Todo lo marcado con ✍️ es texto por llenar.
+ *
+ * MARCAS DENTRO DEL TEXTO (pregunta, párrafos, listas, citas y recuadros):
+ *   **negritas**   ==resaltado==   [texto](https://…)   [texto](/pagina-del-sitio)
+ *
+ * DÓNDE ESTÁN LAS FATĀWÁ: cada una en su archivo, dentro de data/fataawa-escritas/,
+ * y la lista que las junta en data/fataawa-escritas/fataawaEscritasArray.js.
+ * La forma más fácil de escribir una fatwa nueva es el editor: /editor-fataawa
+ *
+ * Este archivo ya no se edita: solo explica los campos y prepara las fatāwá para el sitio.
  */
-const fatawaEscritas = [
-  // ===================================================================
-  //  FATWA 3500 — Lo que anula el wuḍūʾ   (enlazada desde /wudu)
-  // ===================================================================
-  {
-    codigo: "3500",
-    slug: "lo-que-anula-el-wudu",
-    title: "¿Qué anula el wuḍūʾ?",
-    date: "2026-09-30",
-    borrador: true,
-    summary: "✍️ Resumen de una o dos líneas…",
-    question: "✍️ La pregunta tal como se recibió…",
-    answer: [
-      { type: "p", text: "✍️ Introducción…" },
-
-      { type: "h", text: "Lo que anula el wuḍūʾ" },
-      { type: "list", items: ["✍️ Primera causa…", "✍️ Segunda causa…"] },
-
-      { type: "h", text: "Nada más lo anula" },
-      {
-        type: "p",
-        text: "Ninguna otra cosa, excepto las mencionadas, anula el wuḍūʾ. Por ejemplo, no lo anula el vómito ni echarse un sapo.",
-      },
-      { type: "list", items: ["✍️ Otro ejemplo de lo que no lo anula…"] },
-    ],
-    sources: ["✍️ Ibn Ḥazm, al-Muḥallā, masʾala …"],
-    related: ["3300"],
-  },
-
-  // ===================================================================
-  //  FATWA 3300 — Lo que hace obligatorio el gusl   (enlazada desde /gusl)
-  // ===================================================================
-  {
-    codigo: "3300",
-    slug: "lo-que-hace-obligatorio-el-gusl",
-    title: "¿Qué hace obligatorio el gusl?",
-    date: "2026-09-30",
-    borrador: true,
-    summary: "✍️ Resumen de una o dos líneas…",
-    question: "✍️ La pregunta tal como se recibió…",
-    answer: [
-      { type: "p", text: "✍️ Introducción…" },
-
-      { type: "h", text: "Lo que hace obligatorio el gusl" },
-      { type: "list", items: ["✍️ Primera causa…", "✍️ Segunda causa…"] },
-
-      {
-        type: "nota",
-        title: "El gusl del viernes no sirve para rezar",
-        text: "El gusl del viernes es por el día, no por la oración. Por eso no es válido ni suficiente para rezar: la oración necesita un wuḍūʾ y gusl propios.",
-      },
-      {
-        type: "link",
-        codigo: "3301",
-        text: "Lee la fatwa n.º 3301: el gusl del viernes",
-      },
-    ],
-    sources: ["✍️ Ibn Ḥazm, al-Muḥallā, masʾala …"],
-    related: ["3301", "3500"],
-  },
-
-  // ===================================================================
-  //  FATWA 3301 — El gusl del viernes   (enlazada desde la fatwa 3300 y /gusl)
-  // ===================================================================
-  {
-    codigo: "3301",
-    slug: "el-gusl-del-viernes",
-    title: "El gusl del viernes: ¿sirve para rezar?",
-    date: "2026-09-30",
-    borrador: true,
-    summary: "✍️ Resumen de una o dos líneas…",
-    question: "✍️ La pregunta tal como se recibió…",
-    answer: [
-      { type: "p", text: "✍️ Respuesta…" },
-      { type: "h", text: "✍️ Subtítulo" },
-      { type: "p", text: "✍️ Párrafo…" },
-    ],
-    sources: ["✍️ Ibn Ḥazm, al-Muḥallā, masʾala …"],
-    related: ["3300"],
-  },
-];
-
-// Solo las publicadas (sin borrador), para el índice y la página de inicio.
 // =====================================================================
 //  A partir de aquí no hace falta editar.
 // =====================================================================

@@ -5,6 +5,7 @@ import PageHero from "@/components/PageHero";
 import Seo from "@/components/Seo";
 import FataawaAside from "@/components/fataawa/FataawaAside";
 import FatwaCard from "@/components/fataawa/FatwaCard";
+import TextoRico from "@/components/noticias/TextoRico";
 import { formatDate } from "@/components/fataawa/format";
 import { FATAAWA_PATH, getTopic } from "@/constants/fataawa";
 import { fataawa, fataawaPublicables, fatwaUrl, getFatwa, getFatwaByCode } from "@/data/fataawa";
@@ -29,15 +30,23 @@ const AnswerBlock = ({ block }) => {
       return (
         <ul>
           {block.items.map((item, i) => (
-            <li key={i}>{item}</li>
+            <li key={i}>
+              <TextoRico texto={item} />
+            </li>
           ))}
         </ul>
       );
     case "quote":
       return (
         <blockquote className={styles.quote}>
-          <p>{block.text}</p>
-          {block.source && <cite>— {block.source}</cite>}
+          <p>
+            <TextoRico texto={block.text} />
+          </p>
+          {block.source && (
+            <cite>
+              — <TextoRico texto={block.source} />
+            </cite>
+          )}
         </blockquote>
       );
     case "arabic":
@@ -64,11 +73,17 @@ const AnswerBlock = ({ block }) => {
       return (
         <aside className={styles.nota}>
           {block.title && <strong>{block.title}</strong>}
-          <p>{block.text}</p>
+          <p>
+            <TextoRico texto={block.text} />
+          </p>
         </aside>
       );
     default:
-      return <p>{block.text}</p>;
+      return (
+        <p>
+          <TextoRico texto={block.text} />
+        </p>
+      );
   }
 };
 
@@ -173,7 +188,9 @@ export default function FatwaPage({ fatwa, related }) {
             </h2>
             <div className={styles.question}>
               {paragraphs(fatwa.question).map((p, i) => (
-                <p key={i}>{p}</p>
+                <p key={i}>
+                  <TextoRico texto={p} />
+                </p>
               ))}
             </div>
           </section>
@@ -214,7 +231,9 @@ export default function FatwaPage({ fatwa, related }) {
               </h2>
               <ol className={styles.sources}>
                 {fatwa.sources.map((s, i) => (
-                  <li key={i}>{s}</li>
+                  <li key={i}>
+                    <TextoRico texto={s} />
+                  </li>
                 ))}
               </ol>
             </section>
