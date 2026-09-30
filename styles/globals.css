@@ -1,16 +1,186 @@
-html,
+/* ==========================================================
+   Estudiantes del Islam en Guanajuato — sistema visual
+   Azul Talavera + oro ocre sobre papel crema
+   ========================================================== */
+
+:root {
+  --azul-950: #0a1838;
+  --azul-900: #0f2350;
+  --azul-800: #16306b;
+  --azul-700: #1d3f8f;
+  --azul-600: #2a52ad;
+  --azul-500: #3d67c7;
+  --azul-100: #e4eaf7;
+  --azul-50: #f1f4fb;
+
+  --oro-700: #9a6e1c;
+  --oro-600: #b3832a;
+  --oro-500: #c9962f;
+  --oro-300: #e6c77a;
+  --oro-100: #f6ecd2;
+
+  --papel: #faf6ee;
+  --papel-2: #f3ecde;
+  --superficie: #ffffff;
+  --tinta: #1a2238;
+  --tinta-2: #3b4560;
+  --tenue: #6b7489;
+  --borde: #e6ddca;
+  --borde-suave: #efe8da;
+
+  --acento: var(--azul-700);
+  --acento-hover: var(--azul-800);
+  --enlace: var(--azul-700);
+  --dorado: var(--oro-600);
+
+  --sombra-1: 0 1px 2px rgba(15, 35, 80, 0.06), 0 1px 1px rgba(15, 35, 80, 0.04);
+  --sombra-2: 0 10px 30px -12px rgba(15, 35, 80, 0.25), 0 2px 6px rgba(15, 35, 80, 0.06);
+
+  --radio: 14px;
+  --radio-sm: 10px;
+  --ancho: 1180px;
+
+  --f-sans: "Inter Variable", "Amiri", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-serif: "Source Serif 4 Variable", "Amiri", Georgia, "Times New Roman", serif;
+  --f-arabe: "Amiri", "Traditional Arabic", "Scheherazade New", serif;
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --papel: #0b1224;
+    --papel-2: #0f1830;
+    --superficie: #131d38;
+    --tinta: #ece7dc;
+    --tinta-2: #c9c6c0;
+    --tenue: #939bb0;
+    --borde: #243157;
+    --borde-suave: #1c2848;
+    --acento: #6f93e6;
+    --acento-hover: #93b0f0;
+    --enlace: #8fb0f5;
+    --dorado: #e0b95e;
+    --azul-50: #111b35;
+    --azul-100: #1a2a52;
+    --oro-100: #2d2615;
+    --sombra-1: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --sombra-2: 0 14px 34px -14px rgba(0, 0, 0, 0.7);
+    color-scheme: dark;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+}
+
 body {
-  padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--f-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--f-serif);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--tinta);
+  margin: 0 0 0.5em;
+}
+
+p {
+  margin: 0 0 1em;
 }
 
 a {
-  color: inherit;
+  color: var(--enlace);
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
+a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+::selection {
+  background: var(--oro-300);
+  color: var(--azul-950);
+}
+
+:focus-visible {
+  outline: 2px solid var(--oro-500);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.contenedor {
+  width: 100%;
+  max-width: var(--ancho);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.arabe {
+  font-family: var(--f-arabe);
+  direction: rtl;
+  unicode-bidi: isolate;
+  line-height: 2;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+@media print {
+  header[data-site-header],
+  footer[data-site-footer],
+  [data-no-print] {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+    color: #000;
+  }
 }

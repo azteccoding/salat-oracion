@@ -1,12 +1,17 @@
-import { useEffect } from "react";
+import "@fontsource-variable/inter";
+import "@fontsource-variable/source-serif-4";
+import "@fontsource-variable/source-serif-4/wght-italic.css";
+import "@fontsource/amiri/400.css";
+import "@fontsource/amiri/700.css";
 import "../styles/globals.css";
-import "bootstrap/dist/css/bootstrap.css";
+import Layout from "@/components/Layout";
 
 function MyApp({ Component, pageProps }) {
-  useEffect(() => {
-    require("bootstrap/dist/js/bootstrap.bundle.min.js");
-  }, []);
-  return <Component {...pageProps} />;
+  return (
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
+  );
 }
 
 export default MyApp;

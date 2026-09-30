@@ -1,0 +1,251 @@
+.header {
+  position: sticky;
+  top: -34px;
+  z-index: 50;
+}
+
+.topbar {
+  background: var(--azul-950);
+  color: #d9def0;
+  font-size: 13px;
+  height: 34px;
+  border-bottom: 1px solid rgba(230, 199, 122, 0.25);
+}
+
+.topbarInner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.salam {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+}
+
+.salam :global(.arabe) {
+  font-size: 17px;
+  line-height: 1;
+  color: var(--oro-300);
+}
+
+.salamEs {
+  opacity: 0.75;
+}
+
+.fecha {
+  opacity: 0.9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bar {
+  background: color-mix(in srgb, var(--superficie) 92%, transparent);
+  backdrop-filter: saturate(160%) blur(12px);
+  -webkit-backdrop-filter: saturate(160%) blur(12px);
+  border-bottom: 1px solid var(--borde);
+}
+
+.barInner {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--tinta);
+  flex-shrink: 0;
+}
+
+.brand:hover {
+  text-decoration: none;
+}
+
+.brandText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.brandName {
+  font-family: var(--f-serif);
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: -0.01em;
+}
+
+.brandSub {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dorado);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.nav a {
+  position: relative;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--tinta-2);
+  white-space: nowrap;
+}
+
+.nav a:hover {
+  color: var(--acento);
+  background: var(--azul-50);
+  text-decoration: none;
+}
+
+.nav a.activo {
+  color: var(--acento);
+}
+
+.nav a.activo::after {
+  content: "";
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: -15px;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: var(--oro-500);
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 40px;
+  width: 230px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--borde);
+  background: var(--papel);
+  color: var(--tenue);
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.search:focus-within {
+  border-color: var(--acento);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--acento) 18%, transparent);
+}
+
+.search input,
+.searchMobile input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 14px;
+  color: var(--tinta);
+}
+
+.menuBtn {
+  display: none;
+  margin-left: auto;
+  width: 44px;
+  height: 44px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--borde);
+  border-radius: 10px;
+  background: var(--superficie);
+  color: var(--tinta);
+  cursor: pointer;
+}
+
+.mobile {
+  display: none;
+}
+
+@media (max-width: 1080px) {
+  .search {
+    display: none;
+  }
+}
+
+@media (max-width: 880px) {
+  .nav {
+    display: none;
+  }
+  .menuBtn {
+    display: inline-flex;
+  }
+  .mobile {
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    background: var(--superficie);
+    border-bottom: 1px solid transparent;
+    transition: max-height 0.25s ease;
+  }
+  .mobileOpen {
+    max-height: 480px;
+    border-bottom-color: var(--borde);
+    box-shadow: var(--sombra-2);
+  }
+  .mobile nav {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 12px;
+  }
+  .mobile nav a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 4px;
+    border-bottom: 1px solid var(--borde-suave);
+    color: var(--tinta);
+    font-weight: 500;
+  }
+  .mobile nav a svg {
+    color: var(--tenue);
+  }
+  .mobile nav a.activo {
+    color: var(--acento);
+  }
+  .searchMobile {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 46px;
+    margin: 14px 0 6px;
+    padding: 0 14px;
+    border-radius: 12px;
+    border: 1px solid var(--borde);
+    background: var(--papel);
+    color: var(--tenue);
+  }
+}
+
+@media (max-width: 560px) {
+  .salamEs {
+    display: none;
+  }
+  .brandName {
+    font-size: 17px;
+  }
+  .barInner {
+    height: 64px;
+  }
+}

@@ -1,0 +1,298 @@
+/* ---------- Encabezado de página (banda azul con patrón) ---------- */
+.pageHero {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(120% 140% at 85% 0%, var(--azul-700) 0%, var(--azul-900) 55%, var(--azul-950) 100%);
+  color: #e9ecf6;
+  padding: 56px 0 60px;
+  isolation: isolate;
+}
+
+.pageHero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--oro-300);
+  -webkit-mask: url(/img/pattern.svg) center / 120px 120px repeat;
+  mask: url(/img/pattern.svg) center / 120px 120px repeat;
+  opacity: 0.1;
+  z-index: -1;
+}
+
+.pageHero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--oro-500), transparent);
+}
+
+.pageHero h1 {
+  color: #fff;
+  font-size: clamp(30px, 4.4vw, 46px);
+  margin-bottom: 12px;
+  max-width: 22ch;
+}
+
+.pageHero p {
+  color: #c3cbe2;
+  font-size: 18px;
+  max-width: 62ch;
+  margin: 0;
+}
+
+.pageHeroArabic {
+  font-family: var(--f-arabe);
+  color: var(--oro-300);
+  font-size: 28px;
+  line-height: 1.5;
+  margin: 0 0 6px;
+  direction: rtl;
+  text-align: left;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--oro-300);
+  margin-bottom: 14px;
+}
+
+/* ---------- Migas de pan ---------- */
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  font-size: 14px;
+  color: #aeb7d1;
+  margin-bottom: 18px;
+}
+
+.crumbs a {
+  color: #dfe4f3;
+}
+
+.crumbs span[aria-hidden] {
+  opacity: 0.5;
+}
+
+/* ---------- Títulos de sección ---------- */
+.sectionHead {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+
+.sectionTitle {
+  position: relative;
+  font-size: clamp(24px, 3vw, 30px);
+  margin: 0;
+  padding-left: 18px;
+}
+
+.sectionTitle::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.2em;
+  bottom: 0.2em;
+  width: 5px;
+  border-radius: 3px;
+  background: linear-gradient(var(--oro-500), var(--oro-300));
+}
+
+.sectionLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+/* ---------- Tarjetas ---------- */
+.card {
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-1);
+}
+
+.cardPad {
+  padding: 24px;
+}
+
+.cardTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--f-sans);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tenue);
+  margin: 0 0 14px;
+}
+
+.cardTitle svg {
+  color: var(--dorado);
+}
+
+/* ---------- Botones ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 46px;
+  padding: 0 22px;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  font: inherit;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s, transform 0.15s;
+}
+
+.btn:hover {
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+.btnPrimary {
+  background: var(--azul-700);
+  color: #fff;
+}
+
+.btnPrimary:hover {
+  background: var(--azul-800);
+  color: #fff;
+}
+
+.btnGold {
+  background: var(--oro-500);
+  color: var(--azul-950);
+}
+
+.btnGold:hover {
+  background: var(--oro-300);
+  color: var(--azul-950);
+}
+
+.btnGhost {
+  background: transparent;
+  border-color: var(--borde);
+  color: var(--tinta);
+}
+
+.btnGhost:hover {
+  border-color: var(--acento);
+  color: var(--acento);
+}
+
+/* ---------- Chips de temas ---------- */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--borde);
+  background: var(--superficie);
+  color: var(--tinta-2);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+
+.chip:hover {
+  border-color: var(--acento);
+  color: var(--acento);
+  text-decoration: none;
+}
+
+.chipActive {
+  background: var(--azul-700);
+  border-color: var(--azul-700);
+  color: #fff;
+}
+
+.chipActive:hover {
+  color: #fff;
+}
+
+.chipArabic {
+  font-family: var(--f-arabe);
+  font-size: 15px;
+  line-height: 1;
+  opacity: 0.75;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--oro-100);
+  color: var(--oro-700);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+@media (prefers-color-scheme: dark) {
+  .badge {
+    color: var(--oro-300);
+  }
+  .btnPrimary {
+    background: var(--azul-600);
+  }
+}
+
+/* ---------- Estado vacío ---------- */
+.empty {
+  text-align: center;
+  padding: 48px 28px;
+  background: var(--superficie);
+  border: 1px dashed var(--borde);
+  border-radius: var(--radio);
+}
+
+.emptyIcon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 16px;
+  opacity: 0.9;
+}
+
+.empty h3 {
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.empty p {
+  color: var(--tenue);
+  max-width: 48ch;
+  margin: 0 auto;
+}

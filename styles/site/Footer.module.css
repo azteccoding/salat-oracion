@@ -1,0 +1,136 @@
+.footer {
+  margin-top: 96px;
+  background: var(--azul-950);
+  color: #c8cfe3;
+  font-size: 15px;
+}
+
+.cenefa {
+  height: 22px;
+  background-color: var(--oro-500);
+  -webkit-mask: url(/img/pattern.svg) 0 0 / 44px 44px repeat-x;
+  mask: url(/img/pattern.svg) 0 0 / 44px 44px repeat-x;
+  opacity: 0.9;
+  border-top: 2px solid var(--oro-500);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1.3fr;
+  gap: 40px;
+  padding-top: 56px;
+  padding-bottom: 48px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  font-family: var(--f-serif);
+  font-size: 19px;
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+
+.brand:hover {
+  text-decoration: none;
+}
+
+.about p {
+  color: #aab3cc;
+  max-width: 36ch;
+}
+
+.lugar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--oro-300) !important;
+  font-size: 14px;
+}
+
+.grid h3 {
+  color: #fff;
+  font-family: var(--f-sans);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.grid ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.grid li {
+  margin-bottom: 10px;
+}
+
+.grid li a {
+  color: #c8cfe3;
+}
+
+.grid li a:hover {
+  color: var(--oro-300);
+}
+
+.aya {
+  border: 1px solid rgba(230, 199, 122, 0.25);
+  border-radius: var(--radio);
+  padding: 22px 24px;
+  background: rgba(255, 255, 255, 0.03);
+  text-align: center;
+  align-self: start;
+}
+
+.aya :global(.arabe) {
+  font-size: 30px;
+  color: var(--oro-300);
+  margin: 0 0 6px;
+  line-height: 1.6;
+}
+
+.ayaEs {
+  font-family: var(--f-serif);
+  font-style: italic;
+  color: #e7e9f2;
+  margin-bottom: 6px;
+}
+
+.ayaRef {
+  font-size: 13px;
+  color: #8f99b5;
+  margin: 0;
+}
+
+.bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 13px;
+  color: #8f99b5;
+}
+
+.bottomInner {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+}

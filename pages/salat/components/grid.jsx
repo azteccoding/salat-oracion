@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "/styles/Home.module.css";
-import Step from "/pages/salat/components/step";
-import { steps } from "/data/steps";
+import styles from "@/styles/Home.module.css";
+import Step from "@/pages/salat/components/step";
+import { steps } from "@/data/steps";
 
 const Grid = () => {
   const getSalatSteps = () => {

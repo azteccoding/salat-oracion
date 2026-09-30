@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "/styles/Home.module.css";
+import styles from "@/styles/Home.module.css";
 
 const Step = ({ data }) => {
   const paragraphs = data?.tripleText?.length > 0 && (
