@@ -5,6 +5,7 @@ import { fataawaPublicables } from "@/data/fataawa";
 import { gusl } from "@/data/gusl";
 import { obrasIbnHazm } from "@/data/ibn-hazm-obras";
 import { wudu } from "@/data/wudu";
+import { noticiasEnListas } from "@/data/noticias";
 import { tienePendientes } from "@/lib/seo";
 import { PENDIENTE as ESCUELA_PENDIENTE } from "./imam-ibn-hazm/escuela-zahiri";
 import { PENDIENTE as IBN_HAZM_PENDIENTE } from "./imam-ibn-hazm/index";
@@ -34,6 +35,10 @@ const paginas = () => {
       frecuencia: "monthly",
       oculta: tienePendientes(o),
     })),
+    { ruta: "/noticias", prioridad: "0.8", frecuencia: "daily" },
+    ...noticiasEnListas()
+      .filter((n) => !n.borrador && n.indexar && !tienePendientes(n))
+      .map((n) => ({ ruta: `/noticias/${n.slug}`, prioridad: "0.6", frecuencia: "yearly", fecha: n.date })),
     { ruta: "/descargas", prioridad: "0.6", frecuencia: "monthly" },
     ...descargas.map((d) => ({ ruta: `/descargas/${d.slug}`, prioridad: "0.5", frecuencia: "yearly" })),
     ...fataawaPublicables()

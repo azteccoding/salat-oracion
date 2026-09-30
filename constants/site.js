@@ -16,6 +16,7 @@ export const NAV_LINKS = [
   { href: "/", label: "Inicio" },
   { href: "/salat", label: "Aprende a rezar" },
   { href: "/fataawa-zahiri-fiqh", label: "Fatāwá" },
+  { href: "/noticias", label: "Noticias" },
   {
     href: "/nuestra-tariqa",
     label: "Nuestra Tarīqa",

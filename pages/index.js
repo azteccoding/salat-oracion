@@ -13,6 +13,9 @@ import { conContexto, organizacion } from "@/lib/seo";
 import { corridos } from "@/data/corridos";
 import { descargas } from "@/data/descargas";
 import { latestFataawa } from "@/data/fataawa";
+import NoticiaPreview from "@/components/noticias/NoticiaPreview";
+import { NOTICIAS_PATH } from "@/constants/noticias";
+import { ultimaNoticia } from "@/data/noticias";
 import styles from "@/styles/site/Home.module.css";
 import fx from "@/styles/site/Fataawa.module.css";
 import ui from "@/styles/site/ui.module.css";
@@ -48,7 +51,7 @@ const ESSENTIALS = [
   },
 ];
 
-export default function Home({ latest }) {
+export default function Home({ latest, noticia }) {
   return (
     <>
       <Seo
@@ -123,6 +126,19 @@ export default function Home({ latest }) {
       {/* ---------- Contenido principal ---------- */}
       <div className={`contenedor ${styles.mainGrid}`}>
         <div className={styles.mainCol}>
+          {/* ---------- Actualidad: solo la vista previa de la noticia más reciente ---------- */}
+          {noticia && (
+            <section>
+              <div className={ui.sectionHead}>
+                <h2 className={ui.sectionTitle}>Actualidad</h2>
+                <Link href={NOTICIAS_PATH} className={ui.sectionLink}>
+                  Todas las noticias <Icon name="arrow" size={16} />
+                </Link>
+              </div>
+              <NoticiaPreview noticia={noticia} />
+            </section>
+          )}
+
           <section>
             <div className={ui.sectionHead}>
               <h2 className={ui.sectionTitle}>Fatāwá recientes</h2>
@@ -225,6 +241,20 @@ export default function Home({ latest }) {
             <PrayerTimes />
           </section>
 
+          <section className={`${ui.card} ${ui.cardPad} ${styles.sheijCard}`}>
+            <h2 className={ui.cardTitle}>
+              <Icon name="book" size={18} /> {NUESTRO_SHEIJ.titulo}
+            </h2>
+            <p className={styles.sheijArabe} lang="ar">
+              {NUESTRO_SHEIJ.nombreArabe}
+            </p>
+            <h3>{NUESTRO_SHEIJ.nombre}</h3>
+            <p>{NUESTRO_SHEIJ.resumen}</p>
+            <Link href="/nuestro-sheij" className={`${ui.btn} ${ui.btnPrimary}`}>
+              Conocer al Sheij
+            </Link>
+          </section>
+
           <section className={`${ui.card} ${ui.cardPad} ${styles.downloadCard}`}>
             <h2 className={ui.cardTitle}>
               <Icon name="download" size={18} /> Descargas gratuitas
@@ -239,20 +269,6 @@ export default function Home({ latest }) {
             ))}
             <Link href="/descargas" className={`${ui.btn} ${ui.btnPrimary}`}>
               Ver descargas
-            </Link>
-          </section>
-
-          <section className={`${ui.card} ${ui.cardPad} ${styles.sheijCard}`}>
-            <h2 className={ui.cardTitle}>
-              <Icon name="book" size={18} /> {NUESTRO_SHEIJ.titulo}
-            </h2>
-            <p className={styles.sheijArabe} lang="ar">
-              {NUESTRO_SHEIJ.nombreArabe}
-            </p>
-            <h3>{NUESTRO_SHEIJ.nombre}</h3>
-            <p>{NUESTRO_SHEIJ.resumen}</p>
-            <Link href="/nuestro-sheij" className={`${ui.btn} ${ui.btnPrimary}`}>
-              Conocer al Sheij
             </Link>
           </section>
         </aside>
@@ -327,5 +343,6 @@ export async function getStaticProps() {
     summary: summary || null,
     borrador,
   }));
-  return { props: { latest } };
+  // La noticia más reciente: solo su ficha (titular, resumen, foto), nunca el texto completo
+  return { props: { latest, noticia: ultimaNoticia() } };
 }
