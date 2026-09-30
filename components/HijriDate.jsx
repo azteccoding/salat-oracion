@@ -20,7 +20,12 @@ const readDates = () => {
     hijri = "";
   }
   const gregorian = cap(
-    new Intl.DateTimeFormat("es-MX", { weekday: "long", day: "numeric", month: "long", year: "numeric" }).format(now)
+    new Intl.DateTimeFormat("es-MX", {
+      weekday: "long",
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }).format(now),
   );
   return `${hijri}|${gregorian}`;
 };
@@ -30,7 +35,7 @@ const subscribe = () => () => {};
 // Velocidad constante del letrero, en píxeles por segundo, en cualquier pantalla
 const VELOCIDAD = 45;
 // Milisegundos que la fecha se queda quieta al cargar la página
-const PAUSA_INICIAL = 3000;
+const PAUSA_INICIAL = 1000;
 
 // stacked: fecha hiŷrī arriba y gregoriana abajo (tarjeta "Hoy" de la portada).
 // Sin stacked: letrero corrido (barra superior del sitio). La fecha entra por la derecha,
@@ -57,11 +62,19 @@ const HijriDate = ({ className, showGregorian = true, stacked = false }) => {
     const recorrido = anchoCarril + anchoTexto;
     const avance = anchoTexto <= anchoCarril ? anchoTexto : anchoCarril;
     pista.style.setProperty("--duracion", `${dur.toFixed(2)}s`);
-    pista.style.setProperty("--retraso", `${(-(avance / recorrido) * dur).toFixed(2)}s`);
+    pista.style.setProperty(
+      "--retraso",
+      `${(-(avance / recorrido) * dur).toFixed(2)}s`,
+    );
 
-    const arranque = window.setTimeout(() => pista.classList.remove(m.quieta), PAUSA_INICIAL);
+    const arranque = window.setTimeout(
+      () => pista.classList.remove(m.quieta),
+      PAUSA_INICIAL,
+    );
 
-    const ro = new ResizeObserver(() => pista.style.setProperty("--duracion", `${duracionDe().toFixed(2)}s`));
+    const ro = new ResizeObserver(() =>
+      pista.style.setProperty("--duracion", `${duracionDe().toFixed(2)}s`),
+    );
     ro.observe(carril);
     return () => {
       window.clearTimeout(arranque);

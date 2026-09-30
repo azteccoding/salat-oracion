@@ -7,7 +7,7 @@ import FataawaAside from "@/components/fataawa/FataawaAside";
 import FatwaCard from "@/components/fataawa/FatwaCard";
 import { formatDate } from "@/components/fataawa/format";
 import { FATAAWA_PATH, getTopic } from "@/constants/fataawa";
-import { fataawa, getFatwa } from "@/data/fataawa";
+import { fataawa, fatwaUrl, getFatwa, getFatwaByCode } from "@/data/fataawa";
 import styles from "@/styles/site/Fataawa.module.css";
 import ui from "@/styles/site/ui.module.css";
 
@@ -47,6 +47,25 @@ const AnswerBlock = ({ block }) => {
           {block.source && <cite>{block.source}</cite>}
         </figure>
       );
+    case "link": {
+      // Enlace por código de fatwa ({ codigo: "3301" }) o por dirección ({ href: "/…" })
+      const destino = block.codigo ? getFatwaByCode(block.codigo) : null;
+      const href = destino ? fatwaUrl(destino) : block.href || FATAAWA_PATH;
+      return (
+        <p>
+          <Link href={href} className={styles.backLink}>
+            {block.text} <Icon name="arrow" size={18} />
+          </Link>
+        </p>
+      );
+    }
+    case "nota":
+      return (
+        <aside className={styles.nota}>
+          {block.title && <strong>{block.title}</strong>}
+          <p>{block.text}</p>
+        </aside>
+      );
     default:
       return <p>{block.text}</p>;
   }
@@ -73,6 +92,7 @@ const CopyLinkButton = () => {
 
 export default function FatwaPage({ fatwa, related }) {
   const topic = getTopic(fatwa.topic);
+  const sub = getTopic(fatwa.subtopic);
 
   return (
     <>
@@ -82,16 +102,21 @@ export default function FatwaPage({ fatwa, related }) {
         title={fatwa.title}
         crumbs={[
           { href: FATAAWA_PATH, label: "Fatāwá" },
-          ...(topic ? [{ href: `${FATAAWA_PATH}?tema=${topic.slug}`, label: topic.label }] : []),
+          ...(topic && topic.indexado !== false ? [{ href: `${FATAAWA_PATH}?tema=${topic.slug}`, label: topic.label }] : []),
+          ...(sub ? [{ href: `${FATAAWA_PATH}?tema=${sub.slug}`, label: sub.label }] : []),
           { label: `Fatwa n.º ${fatwa.number}` },
         ]}
-        eyebrow={`Fatwa n.º ${fatwa.number}`}
+        eyebrow={`Fatwa n.º ${fatwa.number}${fatwa.borrador ? " · Borrador" : ""}`}
       >
         <div className={styles.fatwaMeta}>
           {topic && (
             <span>
               <Icon name="book" size={16} />
-              <Link href={`${FATAAWA_PATH}?tema=${topic.slug}`}>{topic.label}</Link>
+              {topic.indexado === false ? (
+                <span>{topic.label}</span>
+              ) : (
+                <Link href={`${FATAAWA_PATH}?tema=${(sub || topic).slug}`}>{sub ? `${topic.label} · ${sub.label}` : topic.label}</Link>
+              )}
             </span>
           )}
           {fatwa.date && (
@@ -202,17 +227,19 @@ export async function getStaticProps({ params }) {
   const fatwa = getFatwa(params.slug);
   if (!fatwa) return { notFound: true };
 
-  const explicit = (fatwa.related || []).map(getFatwa).filter(Boolean);
+  const explicit = (fatwa.related || []).map(getFatwaByCode).filter(Boolean);
   const sameTopic = fataawa.filter(
-    (f) => f.slug !== fatwa.slug && f.topic === fatwa.topic && !explicit.includes(f)
+    (f) => f.slug !== fatwa.slug && f.topic === fatwa.topic && !f.borrador && !explicit.includes(f)
   );
-  const related = [...explicit, ...sameTopic].slice(0, 4).map(({ slug, number, title, topic, date, summary }) => ({
+  const related = [...explicit, ...sameTopic].slice(0, 4).map(({ slug, number, title, topic, subtopic, date, summary, borrador }) => ({
     slug,
     number,
     title,
     topic,
+    subtopic,
     date: date || null,
     summary: summary || null,
+    borrador,
   }));
 
   return { props: { fatwa: JSON.parse(JSON.stringify(fatwa)), related } };

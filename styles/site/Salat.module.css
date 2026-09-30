@@ -160,6 +160,138 @@
   color: var(--tinta-2);
 }
 
+/* ---------- Antes de comenzar: pureza ritual ---------- */
+.pureza {
+  margin-bottom: 40px;
+  padding: 26px 28px;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-left: 4px solid var(--oro-500);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-1);
+  scroll-margin-top: 96px;
+}
+
+.pureza h2 {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+
+.purezaLinks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.purezaCard {
+  display: flex;
+  flex-direction: column;
+  padding: 18px 20px;
+  background: var(--azul-50);
+  border: 1px solid var(--borde-suave);
+  border-radius: var(--radio-sm);
+  color: var(--tinta-2);
+  font-size: 15px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.purezaCard:hover {
+  border-color: var(--acento);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+.purezaCard :global(.arabe) {
+  font-size: 26px;
+  line-height: 1.4;
+  color: var(--dorado);
+}
+
+.purezaCard strong {
+  font-family: var(--f-serif);
+  font-size: 20px;
+  color: var(--tinta);
+}
+
+.purezaMas {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  font-weight: 600;
+  color: var(--acento);
+}
+
+.tip a + a {
+  margin-left: 14px;
+}
+
+/* ---------- Wuḍūʾ y Gusl: Muḥallā y notas ---------- */
+.muhalla,
+.nota {
+  margin: 16px 0 32px;
+  padding: 26px 28px;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-1);
+}
+
+.muhalla h2,
+.nota h2 {
+  font-size: 24px;
+  margin-bottom: 12px;
+}
+
+.masala {
+  padding: 18px 0;
+  border-top: 1px solid var(--borde-suave);
+}
+
+.masala h3 {
+  font-size: 19px;
+  margin-bottom: 8px;
+}
+
+.masalaNum {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dorado);
+}
+
+.masalaAr {
+  font-size: clamp(22px, 2.6vw, 26px);
+  line-height: 2;
+  text-align: right;
+  color: var(--tinta);
+  margin: 0 0 10px;
+}
+
+.masalaEs {
+  font-family: var(--f-serif);
+  font-size: 17px;
+  color: var(--tinta);
+  margin: 0;
+}
+
+.nota ul {
+  margin: 0 0 8px;
+  padding-left: 22px;
+  color: var(--tinta-2);
+}
+
+.nota li + li {
+  margin-top: 6px;
+}
+
+.nota p {
+  color: var(--tinta-2);
+}
+
 @media (max-width: 960px) {
   .layout {
     grid-template-columns: minmax(0, 1fr);
@@ -191,5 +323,8 @@
   }
   .recitation {
     padding: 16px;
+  }
+  .pureza {
+    padding: 20px 18px;
   }
 }

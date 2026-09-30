@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FATAAWA_PATH, FATWA_TOPICS } from "@/constants/fataawa";
+import { FATAAWA_PATH, INDEXED_TOPICS } from "@/constants/fataawa";
 import Icon from "../Icon";
 import styles from "@/styles/site/Fataawa.module.css";
 import ui from "@/styles/site/ui.module.css";
@@ -11,10 +11,10 @@ const FataawaAside = ({ showMethod = true }) => (
         <Icon name="book" size={18} /> Temas
       </h2>
       <ul className={styles.topicList}>
-        {FATWA_TOPICS.map((t) => (
-          <li key={t.slug}>
+        {INDEXED_TOPICS.flatMap((t) => [t, ...(t.sub || []).map((s) => ({ ...s, esSub: true }))]).map((t) => (
+          <li key={t.slug} className={t.esSub ? styles.topicSub : undefined}>
             <Link href={`${FATAAWA_PATH}?tema=${t.slug}`}>
-              <span>{t.label}</span>
+              <span>{t.esSub ? `— ${t.label}` : t.label}</span>
               <span className={styles.topicAr} lang="ar">
                 {t.arabic}
               </span>

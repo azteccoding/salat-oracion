@@ -1,20 +1,30 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import Icon from "@/components/Icon";
 import PageHero from "@/components/PageHero";
 import Seo from "@/components/Seo";
 import EmptyFataawa from "@/components/fataawa/EmptyFataawa";
 import FataawaAside from "@/components/fataawa/FataawaAside";
 import FatwaCard from "@/components/fataawa/FatwaCard";
+import SugerenciaModal from "@/components/fataawa/SugerenciaModal";
 import { normalize } from "@/components/fataawa/format";
-import { FATAAWA_PATH, FATWA_TOPICS, getTopic } from "@/constants/fataawa";
+import { FATAAWA_PATH, INDEXED_TOPICS, getTopic } from "@/constants/fataawa";
 import { sortedFataawa } from "@/data/fataawa";
 import styles from "@/styles/site/Fataawa.module.css";
 import ui from "@/styles/site/ui.module.css";
 
 const searchable = (f) =>
-  normalize([f.title, f.summary, f.question, String(f.number), getTopic(f.topic)?.label].join(" "));
+  normalize(
+    [f.title, f.summary, f.question, f.codigo, getTopic(f.topic)?.label, getTopic(f.subtopic)?.label].join(" ")
+  );
+
+// En «Todos» (sin tema ni búsqueda) la lista se muestra por tandas:
+// primero 5; con «Ver más», hasta 15; si se pide más, se sugiere filtrar o buscar.
+const TANDAS = [5, 15];
+
+// ¿La fatwa pertenece al tema (o subtema) elegido?
+const enTema = (f, t) => !t || f.topic === t.slug || f.subtopic === t.slug;
 
 export default function FataawaIndex() {
   const router = useRouter();
@@ -26,14 +36,32 @@ export default function FataawaIndex() {
   const setQ = (value) => setDraft({ from: urlQ, value });
   const tema = typeof router.query.tema === "string" ? router.query.tema : "";
   const activeTopic = getTopic(tema);
+  // Tema principal activo (si se eligió un subtema, su tema padre) para mostrar los subtemas
+  const activeMain = activeTopic?.parent ? getTopic(activeTopic.parent) : activeTopic;
 
   const all = useMemo(() => sortedFataawa(), []);
   const results = useMemo(() => {
     const terms = normalize(q).split(/\s+/).filter(Boolean);
     return all.filter(
-      (f) => (!activeTopic || f.topic === activeTopic.slug) && terms.every((t) => searchable(f).includes(t))
+      (f) => enTema(f, activeTopic) && terms.every((t) => searchable(f).includes(t))
     );
   }, [all, q, activeTopic]);
+
+  // Tanda visible en «Todos». Se reinicia sola al cambiar de tema o de búsqueda.
+  const modalRef = useRef(null);
+  const clave = `${tema}|${q}`;
+  const [tanda, setTanda] = useState({ clave, nivel: 0 });
+  if (tanda.clave !== clave) setTanda({ clave, nivel: 0 }); // al volver a «Todos» se empieza de nuevo en 5
+  const nivel = tanda.clave === clave ? tanda.nivel : 0;
+  const enTodos = !activeTopic && !q.trim();
+  const tope = enTodos ? TANDAS[nivel] : Infinity;
+  const visibles = results.slice(0, tope);
+  const hayMas = results.length > visibles.length;
+
+  const verMas = () => {
+    if (nivel < TANDAS.length - 1) setTanda({ clave, nivel: nivel + 1 });
+    else modalRef.current?.showModal();
+  };
 
   const updateUrl = (next) => {
     const query = { ...(tema && { tema }), ...(q && { q }), ...next };
@@ -94,18 +122,34 @@ export default function FataawaIndex() {
             >
               Todos
             </Link>
-            {FATWA_TOPICS.map((t) => (
+            {INDEXED_TOPICS.map((t) => (
               <Link
                 key={t.slug}
                 href={{ pathname: FATAAWA_PATH, query: { tema: t.slug, ...(q && { q }) } }}
                 shallow
                 scroll={false}
-                className={`${ui.chip} ${activeTopic?.slug === t.slug ? ui.chipActive : ""}`}
+                className={`${ui.chip} ${activeMain?.slug === t.slug ? ui.chipActive : ""}`}
               >
                 {t.label}
               </Link>
             ))}
           </div>
+
+          {activeMain?.sub && (
+            <div className={`${ui.chips} ${styles.filters} ${styles.subFilters}`} role="group" aria-label="Subtemas">
+              {activeMain.sub.map((s) => (
+                <Link
+                  key={s.slug}
+                  href={{ pathname: FATAAWA_PATH, query: { tema: s.slug, ...(q && { q }) } }}
+                  shallow
+                  scroll={false}
+                  className={`${ui.chip} ${activeTopic?.slug === s.slug ? ui.chipActive : ""}`}
+                >
+                  {s.label}
+                </Link>
+              ))}
+            </div>
+          )}
 
           {all.length === 0 ? (
             <EmptyFataawa />
@@ -117,20 +161,30 @@ export default function FataawaIndex() {
           ) : (
             <>
               <p className={styles.count}>
+                {hayMas ? `Mostrando ${visibles.length} de ` : ""}
                 {results.length} {results.length === 1 ? "fatwa" : "fatāwá"}
                 {activeTopic ? ` en ${activeTopic.label}` : ""}
               </p>
               <div className={styles.list}>
-                {results.map((f) => (
+                {visibles.map((f) => (
                   <FatwaCard key={f.slug} fatwa={f} />
                 ))}
               </div>
+              {hayMas && (
+                <div className={styles.verMas}>
+                  <button type="button" className={`${ui.btn} ${ui.btnGhost}`} onClick={verMas}>
+                    Ver más <Icon name="chevron" size={18} />
+                  </button>
+                </div>
+              )}
             </>
           )}
         </div>
 
         <FataawaAside />
       </div>
+
+      <SugerenciaModal ref={modalRef} total={results.length} onBuscar={(texto) => updateUrl({ q: texto.trim() })} />
     </>
   );
 }

@@ -6,12 +6,12 @@ import PrayerTimes from "@/components/PrayerTimes";
 import Seo from "@/components/Seo";
 import EmptyFataawa from "@/components/fataawa/EmptyFataawa";
 import FatwaCard from "@/components/fataawa/FatwaCard";
-import { FATAAWA_PATH, FATWA_TOPICS } from "@/constants/fataawa";
+import { FATAAWA_PATH, INDEXED_TOPICS } from "@/constants/fataawa";
 import { NUESTRO_SHEIJ } from "@/constants/content";
 import { SITE_DESCRIPTION, SITE_NAME } from "@/constants/site";
 import { corridos } from "@/data/corridos";
 import { descargas } from "@/data/descargas";
-import { sortedFataawa } from "@/data/fataawa";
+import { latestFataawa } from "@/data/fataawa";
 import styles from "@/styles/site/Home.module.css";
 import fx from "@/styles/site/Fataawa.module.css";
 import ui from "@/styles/site/ui.module.css";
@@ -23,6 +23,9 @@ const QUICK = [
   { href: "/descargas", icon: "download", title: "Descargas", text: "Libros y materiales para estudiar" },
 ];
 
+// Tarjetas de «Lo esencial».
+// Con href: tarjeta activa (enlace + «Comenzar»).
+// Sin href: tarjeta «Próximamente», en gris y sin enlace (ver «proximamente card greyed out» más abajo).
 const ESSENTIALS = [
   {
     href: "/salat",
@@ -31,11 +34,13 @@ const ESSENTIALS = [
     text: "Aprende a rezar como el Profeta ﷺ: posiciones, recitaciones y su significado.",
   },
   {
+    href: "/wudu",
     arabic: "الوضوء",
     title: "Wuḍūʾ",
     text: "La ablución o purificación menor que precede a la oración.",
   },
   {
+    href: "/gusl",
     arabic: "الغسل",
     title: "Gusl",
     text: "El baño ritual o purificación mayor: cuándo es obligatorio y cómo se realiza.",
@@ -70,7 +75,7 @@ export default function Home({ latest }) {
 
             <div className={styles.heroTopics}>
               <span>Temas:</span>
-              {FATWA_TOPICS.slice(0, 5).map((t) => (
+              {INDEXED_TOPICS.slice(0, 5).map((t) => (
                 <Link key={t.slug} href={`${FATAAWA_PATH}?tema=${t.slug}`}>
                   {t.label}
                 </Link>
@@ -139,6 +144,7 @@ export default function Home({ latest }) {
                         Comenzar <Icon name="arrow" size={16} />
                       </span>
                     ) : (
+                      /* proximamente card greyed out — etiqueta */
                       <span className={ui.badge}>Próximamente</span>
                     )}
                   </>
@@ -148,6 +154,7 @@ export default function Home({ latest }) {
                     {inner}
                   </Link>
                 ) : (
+                  /* proximamente card greyed out — se usa cuando la tarjeta no tiene href */
                   <div key={e.title} className={`${styles.essCard} ${styles.essSoon}`}>
                     {inner}
                   </div>
@@ -293,16 +300,17 @@ export default function Home({ latest }) {
   );
 }
 
+// Las últimas 3 fatāwá publicadas (cambia el 3 para mostrar más o menos)
 export async function getStaticProps() {
-  const latest = sortedFataawa()
-    .slice(0, 5)
-    .map(({ slug, number, title, topic, date, summary }) => ({
-      slug,
-      number,
-      title,
-      topic,
-      date: date || null,
-      summary: summary || null,
-    }));
+  const latest = latestFataawa(3).map(({ slug, number, title, topic, subtopic, date, summary, borrador }) => ({
+    slug,
+    number,
+    title,
+    topic,
+    subtopic,
+    date: date || null,
+    summary: summary || null,
+    borrador,
+  }));
   return { props: { latest } };
 }

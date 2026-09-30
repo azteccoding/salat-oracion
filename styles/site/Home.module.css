@@ -324,6 +324,9 @@ a.essCard:hover {
   text-decoration: none;
 }
 
+/* proximamente card greyed out
+   Tarjeta de «Lo esencial» sin enlace. Se aplica sola a cualquier elemento de
+   ESSENTIALS (pages/index.js) que no tenga href. No borrar: se reutiliza. */
 .essSoon {
   background: var(--papel-2);
 }
