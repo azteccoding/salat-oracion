@@ -16,7 +16,7 @@ import ui from "@/styles/site/ui.module.css";
 
 const searchable = (f) =>
   normalize(
-    [f.title, f.summary, f.question, f.codigo, getTopic(f.topic)?.label, getTopic(f.subtopic)?.label].join(" ")
+    [f.title, f.summary, f.extracto, f.codigo, getTopic(f.topic)?.label, getTopic(f.subtopic)?.label].join(" ")
   );
 
 // En «Todos» (sin tema ni búsqueda) la lista se muestra por tandas:
@@ -26,7 +26,7 @@ const TANDAS = [5, 15];
 // ¿La fatwa pertenece al tema (o subtema) elegido?
 const enTema = (f, t) => !t || f.topic === t.slug || f.subtopic === t.slug;
 
-export default function FataawaIndex() {
+export default function FataawaIndex({ all }) {
   const router = useRouter();
   const urlQ = typeof router.query.q === "string" ? router.query.q : "";
   // Lo que se escribe en el buscador; si la búsqueda cambia desde la URL (p. ej. el
@@ -39,7 +39,6 @@ export default function FataawaIndex() {
   // Tema principal activo (si se eligió un subtema, su tema padre) para mostrar los subtemas
   const activeMain = activeTopic?.parent ? getTopic(activeTopic.parent) : activeTopic;
 
-  const all = useMemo(() => sortedFataawa(), []);
   const results = useMemo(() => {
     const terms = normalize(q).split(/\s+/).filter(Boolean);
     return all.filter(
@@ -187,4 +186,23 @@ export default function FataawaIndex() {
       <SugerenciaModal ref={modalRef} total={results.length} onBuscar={(texto) => updateUrl({ q: texto.trim() })} />
     </>
   );
+}
+
+// Se ejecuta al construir el sitio, no en el navegador: al visitante solo le llega
+// la ficha de cada fatwa (título, resumen, código…), nunca las respuestas completas.
+export async function getStaticProps() {
+  const all = sortedFataawa().map((f) => ({
+    slug: f.slug,
+    codigo: f.codigo,
+    number: f.number,
+    title: f.title,
+    summary: f.summary || null,
+    // Primeras palabras de la pregunta, para que el buscador también la encuentre
+    extracto: (f.question || "").slice(0, 240),
+    topic: f.topic,
+    subtopic: f.subtopic,
+    date: f.date || null,
+    borrador: f.borrador,
+  }));
+  return { props: { all } };
 }

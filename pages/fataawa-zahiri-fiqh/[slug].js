@@ -8,6 +8,8 @@ import FatwaCard from "@/components/fataawa/FatwaCard";
 import { formatDate } from "@/components/fataawa/format";
 import { FATAAWA_PATH, getTopic } from "@/constants/fataawa";
 import { fataawa, fatwaUrl, getFatwa, getFatwaByCode } from "@/data/fataawa";
+// Nota: data/fataawa solo se usa en getStaticPaths/getStaticProps (al construir el sitio),
+// así que no llega al navegador del visitante.
 import styles from "@/styles/site/Fataawa.module.css";
 import ui from "@/styles/site/ui.module.css";
 
@@ -47,18 +49,15 @@ const AnswerBlock = ({ block }) => {
           {block.source && <cite>{block.source}</cite>}
         </figure>
       );
-    case "link": {
-      // Enlace por código de fatwa ({ codigo: "3301" }) o por dirección ({ href: "/…" })
-      const destino = block.codigo ? getFatwaByCode(block.codigo) : null;
-      const href = destino ? fatwaUrl(destino) : block.href || FATAAWA_PATH;
+    case "link":
+      // El href ya viene resuelto desde getStaticProps (también cuando se usa { codigo: "3301" })
       return (
         <p>
-          <Link href={href} className={styles.backLink}>
+          <Link href={block.href || FATAAWA_PATH} className={styles.backLink}>
             {block.text} <Icon name="arrow" size={18} />
           </Link>
         </p>
       );
-    }
     case "nota":
       return (
         <aside className={styles.nota}>
@@ -242,5 +241,12 @@ export async function getStaticProps({ params }) {
     borrador,
   }));
 
-  return { props: { fatwa: JSON.parse(JSON.stringify(fatwa)), related } };
+  // Los enlaces por código se convierten aquí en direcciones, en el servidor
+  const answer = (fatwa.answer || []).map((b) => {
+    if (b.type !== "link" || !b.codigo) return b;
+    const destino = getFatwaByCode(b.codigo);
+    return { ...b, href: destino ? fatwaUrl(destino) : FATAAWA_PATH };
+  });
+
+  return { props: { fatwa: JSON.parse(JSON.stringify({ ...fatwa, answer })), related } };
 }
