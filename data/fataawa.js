@@ -147,6 +147,9 @@ export const fatwaUrl = (f) => `${FATAAWA_PATH}/${f.slug}`;
 export const getFatwa = (slug) => fataawa.find((f) => f.slug === slug);
 export const getFatwaByCode = (codigo) => fataawa.find((f) => f.codigo === String(codigo));
 
+// Las que tienen página propia: en el sitio publicado, solo las que no son borrador.
+export const fataawaPublicables = () => fataawa.filter((f) => VER_BORRADORES || !f.borrador);
+
 // Las que se muestran en listas: más reciente primero; a igual fecha, código mayor primero.
 export const sortedFataawa = () =>
   fataawa

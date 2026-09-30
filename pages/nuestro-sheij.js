@@ -6,6 +6,9 @@ import Enlaces from "@/components/comunidad/Enlaces";
 import Secciones from "@/components/comunidad/Secciones";
 import Silsila from "@/components/comunidad/Silsila";
 import { NUESTRO_SHEIJ as S } from "@/constants/content";
+import { SITE_URL } from "@/constants/site";
+import { migasJsonLd } from "@/components/PageHero";
+import { conContexto, organizacion } from "@/lib/seo";
 import c from "@/styles/site/Comunidad.module.css";
 import styles from "@/styles/site/Sheij.module.css";
 import ui from "@/styles/site/ui.module.css";
@@ -13,7 +16,28 @@ import ui from "@/styles/site/ui.module.css";
 export default function NuestroSheij() {
   return (
     <>
-      <Seo title={`${S.titulo}: ${S.nombre}`} description={S.resumen} type="profile" />
+      <Seo
+        title={`${S.titulo}: ${S.nombre}`}
+        description={S.resumen}
+        type="profile"
+        image={S.fotoPrincipal.src}
+        imageAlt={S.fotoPrincipal.alt}
+        jsonLd={[
+          conContexto({
+            "@type": "ProfilePage",
+            mainEntity: {
+              "@type": "Person",
+              name: S.nombre,
+              alternateName: S.nombreCompleto,
+              description: S.resumen,
+              image: `${SITE_URL}${S.fotoPrincipal.src}`,
+              worksFor: organizacion,
+              address: { "@type": "PostalAddress", addressLocality: "León", addressRegion: "Guanajuato", addressCountry: "MX" },
+            },
+          }),
+          migasJsonLd([{ href: "/nuestra-tariqa", label: "Nuestra Tarīqa" }, { label: S.titulo }], "/nuestro-sheij"),
+        ]}
+      />
 
       <section className={styles.hero}>
         <div className={`contenedor ${styles.heroInner}`}>

@@ -1,5 +1,6 @@
 import PageHero from "@/components/PageHero";
 import Seo from "@/components/Seo";
+import { tienePendientes } from "@/lib/seo";
 import Secciones from "@/components/comunidad/Secciones";
 import NavIbnHazm from "@/components/ibn-hazm/NavIbnHazm";
 import c from "@/styles/site/Comunidad.module.css";
@@ -21,10 +22,13 @@ const ESCUELA = [
 
 // =====================================================================
 
+// Mientras tenga texto ✍️, la página no se indexa ni va al sitemap.
+export const PENDIENTE = tienePendientes(ESCUELA);
+
 export default function EscuelaZahiri() {
   return (
     <>
-      <Seo title="La escuela ẓāhirī" description={RESUMEN} />
+      <Seo title="La escuela ẓāhirī (zahiri): el método de Ibn Hazm" description={RESUMEN} pendiente={PENDIENTE} />
       <PageHero
         title="La escuela ẓāhirī"
         arabic="المذهب الظاهري"

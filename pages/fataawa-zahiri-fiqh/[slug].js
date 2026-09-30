@@ -7,7 +7,9 @@ import FataawaAside from "@/components/fataawa/FataawaAside";
 import FatwaCard from "@/components/fataawa/FatwaCard";
 import { formatDate } from "@/components/fataawa/format";
 import { FATAAWA_PATH, getTopic } from "@/constants/fataawa";
-import { fataawa, fatwaUrl, getFatwa, getFatwaByCode } from "@/data/fataawa";
+import { fataawa, fataawaPublicables, fatwaUrl, getFatwa, getFatwaByCode } from "@/data/fataawa";
+import { conContexto, organizacion, tienePendientes } from "@/lib/seo";
+import { SITE_URL } from "@/constants/site";
 // Nota: data/fataawa solo se usa en getStaticPaths/getStaticProps (al construir el sitio),
 // así que no llega al navegador del visitante.
 import styles from "@/styles/site/Fataawa.module.css";
@@ -89,13 +91,42 @@ const CopyLinkButton = () => {
   );
 };
 
+// Imagen para compartir en redes, generada al vuelo con el número y título de la fatwa
+const ogImagen = (fatwa, topic, sub) =>
+  `/api/og?${new URLSearchParams({
+    n: fatwa.number,
+    t: fatwa.title,
+    tema: [topic?.label, sub?.label].filter(Boolean).join(" · "),
+  }).toString()}`;
+
 export default function FatwaPage({ fatwa, related }) {
   const topic = getTopic(fatwa.topic);
   const sub = getTopic(fatwa.subtopic);
 
   return (
     <>
-      <Seo title={fatwa.title} description={fatwa.summary} type="article" />
+      <Seo
+        title={`${fatwa.title} · Fatwa ${fatwa.number}`}
+        description={fatwa.summary}
+        type="article"
+        image={ogImagen(fatwa, topic, sub)}
+        imageAlt={`Fatwa n.º ${fatwa.number}: ${fatwa.title}`}
+        publishedTime={fatwa.date || undefined}
+        noIndex={fatwa.borrador}
+        pendiente={tienePendientes(fatwa)}
+        jsonLd={conContexto({
+          "@type": "Article",
+          headline: fatwa.title,
+          description: fatwa.summary,
+          inLanguage: "es-MX",
+          datePublished: fatwa.date || undefined,
+          articleSection: [topic?.label, sub?.label].filter(Boolean).join(" · ") || undefined,
+          image: `${SITE_URL}${ogImagen(fatwa, topic, sub)}`,
+          mainEntityOfPage: `${SITE_URL}${FATAAWA_PATH}/${fatwa.slug}`,
+          author: organizacion,
+          publisher: organizacion,
+        })}
+      />
 
       <PageHero
         title={fatwa.title}
@@ -217,7 +248,8 @@ export default function FatwaPage({ fatwa, related }) {
 
 export async function getStaticPaths() {
   return {
-    paths: fataawa.map((f) => ({ params: { slug: f.slug } })),
+    // Los borradores no tienen página en el sitio publicado (solo en `npm run dev`)
+    paths: fataawaPublicables().map((f) => ({ params: { slug: f.slug } })),
     fallback: false,
   };
 }
@@ -226,7 +258,8 @@ export async function getStaticProps({ params }) {
   const fatwa = getFatwa(params.slug);
   if (!fatwa) return { notFound: true };
 
-  const explicit = (fatwa.related || []).map(getFatwaByCode).filter(Boolean);
+  const publicables = fataawaPublicables();
+  const explicit = (fatwa.related || []).map(getFatwaByCode).filter((f) => f && publicables.includes(f));
   const sameTopic = fataawa.filter(
     (f) => f.slug !== fatwa.slug && f.topic === fatwa.topic && !f.borrador && !explicit.includes(f)
   );

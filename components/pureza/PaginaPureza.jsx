@@ -3,6 +3,7 @@ import Icon from "@/components/Icon";
 import PageHero from "@/components/PageHero";
 import Seo from "@/components/Seo";
 import StepCard from "@/components/salat/StepCard";
+import { conContexto, tienePendientes } from "@/lib/seo";
 import styles from "@/styles/site/Salat.module.css";
 import ui from "@/styles/site/ui.module.css";
 
@@ -13,11 +14,32 @@ const OTRA = {
   gusl: { href: "/wudu", titulo: "Wuḍūʾ", texto: "La ablución menor" },
 };
 
+// Cómo lo escribe la gente en el buscador
+const BUSQUEDA = {
+  wudu: { termino: "wudu", accion: "Cómo hacer el wudu (ablución) paso a paso" },
+  gusl: { termino: "ghusl", accion: "Cómo hacer el ghusl (baño ritual) paso a paso" },
+};
+
 const PaginaPureza = ({ clave, datos }) => {
   const otra = OTRA[clave];
+  const busqueda = BUSQUEDA[clave];
   return (
     <>
-      <Seo title={`${datos.titulo}: ${datos.subtitulo.toLowerCase()}`} description={datos.intro} />
+      <Seo
+        title={`${datos.titulo} (${busqueda.termino}): ${datos.subtitulo.toLowerCase()} paso a paso`}
+        description={
+          datos.intro.includes("✍️")
+            ? `${busqueda.accion} según el Corán y la Sunna, con las pruebas del Muḥallá de Ibn Ḥazm.`
+            : datos.intro
+        }
+        pendiente={tienePendientes(datos)}
+        jsonLd={conContexto({
+          "@type": "Article",
+          headline: `${datos.titulo}: ${datos.subtitulo.toLowerCase()}`,
+          inLanguage: "es-MX",
+          about: busqueda.termino,
+        })}
+      />
 
       <PageHero
         title={datos.titulo}

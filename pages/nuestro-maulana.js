@@ -5,13 +5,28 @@ import Seo from "@/components/Seo";
 import Enlaces from "@/components/comunidad/Enlaces";
 import Silsila from "@/components/comunidad/Silsila";
 import { NUESTRO_MAULANA as M } from "@/constants/content";
+import { conContexto } from "@/lib/seo";
 import c from "@/styles/site/Comunidad.module.css";
 import ui from "@/styles/site/ui.module.css";
 
 export default function NuestroMaulana() {
   return (
     <>
-      <Seo title={`${M.titulo}: ${M.nombre}`} description={M.resumen} type="profile" />
+      <Seo
+        title={`${M.titulo}: ${M.nombre}`}
+        description={M.resumen}
+        type="profile"
+        jsonLd={conContexto({
+          "@type": "ProfilePage",
+          mainEntity: {
+            "@type": "Person",
+            name: M.nombre,
+            description: M.resumen,
+            deathDate: "2001",
+            deathPlace: { "@type": "Place", name: "Guanajuato, México" },
+          },
+        })}
+      />
 
       <PageHero
         title={M.nombre}

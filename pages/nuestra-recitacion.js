@@ -10,7 +10,7 @@ import ui from "@/styles/site/ui.module.css";
 export default function NuestraRecitacion() {
   return (
     <>
-      <Seo title={`${R.titulo}: ${R.subtitulo}`} description={R.resumen} />
+      <Seo title={`${R.titulo}: ${R.subtitulo} (Corán)`} description={R.resumen} />
 
       <PageHero
         title={`${R.titulo}: ${R.subtitulo.charAt(0).toLowerCase()}${R.subtitulo.slice(1)}`}

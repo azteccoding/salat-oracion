@@ -2,6 +2,7 @@ import Link from "next/link";
 import Icon from "@/components/Icon";
 import PageHero from "@/components/PageHero";
 import Seo from "@/components/Seo";
+import { conContexto, tienePendientes } from "@/lib/seo";
 import Secciones from "@/components/comunidad/Secciones";
 import NavIbnHazm from "@/components/ibn-hazm/NavIbnHazm";
 import c from "@/styles/site/Comunidad.module.css";
@@ -56,10 +57,28 @@ const DATOS = [
 
 // =====================================================================
 
+// Mientras la biografía tenga texto ✍️, la página no se indexa ni va al sitemap.
+export const PENDIENTE = tienePendientes(VIDA);
+
 export default function ImamIbnHazm() {
   return (
     <>
-      <Seo title="Imam Ibn Hazm de Córdoba" description={RESUMEN} type="profile" />
+      <Seo
+        title="Imam Ibn Hazm de Córdoba (Ibn Ḥazm): vida y obra"
+        description={RESUMEN}
+        type="profile"
+        pendiente={PENDIENTE}
+        jsonLd={conContexto({
+          "@type": "Person",
+          name: "Ibn Hazm",
+          alternateName: ["Ibn Ḥazm", "Abū Muḥammad ʿAlī ibn Aḥmad ibn Saʿīd ibn Ḥazm", "Ibn Hazm de Córdoba"],
+          birthDate: "0994",
+          deathDate: "1064",
+          birthPlace: { "@type": "Place", name: "Córdoba, al-Ándalus" },
+          description: RESUMEN,
+          sameAs: ["https://es.wikipedia.org/wiki/Ibn_Hazm"],
+        })}
+      />
 
       <PageHero
         title="Imam Ibn Hazm de Córdoba"

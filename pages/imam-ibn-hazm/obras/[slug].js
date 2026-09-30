@@ -2,6 +2,7 @@ import Link from "next/link";
 import Icon from "@/components/Icon";
 import PageHero from "@/components/PageHero";
 import Seo from "@/components/Seo";
+import { tienePendientes } from "@/lib/seo";
 import Secciones from "@/components/comunidad/Secciones";
 import { obrasIbnHazm } from "@/data/ibn-hazm-obras";
 import c from "@/styles/site/Comunidad.module.css";
@@ -10,7 +11,7 @@ import c from "@/styles/site/Comunidad.module.css";
 export default function Obra({ obra }) {
   return (
     <>
-      <Seo title={`${obra.titulo} · Ibn Hazm`} description={obra.resumen} />
+      <Seo title={`${obra.titulo} · Ibn Hazm`} description={obra.resumen} pendiente={tienePendientes(obra)} />
       <PageHero
         title={obra.titulo}
         arabic={obra.arabe}

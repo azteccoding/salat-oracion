@@ -5,9 +5,10 @@ export const SITE_SHORT_NAME = "Islam Guanajuato";
 export const SITE_DESCRIPTION =
   "Estudiantes de Guanajuato y Aguascalientes reunidos para aprender y difundir el islam de forma pacífica, tolerante y académica.";
 
-// Dominio público del sitio, sin "/" al final (p. ej. "https://islamguanajuato.mx").
-// Se usa para las URL absolutas de Open Graph (vista previa al compartir en redes).
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "";
+// Dominio público del sitio, sin "/" al final. Se usa para las URL canónicas, el sitemap y las
+// imágenes al compartir en redes. Si algún día cambia, basta con editarlo aquí
+// (o definir NEXT_PUBLIC_SITE_URL en Vercel).
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.islamguanajuato.com").replace(/\/+$/, "");
 
 export const SITE_LOCATION = "León, Guanajuato, México";
 

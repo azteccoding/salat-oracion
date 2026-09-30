@@ -71,7 +71,7 @@ export default function FataawaIndex({ all }) {
   return (
     <>
       <Seo
-        title="Fatāwá de fiqh ẓāhirī"
+        title="Fatwas de fiqh ẓāhirī (zahiri): preguntas y respuestas"
         description="Preguntas y respuestas de jurisprudencia islámica según el método ẓāhirī de Ibn Ḥazm: el Corán, la Sunna auténtica y el consenso."
       />
 

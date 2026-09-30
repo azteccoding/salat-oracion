@@ -11,7 +11,7 @@ export default function SalatPage() {
   return (
     <>
       <Seo
-        title="Aprende a rezar el ṣalāt"
+        title="Cómo rezar en el islam: el ṣalāt (salat) paso a paso"
         description="Guía paso a paso para rezar el ṣalāt según el Corán y la Sunna: posiciones, recitaciones en árabe, transliteración y traducción al español."
       />
 

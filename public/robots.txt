@@ -1,0 +1,5 @@
+# Estudiantes del Islam en Guanajuato — https://www.islamguanajuato.com
+User-agent: *
+Allow: /
+
+Sitemap: https://www.islamguanajuato.com/sitemap.xml

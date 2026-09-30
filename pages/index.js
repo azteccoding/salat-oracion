@@ -8,7 +8,8 @@ import EmptyFataawa from "@/components/fataawa/EmptyFataawa";
 import FatwaCard from "@/components/fataawa/FatwaCard";
 import { FATAAWA_PATH, INDEXED_TOPICS } from "@/constants/fataawa";
 import { NUESTRO_SHEIJ } from "@/constants/content";
-import { SITE_DESCRIPTION, SITE_NAME } from "@/constants/site";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/constants/site";
+import { conContexto, organizacion } from "@/lib/seo";
 import { corridos } from "@/data/corridos";
 import { descargas } from "@/data/descargas";
 import { latestFataawa } from "@/data/fataawa";
@@ -50,7 +51,21 @@ const ESSENTIALS = [
 export default function Home({ latest }) {
   return (
     <>
-      <Seo />
+      <Seo
+        description="Aprende el islam en español desde León, Guanajuato: cómo rezar paso a paso, wudu y ghusl, fatwas de fiqh ẓāhirī (Ibn Hazm) con sus pruebas, horarios de oración y libros gratuitos."
+        jsonLd={[
+          conContexto(organizacion),
+          conContexto({
+            "@type": "WebSite",
+            "@id": `${SITE_URL}/#sitio`,
+            name: SITE_NAME,
+            alternateName: "Islam Guanajuato",
+            url: SITE_URL,
+            inLanguage: "es-MX",
+            publisher: { "@id": `${SITE_URL}/#organizacion` },
+          }),
+        ]}
+      />
 
       {/* ---------- Portada ---------- */}
       <section className={styles.hero}>
