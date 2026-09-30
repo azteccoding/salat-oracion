@@ -37,6 +37,18 @@ const SiteFooter = () => {
             <li>
               <Link href="/descargas">Libros y descargas</Link>
             </li>
+            <li>
+              <Link href="/nuestra-tariqa">Nuestra Tarīqa</Link>
+            </li>
+            <li>
+              <Link href="/nuestro-maulana">Nuestro Maulana</Link>
+            </li>
+            <li>
+              <Link href="/nuestro-sheij">Nuestro Sheij</Link>
+            </li>
+            <li>
+              <Link href="/nuestra-recitacion">Nuestra recitación</Link>
+            </li>
           </ul>
         </div>
 

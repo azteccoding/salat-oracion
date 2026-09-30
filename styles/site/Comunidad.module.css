@@ -1,0 +1,509 @@
+/* Estilos compartidos por Nuestra Tarīqa, Nuestro Maulana y Nuestro Sheij */
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 48px;
+  padding-top: 48px;
+  align-items: start;
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.article {
+  position: relative;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-1);
+  padding: 52px 64px 48px;
+}
+
+/* ---------- Texto largo ---------- */
+.texto {
+  font-family: var(--f-serif);
+  font-size: 19px;
+  line-height: 1.85;
+  color: var(--tinta);
+  max-width: 68ch;
+  margin: 0 auto;
+}
+
+.texto p {
+  margin: 0 0 1.15em;
+}
+
+.texto h2 {
+  position: relative;
+  font-size: 26px;
+  margin: 1.8em 0 0.7em;
+  padding-bottom: 10px;
+}
+
+.texto h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 56px;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--oro-500), var(--oro-300));
+}
+
+.texto section:first-child h2 {
+  margin-top: 0;
+}
+
+.capitular > p:first-child::first-letter,
+.texto section:first-child p:first-of-type::first-letter {
+  float: left;
+  font-size: 4.1em;
+  line-height: 0.85;
+  font-weight: 700;
+  color: var(--acento);
+  margin: 0.06em 0.1em 0 0;
+}
+
+.figura {
+  margin: 2em 0;
+}
+
+.figura img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-2);
+  border: 6px solid var(--superficie);
+  outline: 1px solid var(--borde);
+}
+
+.figura figcaption {
+  margin-top: 12px;
+  font-family: var(--f-sans);
+  font-size: 14px;
+  color: var(--tenue);
+  text-align: center;
+}
+
+/* ---------- Silsila ---------- */
+.silsila {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.silsila::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: linear-gradient(var(--oro-500), var(--oro-300) 60%, var(--acento));
+  border-radius: 2px;
+}
+
+.silsila li {
+  position: relative;
+  padding: 0 0 14px 28px;
+  display: flex;
+  flex-direction: column;
+}
+
+.silsila li:last-child {
+  padding-bottom: 0;
+}
+
+.nodo {
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--superficie);
+  border: 2px solid var(--oro-500);
+}
+
+.nodoNombre {
+  font-family: var(--f-serif);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--tinta);
+}
+
+.nodoNombre a {
+  color: var(--acento);
+}
+
+.nodoNota {
+  font-size: 13px;
+  color: var(--tenue);
+  line-height: 1.4;
+}
+
+.actual .nodo {
+  width: 18px;
+  height: 18px;
+  left: -2px;
+  top: 3px;
+  background: var(--acento);
+  border-color: var(--oro-300);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--oro-500) 25%, transparent);
+}
+
+.actual .nodoNombre {
+  color: var(--acento);
+  font-size: 18px;
+}
+
+.silsilaGrande li {
+  padding-bottom: 20px;
+}
+
+.silsilaGrande .nodoNombre {
+  font-size: 18px;
+}
+
+.silsilaGrande .nodoNota {
+  font-size: 14px;
+}
+
+.asideIntro {
+  font-size: 14px;
+  color: var(--tenue);
+  margin: -6px 0 16px;
+}
+
+.asideLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 18px;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+/* ---------- Datos (ficha) ---------- */
+.datos {
+  margin: 0;
+}
+
+.datos div {
+  padding: 10px 0;
+  border-top: 1px solid var(--borde-suave);
+}
+
+.datos div:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.datos dt {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tenue);
+}
+
+.datos dd {
+  margin: 2px 0 0;
+  font-family: var(--f-serif);
+  font-size: 17px;
+  color: var(--tinta);
+}
+
+/* ---------- Tesoros ---------- */
+.tesoros {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tesoros li {
+  position: relative;
+  padding: 0 0 12px 22px;
+  font-size: 15px;
+  color: var(--tinta-2);
+}
+
+.tesoros li:last-child {
+  padding-bottom: 0;
+}
+
+.tesoros li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 10px;
+  height: 10px;
+  background: var(--oro-500);
+  transform: rotate(45deg);
+  border-radius: 2px;
+}
+
+/* ---------- Banda de cita ---------- */
+.cita {
+  position: relative;
+  margin-top: 72px;
+  padding: 64px 0;
+  text-align: center;
+  background: var(--oro-100);
+  border-top: 1px solid var(--borde);
+  border-bottom: 1px solid var(--borde);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.cita::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: var(--oro-500);
+  -webkit-mask: url(/img/pattern.svg) center / 120px 120px repeat;
+  mask: url(/img/pattern.svg) center / 120px 120px repeat;
+  opacity: 0.12;
+  z-index: -1;
+}
+
+.citaTexto {
+  font-family: var(--f-serif);
+  font-size: clamp(22px, 2.8vw, 32px);
+  line-height: 1.45;
+  font-style: italic;
+  color: var(--tinta);
+  max-width: 34ch;
+  margin: 0 auto 14px;
+}
+
+.citaFuente {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--oro-700);
+  margin: 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  .citaFuente {
+    color: var(--oro-300);
+  }
+}
+
+/* ---------- Tarjetas en rejilla ---------- */
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.tarjeta {
+  padding: 22px;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-1);
+}
+
+.tarjeta h3 {
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.tarjeta p {
+  font-size: 15px;
+  color: var(--tinta-2);
+  margin: 0;
+}
+
+.tarjetaIcono {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  background: var(--azul-100);
+  color: var(--acento);
+}
+
+.bloque {
+  margin-top: 64px;
+}
+
+/* ---------- Enlaces entre páginas ---------- */
+.enlaces {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 64px;
+}
+
+.enlace {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-1);
+  color: var(--tinta);
+  overflow: hidden;
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.enlace:hover {
+  transform: translateY(-3px);
+  border-color: var(--acento);
+  box-shadow: var(--sombra-2);
+  text-decoration: none;
+}
+
+.enlace :global(.arabe) {
+  font-size: 30px;
+  line-height: 1.4;
+  color: var(--dorado);
+}
+
+.enlace strong {
+  font-family: var(--f-serif);
+  font-size: 22px;
+  margin: 2px 0 4px;
+}
+
+.enlaceTexto {
+  color: var(--tinta-2);
+  font-size: 15px;
+  flex: 1;
+}
+
+.enlaceMas {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 14px;
+  font-weight: 600;
+  color: var(--acento);
+}
+
+/* ---------- Adaptable ---------- */
+@media (max-width: 1000px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+  }
+}
+
+@media (max-width: 640px) {
+  .article {
+    padding: 36px 20px 32px;
+  }
+  .texto {
+    font-size: 18px;
+  }
+  .enlaces {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.rejilla2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 560px) {
+  .rejilla2 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- Recitación: accesos y juicios ---------- */
+.acciones {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: -36px;
+}
+
+.accion {
+  display: flex;
+  flex-direction: column;
+  padding: 22px;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-2);
+  color: var(--tinta);
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.accion:hover {
+  transform: translateY(-3px);
+  border-color: var(--oro-500);
+  text-decoration: none;
+}
+
+.accion strong {
+  font-family: var(--f-serif);
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.juicios {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.juicios li {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 16px;
+  border-radius: var(--radio-sm);
+  border-left: 4px solid;
+  background: var(--papel);
+}
+
+.juicios strong {
+  font-family: var(--f-serif);
+  font-size: 16px;
+}
+
+.juicios :global(.arabe) {
+  font-size: 22px;
+  line-height: 1.7;
+  text-align: right;
+}
+
+.juicios em {
+  font-size: 14px;
+  color: var(--tinta-2);
+}
+
+.juicioBueno {
+  border-left-color: #2f8a5b !important;
+}
+
+.juicioMalo {
+  border-left-color: #b4533a !important;
+}
+
+@media (max-width: 860px) {
+  .acciones {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

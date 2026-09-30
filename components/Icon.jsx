@@ -8,6 +8,21 @@ const PATHS = {
   menu: <path d="M4 7h16M4 12h16M4 17h16" />,
   close: <path d="M6 6l12 12M18 6 6 18" />,
   arrow: <path d="M5 12h14M13 6l6 6-6 6" />,
+  chevron: <path d="m6 9 6 6 6-6" />,
+  play: (
+    <>
+      <circle cx="12" cy="12" r="9" />
+      <path d="m10 8.5 5 3.5-5 3.5z" />
+    </>
+  ),
+  cart: (
+    <>
+      <path d="M3 4h2l2.4 11h10.2L20 8H6.2" />
+      <circle cx="9" cy="19.5" r="1.3" />
+      <circle cx="17" cy="19.5" r="1.3" />
+    </>
+  ),
+  external: <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />,
   arrowLeft: <path d="M19 12H5M11 6l-6 6 6 6" />,
   book: (
     <>

@@ -8,7 +8,8 @@ import HijriDate from "./HijriDate";
 import Icon from "./Icon";
 import styles from "@/styles/site/Header.module.css";
 
-const isActive = (pathname, href) => {
+const isActive = (pathname, href, children) => {
+  if (children) return children.some((c) => isActive(pathname, c.href));
   if (href === "/") return pathname === "/";
   if (href.startsWith("/#")) return false;
   return pathname === href || pathname.startsWith(`${href}/`);
@@ -56,16 +57,42 @@ const SiteHeader = () => {
           </Link>
 
           <nav className={styles.nav} aria-label="Principal">
-            {NAV_LINKS.map((l) => (
-              <Link
-                key={l.href}
-                href={l.href}
-                className={isActive(pathname, l.href) ? styles.activo : undefined}
-                aria-current={isActive(pathname, l.href) ? "page" : undefined}
-              >
-                {l.label}
-              </Link>
-            ))}
+            {NAV_LINKS.map((l) =>
+              l.children ? (
+                <div key={l.href} className={styles.grupo}>
+                  <Link
+                    href={l.href}
+                    className={isActive(pathname, l.href, l.children) ? styles.activo : undefined}
+                    aria-haspopup="true"
+                  >
+                    {l.label}
+                    <Icon name="chevron" size={14} strokeWidth={2.2} />
+                  </Link>
+                  <div className={styles.submenu}>
+                    {l.children.map((c) => (
+                      <Link
+                        key={c.href}
+                        href={c.href}
+                        aria-current={pathname === c.href ? "page" : undefined}
+                        className={pathname === c.href ? styles.subActivo : undefined}
+                      >
+                        <strong>{c.label}</strong>
+                        {c.text && <span>{c.text}</span>}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  className={isActive(pathname, l.href) ? styles.activo : undefined}
+                  aria-current={isActive(pathname, l.href) ? "page" : undefined}
+                >
+                  {l.label}
+                </Link>
+              )
+            )}
           </nav>
 
           <SearchForm className={styles.search} id="buscar-header" />
@@ -87,7 +114,7 @@ const SiteHeader = () => {
         <div className="contenedor">
           <SearchForm className={styles.searchMobile} id="buscar-movil" />
           <nav aria-label="Menú móvil">
-            {NAV_LINKS.map((l) => (
+            {NAV_LINKS.flatMap((l) => l.children || [l]).map((l) => (
               <Link key={l.href} href={l.href} className={isActive(pathname, l.href) ? styles.activo : undefined}>
                 {l.label}
                 <Icon name="arrow" size={18} />

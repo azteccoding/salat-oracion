@@ -15,6 +15,16 @@ export const NAV_LINKS = [
   { href: "/", label: "Inicio" },
   { href: "/salat", label: "Aprende a rezar" },
   { href: "/fataawa-zahiri-fiqh", label: "Fatāwá" },
+  {
+    href: "/nuestra-tariqa",
+    label: "Nuestra Tarīqa",
+    children: [
+      { href: "/nuestra-tariqa", label: "Nuestra Tarīqa", text: "Silsila, valores y práctica" },
+      { href: "/nuestro-maulana", label: "Nuestro Maulana", text: "Maulana ʿIyad ibn Yusuf" },
+      { href: "/nuestro-sheij", label: "Nuestro Sheij", text: "Mullah Khalid" },
+      { href: "/nuestra-recitacion", label: "Nuestra recitación", text: "Qirāʾat Khalaf ʿan Hamza" },
+    ],
+  },
   { href: "/descargas", label: "Descargas" },
   { href: "/#horarios", label: "Horarios" },
 ];

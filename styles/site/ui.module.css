@@ -43,10 +43,10 @@
   margin: 0;
 }
 
-.pageHeroArabic {
+.pageHero .pageHeroArabic {
   font-family: var(--f-arabe);
   color: var(--oro-300);
-  font-size: 28px;
+  font-size: 32px;
   line-height: 1.5;
   margin: 0 0 6px;
   direction: rtl;
