@@ -273,51 +273,225 @@
   }
   .menuBtn {
     display: inline-flex;
+    position: relative;
+    z-index: 2;
+    transition: background 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.3s;
   }
+  .menuBtnOpen {
+    background: var(--azul-900);
+    border-color: var(--oro-500);
+    color: var(--oro-300);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--oro-500) 25%, transparent), 0 0 24px rgba(230, 199, 122, 0.55);
+  }
+
+  /* Panel de altura completa, con scroll propio: nunca se corta */
   .mobile {
     display: block;
-    max-height: 0;
-    overflow: hidden;
-    background: var(--superficie);
-    border-bottom: 1px solid transparent;
-    transition: max-height 0.25s ease;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: var(--menu-top, 64px);
+    height: calc(100dvh - var(--menu-top, 64px));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    background:
+      radial-gradient(120% 60% at 100% 0%, color-mix(in srgb, var(--oro-300) 18%, transparent), transparent 60%),
+      var(--superficie);
+    border-top: 1px solid var(--borde);
+    box-shadow: 0 24px 48px -12px rgba(10, 24, 56, 0.45);
+    transform-origin: calc(100% - 42px) 0;
+    z-index: 40;
   }
-  .mobileOpen {
-    max-height: 480px;
-    border-bottom-color: var(--borde);
-    box-shadow: var(--sombra-2);
+  .mobileHidden {
+    display: none;
   }
-  .mobile nav {
+
+  /* Efecto "genio de la lámpara": sale del botón como humo y toma forma */
+  .mobileOpening {
+    animation: genioSale 0.62s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .mobileClosing {
+    animation: genioEntra 0.45s cubic-bezier(0.55, 0, 0.75, 0.2) both;
+    pointer-events: none;
+  }
+
+  .mobileInner {
+    padding-top: 18px;
+    padding-bottom: 40px;
+  }
+
+  .mobileOpening .mobileInner > * {
+    animation: aparece 0.5s ease both;
+  }
+  .mobileOpening .mobileInner > *:nth-child(2) {
+    animation-delay: 0.18s;
+  }
+  .mobileOpening .mobileInner > *:nth-child(3) {
+    animation-delay: 0.26s;
+  }
+  .mobileOpening .mobileInner > *:nth-child(4) {
+    animation-delay: 0.34s;
+  }
+
+  .mobileNav {
     display: flex;
     flex-direction: column;
-    padding-bottom: 12px;
+    gap: 2px;
   }
-  .mobile nav a {
+  .mobileNav a {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 14px 4px;
-    border-bottom: 1px solid var(--borde-suave);
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 60px;
+    padding: 12px 16px;
+    border-radius: 14px;
     color: var(--tinta);
-    font-weight: 500;
+    font-family: var(--f-serif);
+    font-size: 21px;
+    font-weight: 600;
   }
-  .mobile nav a svg {
+  .mobileNav a:hover,
+  .mobileNav a:active {
+    background: var(--azul-50);
+    text-decoration: none;
+  }
+  .mobileNav a svg {
+    flex-shrink: 0;
+    color: var(--dorado);
+  }
+  .mobileNav a.activo {
+    background: var(--azul-100);
+    color: var(--acento);
+  }
+  .mobileGrupo {
+    margin: 10px 0;
+    padding: 8px;
+    border: 1px solid var(--borde);
+    border-radius: 18px;
+    background: color-mix(in srgb, var(--oro-100) 55%, var(--superficie));
+  }
+  .mobileGrupoTitulo {
+    margin: 6px 16px 4px;
+    font-family: var(--f-sans);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--dorado);
+  }
+  .mobileGrupo a {
+    min-height: 56px;
+    font-size: 19px;
+  }
+  .mobileGrupo a span {
+    display: flex;
+    flex-direction: column;
+  }
+  .mobileGrupo a small {
+    font-family: var(--f-sans);
+    font-size: 13px;
+    font-weight: 400;
     color: var(--tenue);
   }
-  .mobile nav a.activo {
-    color: var(--acento);
+  .mobileAya {
+    margin: 28px 0 0;
+    text-align: center;
+  }
+  .mobileAya :global(.arabe) {
+    display: block;
+    font-size: 30px;
+    color: var(--dorado);
+    line-height: 1.6;
+  }
+  .mobileAya small {
+    font-size: 13px;
+    color: var(--tenue);
   }
   .searchMobile {
     display: flex;
     align-items: center;
-    gap: 8px;
-    height: 46px;
-    margin: 14px 0 6px;
-    padding: 0 14px;
-    border-radius: 12px;
+    gap: 10px;
+    height: 54px;
+    margin: 0 0 14px;
+    padding: 0 18px;
+    border-radius: 16px;
     border: 1px solid var(--borde);
     background: var(--papel);
     color: var(--tenue);
+  }
+  .searchMobile input {
+    font-size: 17px;
+  }
+}
+
+@keyframes genioSale {
+  0% {
+    opacity: 0;
+    filter: blur(14px);
+    transform: translateY(-6px) scale(0.06, 0.02) skewX(-28deg);
+    clip-path: polygon(88% 0, 100% 0, 100% 0, 88% 0);
+  }
+  25% {
+    opacity: 0.7;
+    filter: blur(8px);
+    transform: scale(0.35, 0.3) skewX(-18deg);
+    clip-path: polygon(70% 0, 100% 0, 96% 100%, 40% 100%);
+  }
+  55% {
+    opacity: 1;
+    filter: blur(2px);
+    transform: scale(0.85, 0.9) skewX(4deg);
+    clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 100%);
+  }
+  78% {
+    filter: blur(0);
+    transform: scale(1.02, 1.01) skewX(-1deg);
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  100% {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+}
+
+@keyframes genioEntra {
+  0% {
+    opacity: 1;
+    filter: none;
+    transform: none;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  40% {
+    filter: blur(2px);
+    transform: scale(0.8, 0.85) skewX(6deg);
+    clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 100%);
+  }
+  75% {
+    opacity: 0.6;
+    filter: blur(8px);
+    transform: scale(0.3, 0.25) skewX(-18deg);
+    clip-path: polygon(70% 0, 100% 0, 96% 100%, 40% 100%);
+  }
+  100% {
+    opacity: 0;
+    filter: blur(14px);
+    transform: translateY(-6px) scale(0.04, 0.02) skewX(-28deg);
+    clip-path: polygon(88% 0, 100% 0, 100% 0, 88% 0);
+  }
+}
+
+@keyframes aparece {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 

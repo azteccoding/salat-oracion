@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { NAV_LINKS, SITE_NAME } from "@/constants/site";
 import { FATAAWA_PATH } from "@/constants/fataawa";
 import HijriDate from "./HijriDate";
@@ -27,13 +27,45 @@ const SearchForm = ({ className, id }) => (
 
 const SiteHeader = () => {
   const { pathname, asPath } = useRouter();
+  const headerRef = useRef(null);
   // El menú móvil queda abierto solo en la ruta donde se abrió: al navegar se cierra solo.
-  const [openAt, setOpenAt] = useState(null);
-  const open = openAt === asPath;
-  const setOpen = (fn) => setOpenAt(fn(open) ? asPath : null);
+  // `closing` mantiene el panel visible mientras corre la animación de salida.
+  const [menu, setMenu] = useState({ at: null, closing: false });
+  const open = menu.at === asPath;
+  const closing = open && menu.closing;
+
+  const openMenu = () => {
+    const bottom = headerRef.current?.getBoundingClientRect().bottom ?? 64;
+    headerRef.current?.style.setProperty("--menu-top", `${Math.round(bottom)}px`);
+    setMenu({ at: asPath, closing: false });
+  };
+
+  const closeMenu = useCallback(() => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      setMenu({ at: null, closing: false });
+      return;
+    }
+    setMenu((m) => ({ ...m, closing: true }));
+    // Respaldo por si el navegador no avisa el fin de la animación
+    window.setTimeout(() => setMenu((m) => (m.closing ? { at: null, closing: false } : m)), 700);
+  }, []);
+
+  // Bloquea el scroll de la página y permite cerrar con Esc mientras el menú está abierto
+  useEffect(() => {
+    if (!open) return undefined;
+    const html = document.documentElement;
+    html.style.overflow = "hidden";
+    const onKey = (e) => e.key === "Escape" && closeMenu();
+    window.addEventListener("keydown", onKey);
+    return () => {
+      html.style.overflow = "";
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [open, closeMenu]);
 
   return (
-    <header className={styles.header} data-site-header>
+    <header ref={headerRef} className={styles.header} data-site-header>
       <div className={styles.topbar}>
         <div className={`contenedor ${styles.topbarInner}`}>
           <span className={styles.salam}>
@@ -99,28 +131,55 @@ const SiteHeader = () => {
 
           <button
             type="button"
-            className={styles.menuBtn}
-            aria-expanded={open}
+            className={`${styles.menuBtn} ${open && !closing ? styles.menuBtnOpen : ""}`}
+            aria-expanded={open && !closing}
             aria-controls="menu-movil"
-            onClick={() => setOpen((v) => !v)}
+            onClick={() => (open && !closing ? closeMenu() : openMenu())}
           >
-            <Icon name={open ? "close" : "menu"} size={24} />
-            <span className="sr-only">{open ? "Cerrar menú" : "Abrir menú"}</span>
+            <Icon name={open && !closing ? "close" : "menu"} size={24} />
+            <span className="sr-only">{open && !closing ? "Cerrar menú" : "Abrir menú"}</span>
           </button>
         </div>
       </div>
 
-      <div id="menu-movil" className={`${styles.mobile} ${open ? styles.mobileOpen : ""}`}>
-        <div className="contenedor">
+      <div
+        id="menu-movil"
+        className={`${styles.mobile} ${!open ? styles.mobileHidden : closing ? styles.mobileClosing : styles.mobileOpening}`}
+        onAnimationEnd={(e) => {
+          if (e.target === e.currentTarget && closing) setMenu({ at: null, closing: false });
+        }}
+      >
+        <div className={`contenedor ${styles.mobileInner}`}>
           <SearchForm className={styles.searchMobile} id="buscar-movil" />
-          <nav aria-label="Menú móvil">
-            {NAV_LINKS.flatMap((l) => l.children || [l]).map((l) => (
-              <Link key={l.href} href={l.href} className={isActive(pathname, l.href) ? styles.activo : undefined}>
-                {l.label}
-                <Icon name="arrow" size={18} />
-              </Link>
-            ))}
+          <nav aria-label="Menú móvil" className={styles.mobileNav}>
+            {NAV_LINKS.map((l) =>
+              l.children ? (
+                <div key={l.href} className={styles.mobileGrupo}>
+                  <p className={styles.mobileGrupoTitulo}>{l.label}</p>
+                  {l.children.map((c) => (
+                    <Link key={c.href} href={c.href} className={pathname === c.href ? styles.activo : undefined}>
+                      <span>
+                        {c.label}
+                        {c.text && <small>{c.text}</small>}
+                      </span>
+                      <Icon name="arrow" size={20} />
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <Link key={l.href} href={l.href} className={isActive(pathname, l.href) ? styles.activo : undefined}>
+                  {l.label}
+                  <Icon name="arrow" size={20} />
+                </Link>
+              )
+            )}
           </nav>
+          <p className={styles.mobileAya}>
+            <span className="arabe" lang="ar">
+              وَقُل رَّبِّ زِدْنِي عِلْمًا
+            </span>
+            <small>«¡Señor mío, acrecienta mi conocimiento!» · Corán 20:114</small>
+          </p>
         </div>
       </div>
     </header>
