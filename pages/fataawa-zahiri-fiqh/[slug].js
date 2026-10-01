@@ -244,6 +244,7 @@ export default function FatwaPage({ fatwa, related }) {
             url={`${SITE_URL}${FATAAWA_PATH}/${fatwa.slug}`}
             titulo={`Fatwa n.º ${fatwa.number}: ${fatwa.title}`}
             que="esta fatwa"
+            imagen={ogImagen(fatwa, topic, sub)}
           />
 
           {related.length > 0 && (

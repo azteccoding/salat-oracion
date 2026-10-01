@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "@/styles/site/Noticias.module.css";
 
 // Botones para compartir una noticia o una fatwa en Facebook, X (antes Twitter), WhatsApp e Instagram.
-// Instagram no permite compartir enlaces desde una página web: en el celular se abre
-// el menú de compartir del teléfono (donde aparece Instagram); en la computadora se
-// copia el enlace para pegarlo en una historia o en la biografía.
+//
+// Facebook: en el celular, su app ignora el enlace sharer.php (solo abre el inicio), así que ahí
+// se usa el menú de compartir del teléfono: al elegir Facebook se abre una publicación nueva con
+// el enlace. En la computadora sí se usa sharer.php.
+// Instagram: no acepta enlaces desde una página web. En el celular se le manda la IMAGEN
+// (la foto de la noticia o la tarjeta de la fatwa) y se copia el enlace, para pegarlo en el
+// texto o en una etiqueta de enlace de la historia. En la computadora solo se copia el enlace.
 
 const LOGOS = {
   facebook: (
@@ -29,30 +33,85 @@ const Logo = ({ nombre }) => (
   </svg>
 );
 
+const esCelular = () =>
+  typeof navigator !== "undefined" &&
+  (navigator.userAgentData?.mobile || /Android|iPhone|iPad|iPod/i.test(navigator.userAgent));
+
 // `que` cambia el texto: «esta noticia» (por defecto) o «esta fatwa».
-const CompartirNoticia = ({ url, titulo, que = "esta noticia" }) => {
+// `imagen`: dirección de la imagen que se manda a Instagram (opcional).
+const CompartirNoticia = ({ url, titulo, que = "esta noticia", imagen }) => {
   const [aviso, setAviso] = useState("");
+  const [archivo, setArchivo] = useState(null);
   const texto = `${titulo} — ${url}`;
 
-  const instagram = async () => {
-    // Celular: menú de compartir del teléfono (incluye Instagram si está instalado)
-    if (typeof navigator !== "undefined" && navigator.share) {
-      try {
-        await navigator.share({ title: titulo, url });
-        return;
-      } catch {
-        // la persona cerró el menú: no hacemos nada
-        return;
-      }
+  // La imagen se descarga antes del clic: el teléfono solo abre su menú de compartir
+  // si se llama justo al tocar el botón, sin esperas.
+  useEffect(() => {
+    if (!imagen || !esCelular() || !navigator.canShare) return undefined;
+    let vivo = true;
+    fetch(imagen)
+      .then((r) => (r.ok ? r.blob() : null))
+      .then((blob) => {
+        if (!vivo || !blob) return;
+        const ext = blob.type.includes("png") ? "png" : "jpg";
+        const f = new File([blob], `compartir.${ext}`, { type: blob.type || "image/jpeg" });
+        if (navigator.canShare({ files: [f] })) setArchivo(f);
+      })
+      .catch(() => {});
+    return () => {
+      vivo = false;
+    };
+  }, [imagen]);
+
+  const avisar = (msg) => {
+    setAviso(msg);
+    setTimeout(() => setAviso(""), 6000);
+  };
+
+  // Copia el enlace. Si el navegador no tiene el portapapeles moderno (por ejemplo,
+  // en http sin candado), usa el método antiguo, que funciona en todos lados.
+  const copiar = () => {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(url).catch(() => {});
+      return true;
     }
-    // Computadora: copiar el enlace
     try {
-      await navigator.clipboard.writeText(url);
-      setAviso("Enlace copiado: pégalo en tu historia o biografía de Instagram.");
+      const t = document.createElement("textarea");
+      t.value = url;
+      t.setAttribute("readonly", "");
+      t.style.position = "fixed";
+      t.style.opacity = "0";
+      document.body.appendChild(t);
+      t.select();
+      const ok = document.execCommand("copy");
+      document.body.removeChild(t);
+      return ok;
     } catch {
-      setAviso(url);
+      return false;
     }
-    setTimeout(() => setAviso(""), 5000);
+  };
+
+  const facebook = (e) => {
+    if (!esCelular() || !navigator.share) return; // computadora: sigue el enlace sharer.php
+    e.preventDefault();
+    navigator.share({ title: titulo, url }).catch(() => {});
+  };
+
+  const instagram = () => {
+    const copiado = copiar();
+    if (!esCelular()) {
+      avisar(copiado ? "Enlace copiado: pégalo en tu historia o publicación de Instagram." : "Abre Instagram en tu celular para compartir.");
+      return;
+    }
+    // 1) Lo mejor: mandar la imagen con el menú del teléfono → elegir «Historias»
+    if (archivo) {
+      navigator.share({ files: [archivo] }).catch(() => {});
+      avisar("Elige Instagram → Historias. El enlace ya está copiado: pégalo con la etiqueta «Enlace».");
+      return;
+    }
+    // 2) Si el teléfono no lo permite: abrir directo la cámara de historias de Instagram
+    avisar("El enlace ya está copiado: pégalo en tu historia con la etiqueta «Enlace».");
+    window.location.href = "instagram://story-camera";
   };
 
   return (
@@ -64,6 +123,7 @@ const CompartirNoticia = ({ url, titulo, que = "esta noticia" }) => {
           href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={facebook}
         >
           <Logo nombre="facebook" /> Facebook
         </a>

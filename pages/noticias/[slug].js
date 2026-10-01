@@ -152,7 +152,11 @@ export default function Noticia({ noticia, relacionadas }) {
             ))}
           </div>
 
-          <CompartirNoticia url={`${SITE_URL}${NOTICIAS_PATH}/${noticia.slug}`} titulo={noticia.title} />
+          <CompartirNoticia
+            url={`${SITE_URL}${NOTICIAS_PATH}/${noticia.slug}`}
+            titulo={noticia.title}
+            imagen={noticia.imagen?.src}
+          />
 
           {noticia.fuentes.length > 0 && (
             <section className={styles.fuentes}>
