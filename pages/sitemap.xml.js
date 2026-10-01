@@ -1,11 +1,11 @@
 import { FATAAWA_PATH } from "@/constants/fataawa";
 import { SITE_URL } from "@/constants/site";
 import { descargas } from "@/data/descargas";
-import { fataawaPublicables } from "@/data/fataawa";
+import { fataawaParaSitemap } from "@/lib/fataawa-db";
 import { gusl } from "@/data/gusl";
 import { obrasIbnHazm } from "@/data/ibn-hazm-obras";
 import { wudu } from "@/data/wudu";
-import { noticiasEnListas } from "@/data/noticias";
+import { noticiasParaSitemap } from "@/lib/noticias-db";
 import { tienePendientes } from "@/lib/seo";
 import { PENDIENTE as ESCUELA_PENDIENTE } from "./imam-ibn-hazm/escuela-zahiri";
 import { PENDIENTE as IBN_HAZM_PENDIENTE } from "./imam-ibn-hazm/index";
@@ -15,7 +15,7 @@ import { PENDIENTE as IBN_HAZM_PENDIENTE } from "./imam-ibn-hazm/index";
 
 const hoy = () => new Date().toISOString().slice(0, 10);
 
-const paginas = () => {
+const paginas = ({ fataawa = [], noticias = [] }) => {
   const lista = [
     { ruta: "/", prioridad: "1.0", frecuencia: "weekly" },
     { ruta: FATAAWA_PATH, prioridad: "0.9", frecuencia: "weekly" },
@@ -36,13 +36,13 @@ const paginas = () => {
       oculta: tienePendientes(o),
     })),
     { ruta: "/noticias", prioridad: "0.8", frecuencia: "daily" },
-    ...noticiasEnListas()
-      .filter((n) => !n.borrador && n.indexar && !tienePendientes(n))
+    ...noticias
+      .filter((n) => !tienePendientes(n))
       .map((n) => ({ ruta: `/noticias/${n.slug}`, prioridad: "0.6", frecuencia: "yearly", fecha: n.date })),
     { ruta: "/descargas", prioridad: "0.6", frecuencia: "monthly" },
     ...descargas.map((d) => ({ ruta: `/descargas/${d.slug}`, prioridad: "0.5", frecuencia: "yearly" })),
-    ...fataawaPublicables()
-      .filter((f) => !f.borrador && !tienePendientes(f))
+    ...fataawa
+      .filter((f) => !tienePendientes(f))
       .map((f) => ({
         ruta: `${FATAAWA_PATH}/${f.slug}`,
         prioridad: "0.8",
@@ -57,9 +57,16 @@ const escapar = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>
 
 export async function getServerSideProps({ res }) {
   const fecha = hoy();
+  let fataawa = [];
+  let noticias = [];
+  try {
+    [fataawa, noticias] = await Promise.all([fataawaParaSitemap(), noticiasParaSitemap()]);
+  } catch (error) {
+    console.error("[sitemap] No se pudo leer MongoDB:", error.message);
+  }
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${paginas()
+${paginas({ fataawa, noticias })
   .map(
     (p) => `  <url>
     <loc>${escapar(`${SITE_URL}${p.ruta === "/" ? "/" : p.ruta}`)}</loc>

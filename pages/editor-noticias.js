@@ -9,7 +9,8 @@ import ui from "@/styles/site/ui.module.css";
 // =====================================================================
 //  EDITOR DE NOTICIAS  (/editor-noticias)
 //  Página de trabajo: no aparece en el menú ni en Google. Arma una noticia
-//  con formularios y entrega el archivo .js listo para data/noticias-escritas/.
+//  con formularios y entrega el JSON listo para pegar en MongoDB
+//  (base islamic_website, colección "noticias").
 // =====================================================================
 
 const hoy = () => new Date().toLocaleDateString("en-CA"); // AAAA-MM-DD en la hora local
@@ -221,8 +222,6 @@ export default function EditorNoticias() {
   }, [d]);
 
   const archivo = d.archivo || aArchivo(d.title);
-  const codigo = `// Noticia creada con el editor (/editor-noticias) el ${hoy()}\nconst noticia = ${JSON.stringify(noticia, null, 2)};\n\nexport default noticia;\n`;
-  const lineas = `import ${archivo} from "./${archivo}";\n\n// …y dentro de la lista noticiasEscritas:\n  ${archivo},`;
 
   const faltan = [
     !noticia.title && "el titular",
@@ -269,7 +268,7 @@ export default function EditorNoticias() {
 
       <PageHero title="Editor de noticias" eyebrow="Herramienta interna" crumbs={[{ label: "Editor de noticias" }]}>
         <p>
-          Llena los campos, activa lo que necesites en el menú y descarga el archivo. Tu trabajo se guarda solo en este
+          Llena los campos, activa lo que necesites en el menú y copia el JSON para pegarlo en MongoDB. Tu trabajo se guarda solo en este
           navegador mientras escribes.
         </p>
       </PageHero>
@@ -551,40 +550,44 @@ export default function EditorNoticias() {
                 type="button"
                 className={`${ui.btn} ${ui.btnPrimary}`}
                 disabled={faltan.length > 0}
-                onClick={() => descargar(codigo, `${archivo}.js`, "text/javascript")}
+                onClick={() => copiar(JSON.stringify(noticia, null, 2), "JSON")}
               >
-                Descargar archivo .js
-              </button>
-              <button type="button" className={`${ui.btn} ${ui.btnGhost}`} onClick={() => copiar(JSON.stringify(noticia, null, 2), "JSON")}>
                 Copiar JSON
               </button>
-              <button type="button" className={`${ui.btn} ${ui.btnGhost}`} onClick={() => descargar(JSON.stringify(noticia, null, 2), `${archivo}.json`, "application/json")}>
+              <button
+                type="button"
+                className={`${ui.btn} ${ui.btnGhost}`}
+                disabled={faltan.length > 0}
+                onClick={() => descargar(JSON.stringify(noticia, null, 2), `${archivo}.json`, "application/json")}
+              >
                 Descargar JSON
               </button>
             </div>
             <ol className={styles.pasos}>
+              <li>Pulsa <strong>Copiar JSON</strong>.</li>
               <li>
-                Guarda <code>{archivo}.js</code> en <code>data/noticias-escritas/</code>.
+                En MongoDB (Atlas → <em>Browse Collections</em>, o Compass) abre la base <code>islamic_website</code>, colección 
+                <code>noticias</code>.
               </li>
-              {noticia.imagen && (
+              <li>
+                <strong>Insert Document</strong> → borra lo que trae el cuadro → pega → <strong>Insert</strong>.
+              </li>
+              {nombresImagen.length > 0 && (
                 <li>
-                  Copia la foto a <code>public{noticia.imagen.src}</code>.
+                  Copia las fotos a la carpeta del proyecto: {nombresImagen.map((src) => (
+                    <code key={src}>public{src} </code>
+                  ))}
+                  (las fotos no van en MongoDB).
                 </li>
               )}
-              <li>
-                En <code>data/noticias-escritas/noticiasEscritasArray.js</code> agrega:
-                <pre className={styles.codigo}>{lineas}</pre>
-                <button type="button" className={styles.mas} onClick={() => copiar(lineas, "Líneas")}>
-                  Copiar estas líneas
-                </button>
-              </li>
+              <li>En menos de un minuto aparece en el sitio, sin volver a construirlo.</li>
             </ol>
             <p className={styles.aviso} role="status">
               {aviso}
             </p>
             <details>
-              <summary>Ver el archivo completo</summary>
-              <pre className={styles.codigo}>{codigo}</pre>
+              <summary>Ver el JSON</summary>
+              <pre className={styles.codigo}>{JSON.stringify(noticia, null, 2)}</pre>
             </details>
             <button type="button" className={styles.reiniciar} onClick={empezarDeNuevo}>
               Empezar una noticia nueva

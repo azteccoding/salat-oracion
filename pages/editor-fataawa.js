@@ -4,14 +4,15 @@ import Seo from "@/components/Seo";
 import CampoTexto from "@/components/editor/CampoTexto";
 import TextoRico from "@/components/noticias/TextoRico";
 import { topicOfCode } from "@/constants/fataawa";
-import { fataawa } from "@/data/fataawa";
+import { codigosYTitulos } from "@/lib/fataawa-db";
 import styles from "@/styles/site/Editor.module.css";
 import ui from "@/styles/site/ui.module.css";
 
 // =====================================================================
 //  EDITOR DE FATĀWÁ  (/editor-fataawa)
 //  Página de trabajo: no aparece en el menú ni en Google. Arma una fatwa
-//  con formularios y entrega el archivo .js listo para data/fataawa-escritas/.
+//  con formularios y entrega el JSON listo para pegar en MongoDB
+//  (base islamic_website, colección "fataawa").
 // =====================================================================
 
 const hoy = () => new Date().toLocaleDateString("en-CA"); // AAAA-MM-DD
@@ -151,8 +152,6 @@ export default function EditorFataawa({ existentes }) {
   }, [d, codigo]);
 
   const archivo = `${(fatwa.slug || "fatwa").replace(/-/g, "_")}_${codigo || "0000"}`.replace(/^(\d)/, "f_$1");
-  const codigoJs = `// FATWA ${codigo} — ${fatwa.title}\nconst fatwa = ${JSON.stringify(fatwa, null, 2)};\n\nexport default fatwa;\n`;
-  const lineas = `import ${archivo} from "./${archivo}";\n\n// …y dentro de la lista fatawaEscritas:\n  ${archivo},`;
 
   const faltan = [
     !CODIGO_VALIDO.test(codigo) && "un código válido (4 cifras, o ac00 / an00)",
@@ -197,7 +196,7 @@ export default function EditorFataawa({ existentes }) {
 
       <PageHero title="Editor de fatāwá" eyebrow="Herramienta interna" crumbs={[{ label: "Editor de fatāwá" }]}>
         <p>
-          Llena los campos, activa lo que necesites y copia o descarga el archivo. Tu trabajo se guarda solo en este
+          Llena los campos, activa lo que necesites y copia el JSON para pegarlo en MongoDB. Tu trabajo se guarda solo en este
           navegador mientras escribes.
         </p>
       </PageHero>
@@ -461,34 +460,40 @@ export default function EditorFataawa({ existentes }) {
             <h2>Resultado</h2>
             {faltan.length > 0 ? <p className={styles.falta}>Falta: {faltan.join("; ")}.</p> : <p className={styles.listo}>✓ Lista para guardar.</p>}
             <div className={styles.acciones}>
-              <button type="button" className={`${ui.btn} ${ui.btnPrimary}`} disabled={faltan.length > 0} onClick={() => copiar(codigoJs, "Archivo")}>
-                Copiar archivo .js
-              </button>
-              <button type="button" className={`${ui.btn} ${ui.btnGhost}`} disabled={faltan.length > 0} onClick={() => descargar(codigoJs, `${archivo}.js`, "text/javascript")}>
-                Descargar .js
-              </button>
-              <button type="button" className={`${ui.btn} ${ui.btnGhost}`} onClick={() => copiar(JSON.stringify(fatwa, null, 2), "JSON")}>
+              <button
+                type="button"
+                className={`${ui.btn} ${ui.btnPrimary}`}
+                disabled={faltan.length > 0}
+                onClick={() => copiar(JSON.stringify(fatwa, null, 2), "JSON")}
+              >
                 Copiar JSON
+              </button>
+              <button
+                type="button"
+                className={`${ui.btn} ${ui.btnGhost}`}
+                disabled={faltan.length > 0}
+                onClick={() => descargar(JSON.stringify(fatwa, null, 2), `${archivo}.json`, "application/json")}
+              >
+                Descargar JSON
               </button>
             </div>
             <ol className={styles.pasos}>
+              <li>Pulsa <strong>Copiar JSON</strong>.</li>
               <li>
-                Crea <code>data/fataawa-escritas/{archivo}.js</code> y pega el archivo (o guarda el que descargaste ahí).
+                En MongoDB (Atlas → <em>Browse Collections</em>, o Compass) abre la base <code>islamic_website</code>, colección 
+                <code>fataawa</code>.
               </li>
               <li>
-                En <code>data/fataawa-escritas/fataawaEscritasArray.js</code> agrega:
-                <pre className={styles.codigo}>{lineas}</pre>
-                <button type="button" className={styles.mas} onClick={() => copiar(lineas, "Líneas")}>
-                  Copiar estas líneas
-                </button>
+                <strong>Insert Document</strong> → borra lo que trae el cuadro → pega → <strong>Insert</strong>.
               </li>
+              <li>En menos de un minuto aparece en el sitio, sin volver a construirlo.</li>
             </ol>
             <p className={styles.aviso} role="status">
               {aviso}
             </p>
             <details>
-              <summary>Ver el archivo completo</summary>
-              <pre className={styles.codigo}>{codigoJs}</pre>
+              <summary>Ver el JSON</summary>
+              <pre className={styles.codigo}>{JSON.stringify(fatwa, null, 2)}</pre>
             </details>
             <button type="button" className={styles.reiniciar} onClick={empezarDeNuevo}>
               Empezar una fatwa nueva
@@ -500,11 +505,14 @@ export default function EditorFataawa({ existentes }) {
   );
 }
 
-// Solo códigos y títulos de las fatāwá que ya existen (para avisar códigos repetidos y elegir relacionadas)
+// Solo códigos y títulos de las fatāwá que ya existen en MongoDB
+// (para avisar códigos repetidos y elegir relacionadas). Se renueva cada 30 s.
 export async function getStaticProps() {
-  return {
-    props: {
-      existentes: fataawa.map((f) => ({ codigo: f.codigo, title: f.title })).sort((a, b) => a.codigo.localeCompare(b.codigo)),
-    },
-  };
+  let existentes = [];
+  try {
+    existentes = await codigosYTitulos();
+  } catch (error) {
+    console.error("[editor-fataawa] No se pudo leer MongoDB:", error.message);
+  }
+  return { props: { existentes }, revalidate: 30 };
 }

@@ -12,10 +12,10 @@ import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/constants/site";
 import { conContexto, organizacion } from "@/lib/seo";
 import { corridos } from "@/data/corridos";
 import { descargas } from "@/data/descargas";
-import { latestFataawa } from "@/data/fataawa";
+import { ultimasFataawa } from "@/lib/fataawa-db";
 import NoticiaPreview from "@/components/noticias/NoticiaPreview";
 import { NOTICIAS_PATH } from "@/constants/noticias";
-import { ultimaNoticia } from "@/data/noticias";
+import { ultimaNoticia } from "@/lib/noticias-db";
 import styles from "@/styles/site/Home.module.css";
 import fx from "@/styles/site/Fataawa.module.css";
 import ui from "@/styles/site/ui.module.css";
@@ -331,18 +331,15 @@ export default function Home({ latest, noticia }) {
   );
 }
 
-// Las últimas 3 fatāwá publicadas (cambia el 3 para mostrar más o menos)
+// Las últimas 3 fatāwá publicadas y la noticia más reciente, desde MongoDB.
+// Se renuevan cada 60 s (cambia el 3 para mostrar más o menos fatāwá).
 export async function getStaticProps() {
-  const latest = latestFataawa(3).map(({ slug, number, title, topic, subtopic, date, summary, borrador }) => ({
-    slug,
-    number,
-    title,
-    topic,
-    subtopic,
-    date: date || null,
-    summary: summary || null,
-    borrador,
-  }));
-  // La noticia más reciente: solo su ficha (titular, resumen, foto), nunca el texto completo
-  return { props: { latest, noticia: ultimaNoticia() } };
+  let latest = [];
+  let noticia = null;
+  try {
+    [latest, noticia] = await Promise.all([ultimasFataawa(3), ultimaNoticia()]);
+  } catch (error) {
+    console.error("[inicio] No se pudo leer MongoDB:", error.message);
+  }
+  return { props: { latest, noticia }, revalidate: 60 };
 }

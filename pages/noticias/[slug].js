@@ -9,7 +9,7 @@ import NoticiaCard from "@/components/noticias/NoticiaCard";
 import TextoRico from "@/components/noticias/TextoRico";
 import { NOTICIAS_PATH, getNoticiaTema } from "@/constants/noticias";
 import { SITE_URL } from "@/constants/site";
-import { fichaNoticia, getNoticia, noticiasEnListas, noticiasPublicables } from "@/data/noticias";
+import { noticiaPorSlug, relacionadasDe } from "@/lib/noticias-db";
 import { textoPlano } from "@/data/noticias-texto";
 import { conContexto, organizacion, tienePendientes } from "@/lib/seo";
 import fx from "@/styles/site/Fataawa.module.css";
@@ -194,16 +194,15 @@ export default function Noticia({ noticia, relacionadas }) {
   );
 }
 
+// Las páginas se crean al primer visitante y se renuevan cada 60 s: una noticia nueva
+// en MongoDB aparece sola, sin volver a construir el sitio.
 export async function getStaticPaths() {
-  return { paths: noticiasPublicables().map((n) => ({ params: { slug: n.slug } })), fallback: false };
+  return { paths: [], fallback: "blocking" };
 }
 
 export async function getStaticProps({ params }) {
-  const noticia = getNoticia(params.slug);
-  if (!noticia) return { notFound: true };
-  const relacionadas = noticiasEnListas()
-    .filter((n) => n.slug !== noticia.slug && n.tema === noticia.tema)
-    .slice(0, 3)
-    .map(fichaNoticia);
-  return { props: { noticia: JSON.parse(JSON.stringify(noticia)), relacionadas } };
+  const noticia = await noticiaPorSlug(params.slug);
+  if (!noticia) return { notFound: true, revalidate: 60 };
+  const relacionadas = noticia.indexar ? await relacionadasDe(noticia, 3) : [];
+  return { props: { noticia: JSON.parse(JSON.stringify(noticia)), relacionadas }, revalidate: 60 };
 }

@@ -8,10 +8,10 @@ import FatwaCard from "@/components/fataawa/FatwaCard";
 import TextoRico from "@/components/noticias/TextoRico";
 import { formatDate } from "@/components/fataawa/format";
 import { FATAAWA_PATH, getTopic } from "@/constants/fataawa";
-import { fataawa, fataawaPublicables, fatwaUrl, getFatwa, getFatwaByCode } from "@/data/fataawa";
+import { fataawaPorCodigos, fatwaPorSlug, fatwaUrl, listarFataawa } from "@/lib/fataawa-db";
 import { conContexto, organizacion, tienePendientes } from "@/lib/seo";
 import { SITE_URL } from "@/constants/site";
-// Nota: data/fataawa solo se usa en getStaticPaths/getStaticProps (al construir el sitio),
+// Nota: lib/fataawa-db (MongoDB) solo se usa en getStaticPaths/getStaticProps (servidor),
 // así que no llega al navegador del visitante.
 import styles from "@/styles/site/Fataawa.module.css";
 import ui from "@/styles/site/ui.module.css";
@@ -265,24 +265,32 @@ export default function FatwaPage({ fatwa, related }) {
   );
 }
 
+// Las páginas se crean al primer visitante y se renuevan cada 60 s: una fatwa nueva
+// en MongoDB aparece sola, sin volver a construir el sitio.
 export async function getStaticPaths() {
-  return {
-    // Los borradores no tienen página en el sitio publicado (solo en `npm run dev`)
-    paths: fataawaPublicables().map((f) => ({ params: { slug: f.slug } })),
-    fallback: false,
-  };
+  return { paths: [], fallback: "blocking" };
 }
 
 export async function getStaticProps({ params }) {
-  const fatwa = getFatwa(params.slug);
-  if (!fatwa) return { notFound: true };
+  let fatwa;
+  try {
+    fatwa = await fatwaPorSlug(params.slug);
+  } catch (error) {
+    console.error("[fatwa] No se pudo leer MongoDB:", error.message);
+    throw error; // Next conserva la versión anterior de la página si ya existía
+  }
+  if (!fatwa) return { notFound: true, revalidate: 60 };
 
-  const publicables = fataawaPublicables();
-  const explicit = (fatwa.related || []).map(getFatwaByCode).filter((f) => f && publicables.includes(f));
-  const sameTopic = fataawa.filter(
-    (f) => f.slug !== fatwa.slug && f.topic === fatwa.topic && !f.borrador && !explicit.includes(f)
-  );
-  const related = [...explicit, ...sameTopic].slice(0, 4).map(({ slug, number, title, topic, subtopic, date, summary, borrador }) => ({
+  // Relacionadas: primero las elegidas; luego otras del mismo tema
+  const codigosLink = (fatwa.answer || []).filter((b) => b.type === "link" && b.codigo).map((b) => String(b.codigo));
+  const [explicitas, todas, destinos] = await Promise.all([
+    fataawaPorCodigos(fatwa.related || []),
+    listarFataawa(),
+    fataawaPorCodigos(codigosLink),
+  ]);
+  const yaEstan = new Set([fatwa.slug, ...explicitas.map((f) => f.slug)]);
+  const mismoTema = todas.filter((f) => !yaEstan.has(f.slug) && f.topic === fatwa.topic && !f.borrador);
+  const related = [...explicitas, ...mismoTema].slice(0, 4).map(({ slug, number, title, topic, subtopic, date, summary, borrador }) => ({
     slug,
     number,
     title,
@@ -290,15 +298,16 @@ export async function getStaticProps({ params }) {
     subtopic,
     date: date || null,
     summary: summary || null,
-    borrador,
+    borrador: Boolean(borrador),
   }));
 
   // Los enlaces por código se convierten aquí en direcciones, en el servidor
+  const porCodigo = Object.fromEntries(destinos.map((d) => [d.codigo, d]));
   const answer = (fatwa.answer || []).map((b) => {
     if (b.type !== "link" || !b.codigo) return b;
-    const destino = getFatwaByCode(b.codigo);
+    const destino = porCodigo[String(b.codigo)];
     return { ...b, href: destino ? fatwaUrl(destino) : FATAAWA_PATH };
   });
 
-  return { props: { fatwa: JSON.parse(JSON.stringify({ ...fatwa, answer })), related } };
+  return { props: { fatwa: JSON.parse(JSON.stringify({ ...fatwa, answer })), related }, revalidate: 60 };
 }

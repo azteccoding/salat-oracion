@@ -5,12 +5,13 @@ import Icon from "@/components/Icon";
 import PageHero from "@/components/PageHero";
 import Seo from "@/components/Seo";
 import EmptyFataawa from "@/components/fataawa/EmptyFataawa";
+import BusquedaEnRespuestas from "@/components/fataawa/BusquedaEnRespuestas";
 import FataawaAside from "@/components/fataawa/FataawaAside";
 import FatwaCard from "@/components/fataawa/FatwaCard";
 import SugerenciaModal from "@/components/fataawa/SugerenciaModal";
 import { normalize } from "@/components/fataawa/format";
 import { FATAAWA_PATH, INDEXED_TOPICS, getTopic } from "@/constants/fataawa";
-import { sortedFataawa } from "@/data/fataawa";
+import { listarFataawa } from "@/lib/fataawa-db";
 import styles from "@/styles/site/Fataawa.module.css";
 import ui from "@/styles/site/ui.module.css";
 
@@ -153,10 +154,13 @@ export default function FataawaIndex({ all }) {
           {all.length === 0 ? (
             <EmptyFataawa />
           ) : results.length === 0 ? (
+            <>
             <EmptyFataawa title="Sin resultados">
               No encontramos fatāwá {activeTopic ? `en «${activeTopic.label}» ` : ""}
               {q ? `que coincidan con «${q}»` : "todavía"}. Prueba con otras palabras o revisa todos los temas.
             </EmptyFataawa>
+            <BusquedaEnRespuestas q={q} tema={activeTopic?.slug || ""} />
+            </>
           ) : (
             <>
               <p className={styles.count}>
@@ -188,21 +192,14 @@ export default function FataawaIndex({ all }) {
   );
 }
 
-// Se ejecuta al construir el sitio, no en el navegador: al visitante solo le llega
+// Se ejecuta en el servidor (al construir y luego cada 60 s): al visitante solo le llega
 // la ficha de cada fatwa (título, resumen, código…), nunca las respuestas completas.
 export async function getStaticProps() {
-  const all = sortedFataawa().map((f) => ({
-    slug: f.slug,
-    codigo: f.codigo,
-    number: f.number,
-    title: f.title,
-    summary: f.summary || null,
-    // Primeras palabras de la pregunta, para que el buscador también la encuentre
-    extracto: (f.question || "").slice(0, 240),
-    topic: f.topic,
-    subtopic: f.subtopic,
-    date: f.date || null,
-    borrador: f.borrador,
-  }));
-  return { props: { all } };
+  let all = [];
+  try {
+    all = await listarFataawa();
+  } catch (error) {
+    console.error("[fataawa] No se pudo leer MongoDB:", error.message);
+  }
+  return { props: { all }, revalidate: 60 };
 }
