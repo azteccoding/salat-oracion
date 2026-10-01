@@ -31,4 +31,15 @@ export const descargas = [
     format: "PDF",
     size: "480 KB",
   },
+  {
+    slug: "El_witr_segun_Ibn_Hazm",
+    title: "El witr según Ibn Hazm",
+    teaser:
+      "El Ṭarawīḥ con pruebas. Una guía definitiva de cuántas raka'at se deben rezar en Ramadán",
+    description:
+      "Hadices que son pruebas irrefutables, traducciones nunca antes hechas al español de la Muḥallá de Ibn Hazm y muchas cosas más hacen a este texto la guía definitiva de la Ṭarawīḥ de Ramadán.",
+    file: "/pdf/El_witr_segun_Ibn_Hazm.pdf",
+    format: "PDF",
+    size: "281 KB",
+  },
 ];
