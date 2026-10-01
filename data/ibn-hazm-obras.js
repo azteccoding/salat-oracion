@@ -5,7 +5,7 @@
 export const obrasIbnHazm = [
   {
     slug: "al-muhalla",
-    titulo: "Al-Muḥallā bi-l-āṯār",
+    titulo: "Al-Muḥallá bi-l-āṯār",
     arabe: "المحلى بالآثار",
     tema: "Fiqh",
     resumen: "Su gran enciclopedia de fiqh, cuestión por cuestión y con sus pruebas.",

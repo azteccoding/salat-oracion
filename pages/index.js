@@ -13,6 +13,7 @@ import { conContexto, organizacion } from "@/lib/seo";
 import { corridos } from "@/data/corridos";
 import { descargas } from "@/data/descargas";
 import { ultimasFataawa } from "@/lib/fataawa-db";
+import BotonJutba from "@/components/BotonJutba";
 import NoticiaPreview from "@/components/noticias/NoticiaPreview";
 import { NOTICIAS_PATH } from "@/constants/noticias";
 import { ultimaNoticia } from "@/lib/noticias-db";
@@ -199,7 +200,7 @@ export default function Home({ latest, noticia }) {
             <h2>En el fiqh ẓāhirī se puede escuchar música</h2>
             <p>
               El Imam Ibn Ḥazm revisó uno por uno los ḥadīṯ que se citan para prohibir la música y concluyó que ninguno
-              es auténtico. En <em>al-Muḥallā</em> la declara permitida y enseña que su valor depende de la intención:
+              es auténtico. En <em>al-Muḥallá</em> la declara permitida y enseña que su valor depende de la intención:
               «las acciones valen según las intenciones». Quien escucha para descansar el alma y fortalecerse en la
               obediencia a Allah, obra bien. Es una postura minoritaria frente a las demás escuelas, pero firme en sus
               pruebas.
@@ -319,7 +320,7 @@ export default function Home({ latest, noticia }) {
           <h2>Imam Ibn Hazm de Córdoba</h2>
           <p>
             Poeta, visir, jurista y teólogo de al-Andalus. Escribió sobre el amor en <em>El Collar de la Paloma</em> y
-            sobre la ley en <em>al-Muḥallā</em>, y enseñó a volver siempre al texto revelado. Te invitamos a conocer su
+            sobre la ley en <em>al-Muḥallá</em>, y enseñó a volver siempre al texto revelado. Te invitamos a conocer su
             vida, sus obras y su escuela.
           </p>
           <Link href="/imam-ibn-hazm" className={`${ui.btn} ${ui.btnGold}`}>
@@ -327,6 +328,9 @@ export default function Home({ latest, noticia }) {
           </Link>
         </div>
       </section>
+
+      {/* Botón flotante: solo aparece los viernes (hora de México) */}
+      <BotonJutba />
     </>
   );
 }

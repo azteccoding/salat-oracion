@@ -37,7 +37,7 @@ Estudiantes de Guanajuato y Aguascalientes reunidos para aprender y difundir el 
 | Ruta | Página | De dónde sale el contenido |
 |---|---|---|
 | `/` | Inicio: horarios de oración, fecha hiŷrī, últimas fatāwá, la noticia más reciente, descargas y corridos | `pages/index.js`, `data/corridos.js`, MongoDB |
-| `/salat` | Aprende a rezar el ṣalāt, paso a paso según el Muḥallā | `data/steps.js` |
+| `/salat` | Aprende a rezar el ṣalāt, paso a paso según el Muḥallá | `data/steps.js` |
 | `/wudu` | El wuḍūʾ (ablución menor) | `data/wudu.js` |
 | `/gusl` | El gusl (baño ritual) | `data/gusl.js` |
 | `/fataawa-zahiri-fiqh` | Buscador de fatāwá según el fiqh ẓāhirī | MongoDB, colección `fataawa` |
@@ -47,7 +47,8 @@ Estudiantes de Guanajuato y Aguascalientes reunidos para aprender y difundir el 
 | `/imam-ibn-hazm/obras/<slug>` | Obras de Ibn Ḥazm | `data/ibn-hazm-obras.js` |
 | `/nuestra-tariqa`, `/nuestro-maulana`, `/nuestro-sheij`, `/nuestra-recitacion` | La comunidad | las propias páginas |
 | `/descargas` y `/descargas/<slug>` | PDF para descargar | `data/descargas.js` + `public/pdf/` |
-| `/editor-fataawa`, `/editor-noticias` | Editores internos (no salen en el menú ni en Google) | — |
+| `/jutba` | La juṭba del viernes del Sheij Mudar (San Cristóbal de las Casas). No está en el menú: se llega por el botón de audífonos del inicio, que solo sale los viernes; otro día dice «Vuelve el viernes» | MongoDB, colección `podcasts_khutbah` + audios en Google Drive |
+| `/editor-fataawa`, `/editor-noticias`, `/editor-jutbas` | Editores internos (no salen en el menú ni en Google) | — |
 | `/sitemap.xml` | Mapa del sitio para Google, se genera solo | `pages/sitemap.xml.js` |
 
 ---
@@ -158,6 +159,8 @@ import { steps } from "@/data/steps";        // = ./data/steps
 | Cambiar un paso de wuḍūʾ o gusl, o una masʾala o nota | `data/wudu.js` / `data/gusl.js` |
 | Publicar una fatwa | `/editor-fataawa` → MongoDB ([ver receta](#3-publicar-una-fatwa)) |
 | Publicar una noticia | `/editor-noticias` → MongoDB ([ver receta](#4-publicar-una-noticia)) |
+| Publicar la juṭba del viernes | `/editor-jutbas` → MongoDB ([ver receta](#15-publicar-la-juṭba-del-viernes)) |
+| Cambiar el sheij de las juṭbas o su foto | `constants/jutbas.js` → `SHEIJ_JUTBA` · `public/img/jutba/` |
 | Agregar un tema de fatāwá | `constants/fataawa.js` |
 | Agregar un tema de noticias | `constants/noticias.js` |
 | Subir un PDF a Descargas | `public/pdf/` + `data/descargas.js` |
@@ -218,7 +221,7 @@ export const wudu = {
       tripleText: ["بِسْمِ اللَّهِ", "bi-smi llāhi", "En el nombre de Allah"] },
   ],
 
-  // Traducciones del Muḥallā (deja muhalla: [] para ocultar la sección)
+  // Traducciones del Muḥallá (deja muhalla: [] para ocultar la sección)
   muhalla: [
     { masala: "198", titulo: "Por qué el enjuague de la boca no es obligatorio",
       espanol: "En cuanto a lo que decimos del enjuague de la boca…" },
@@ -282,7 +285,7 @@ Así se ve el documento (lo genera el editor; este es solo de referencia):
     { "type": "nota", "title": "Recuadro", "text": "Aviso importante…" },
     { "type": "link", "codigo": "3500", "text": "Lo que anula el wuḍūʾ" }
   ],
-  "sources": ["Ibn Ḥazm, al-Muḥallā, masʾala 446"],
+  "sources": ["Ibn Ḥazm, al-Muḥallá, masʾala 446"],
   "related": ["4000"]
 }
 ```
@@ -294,9 +297,9 @@ Así se ve el documento (lo genera el editor; este es solo de referencia):
 ### 4. Publicar una noticia
 
 1. Abre **http://localhost:3000/editor-noticias**.
-2. Si lleva foto, guárdala primero en `public/img/noticias/` (por ejemplo `public/img/noticias/mi-foto.jpg`) y escribe en el editor la ruta `/img/noticias/mi-foto.jpg`.
+2. Si lleva foto, súbela con **Elegir foto…**: el editor la reduce y la mete dentro del JSON (base64). No se guarda nada en `public/`.
 3. **Copiar JSON** → MongoDB Atlas → colección `noticias` → **Insert Document**.
-4. Sube la foto con el resto del proyecto (git push): las fotos viven en el repo, no en MongoDB.
+4. No hace falta git push: la noticia y sus fotos viven en MongoDB.
 
 Marcas que entiende el texto de noticias y fatāwá:
 
@@ -498,6 +501,26 @@ import styles from "@/styles/site/Salat.module.css";
 <p className="arabe" lang="ar">الصلاة</p>
 ```
 
+### 15. Publicar la juṭba del viernes
+
+1. El sheij manda un link de Google Drive. Debe estar compartido como **«Cualquier persona con el enlace»**.
+2. Abre **http://localhost:3000/editor-jutbas**, pega el link, escribe el título y revisa la fecha (por defecto, el viernes que toca). En la vista previa ya se oye el audio.
+3. **Copiar JSON** → MongoDB Atlas → colección `podcasts_khutbah` → **Insert Document**.
+4. Aparece en `/jutba` en menos de un minuto. La más reciente va arriba con el reproductor abierto; las anteriores, abajo.
+
+```json
+{
+  "slug": "el-derecho-del-huerfano-2026-09-25",
+  "titulo": "El derecho del huérfano",
+  "fecha": "2026-09-25",
+  "driveId": "1z36ahFfyITfdQBRygQQWdb7flYv5gk6E",
+  "enlace": "https://drive.google.com/file/d/1z36ahFfyITfdQBRygQQWdb7flYv5gk6E/view?usp=drivesdk"
+}
+```
+
+- Si la da otro sheij, agrega `"sheij"` y `"lugar"`; si no, se muestra el Sheij Mudar.
+- El viernes se cuenta con la hora de México (`constants/jutbas.js`). Para probar otro día en tu computadora: `http://localhost:3000/?probar=1` (botón) y `http://localhost:3000/jutba?probar=1` (página).
+
 ---
 
 ## Fatāwá y noticias en MongoDB
@@ -505,9 +528,9 @@ import styles from "@/styles/site/Salat.module.css";
 | | |
 |---|---|
 | Base de datos | `islamic_website` |
-| Colecciones | `fataawa` (índice único en `codigo`) · `noticias` (índice único en `slug`) |
+| Colecciones | `fataawa` (índice único en `codigo`) · `noticias` (índice único en `slug`) · `podcasts_khutbah` (índice único en `driveId`) |
 | Conexión | `lib/mongodb.js` (lee `MONGODB_URI`) |
-| Consultas | `lib/fataawa-db.js` · `lib/noticias-db.js` |
+| Consultas | `lib/fataawa-db.js` · `lib/noticias-db.js` · `lib/jutbas-db.js` |
 | Respaldo | `data/semilla/fataawa/*.json` · `data/semilla/noticias/*.json` |
 
 Para restaurar el respaldo o llenar una base vacía:
@@ -573,8 +596,8 @@ if (!hasExternalError) console.log(data.data.resultados);
 ## Reglas de contenido
 
 - **Corán:** en árabe original, en la lectura de **Jalaf ʿan Ḥamza**.
-- **Hadices y Muḥallā:** en traducción al español.
-- **Fiqh:** según el método del Imam Ibn Ḥazm (al-Muḥallā). En las guías se distingue siempre lo **obligatorio** de lo **recomendado**.
+- **Hadices y Muḥallá:** en traducción al español.
+- **Fiqh:** según el método del Imam Ibn Ḥazm (al-Muḥallá). En las guías se distingue siempre lo **obligatorio** de lo **recomendado**.
 - **Transliteración:** sistema de la Casa de Velázquez (ṯ, ŷ, j, ḏ, š, ʿ, g, ʾ; ā, ī, ū; á para alif maqṣūra), en forma completa con desinencias: *Allāhu akbaru*, *Subḥāna rabbiya l-ʿaẓīmi*.
 
 ---

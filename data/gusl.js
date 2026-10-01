@@ -10,7 +10,7 @@ export const gusl = {
 
   // Texto bajo el título de la página (uno o dos renglones)
   intro:
-    "El gusl es el baño ritual que devuelve la pureza a quien está en estado de ŷanāba. Aquí lo aprendes paso a paso, tal como lo describe el Imam Ibn Ḥazm de Córdoba en el Muḥallā, distinguiendo lo obligatorio de lo recomendado.",
+    "El gusl es el baño ritual que devuelve la pureza a quien está en estado de ŷanāba. Aquí lo aprendes paso a paso, tal como lo describe el Imam Ibn Ḥazm de Córdoba en el Muḥallá, distinguiendo lo obligatorio de lo recomendado.",
 
   // ---------------------------------------------------------------
   //  PASOS — uno por objeto, en orden. El número se pone solo.
@@ -29,7 +29,7 @@ export const gusl = {
       title: "Lavar las manos",
       description: "Obligatorio si te levantas de dormir",
       instruction:
-        "Lava tus manos tres veces antes de meterlas en el recipiente del agua. Si acabas de levantarte de dormir, esto es obligatorio y no puede omitirse; si es que no lo has hecho aún.",
+        "Lava tus manos tres veces antes de meterlas en el recipiente del agua. Si acabas de levantarte de dormir, esto es obligatorio y no puede omitirse; si es que aún no lo has hecho.",
       tripleText: [],
     },
     {
@@ -91,7 +91,7 @@ export const gusl = {
   ],
 
   // ---------------------------------------------------------------
-  //  DEL MUḤALLĀ — las masāʾil que tradujiste, con el árabe original.
+  //  DEL MUḤALLÁ — las masāʾil que tradujiste, con el árabe original.
   //    masala:  número de la masʾala (o "" si no quieres mostrarlo)
   //    titulo:  de qué trata
   //    arabe:   texto de Ibn Ḥazm
@@ -118,9 +118,9 @@ export const gusl = {
       titulo: "Lo obligatorio y lo recomendado",
       puntos: [
         "Obligatorio: lavar las manos tres veces antes de meterlas en el agua, si te levantas de dormir.",
-        "Obligatorio: lavar las partes íntimas, si el gusl es por relación sexual.",
+        "Recomendado: lavar las partes íntimas, si el gusl es por relación sexual.",
         "Obligatorio: verter agua sobre la cabeza y después sobre todo el cuerpo, con la certeza de que llegó a la piel, a todo el cabello y a todo el cuerpo.",
-        "Recomendado: frotar la mano en el suelo, el wuḍūʾ previo, mojar la raíz del cabello, verter el agua tres veces sobre la cabeza y comenzar por el lado derecho.",
+        "Recomendado: frotar la mano en el suelo, el wuḍūʾ previo, verter el agua tres veces sobre la cabeza y comenzar por el lado derecho.",
       ],
       parrafos: [
         "Allah dice: «Y si están en estado de ŷanāba, purifíquense» (Corán 5:6). Por eso, como dice el Imam Ibn Ḥazm, de cualquier manera que se cumpla la purificación, se ha cumplido lo que Allah ordenó.",

@@ -14,13 +14,13 @@ export default function SalatPage() {
     <>
       <Seo
         title="Cómo rezar en el islam: el ṣalāt (salat) paso a paso"
-        description="Guía paso a paso para rezar el ṣalāt según el Muḥallā del Imam Ibn Ḥazm: lo obligatorio y lo recomendado, las recitaciones en árabe, su transliteración y su traducción al español."
+        description="Guía paso a paso para rezar el ṣalāt según el Muḥallá del Imam Ibn Ḥazm: lo obligatorio y lo recomendado, las recitaciones en árabe, su transliteración y su traducción al español."
       />
 
       <PageHero title="Aprende a rezar el ṣalāt" arabic="الصلاة" crumbs={[{ label: "Aprende a rezar" }]}>
         <p>
           La oración es el pilar del islam y el primer acto por el que seremos preguntados. Aquí la aprendes paso a
-          paso, tal como la describe el Imam Ibn Ḥazm de Córdoba en el Muḥallā, distinguiendo lo obligatorio de lo
+          paso, tal como la describe el Imam Ibn Ḥazm de Córdoba en el Muḥallá, distinguiendo lo obligatorio de lo
           recomendado, con cada recitación en árabe, su transliteración y su significado.
         </p>
       </PageHero>

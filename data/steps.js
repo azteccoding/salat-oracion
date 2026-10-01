@@ -1,6 +1,6 @@
 // =====================================================================
 //  Ṣalāt — PASOS DE LA PÁGINA /salat
-//  Según el Muḥallā del Imam Ibn Ḥazm. Solo edita aquí.
+//  Según el Muḥallá del Imam Ibn Ḥazm. Solo edita aquí.
 //
 //    name:        identificador único, sin espacios
 //    title:       título del paso

@@ -26,9 +26,9 @@ export const descargas = [
     title: "La oración según Ibn Hazm",
     teaser: "La oración con pruebas extensas. La guía para expertos",
     description:
-      "Hadices que son pruebas irrefutables, traducciones nunca antes hechas al español de la Muhallá de Ibn Hazm y muchas cosas más hacen a este texto la guía definitiva de la oración islámica.",
+      "Hadices que son pruebas irrefutables, traducciones nunca antes hechas al español de la Muḥallá de Ibn Hazm y muchas cosas más hacen a este texto la guía definitiva de la oración islámica.",
     file: "/pdf/La_oracion_segun_Ibn_Hazm.pdf",
     format: "PDF",
-    size: "500 KB",
+    size: "864 KB",
   },
 ];

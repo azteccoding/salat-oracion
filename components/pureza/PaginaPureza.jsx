@@ -63,7 +63,7 @@ const PaginaPureza = ({ clave, datos }) => {
           {datos.muhalla.length > 0 && (
             <section className={styles.muhalla}>
               <p className={styles.stepKicker}>Imam Ibn Ḥazm</p>
-              <h2>Del Muḥallā</h2>
+              <h2>Del Muḥallá</h2>
               {datos.muhalla.map((m, i) => (
                 <article key={i} className={styles.masala}>
                   <h3>

@@ -336,7 +336,7 @@ export default function EditorFataawa({ existentes }) {
                 {b.type === "quote" && (
                   <>
                     <CampoTexto value={b.text} onChange={(v) => cambiar(b.id, { text: v })} rows={3} placeholder="La cita en español" />
-                    <input value={b.source} onChange={(e) => cambiar(b.id, { source: e.target.value })} placeholder="Ibn Ḥazm, al-Muḥallā, masʾala 150" />
+                    <input value={b.source} onChange={(e) => cambiar(b.id, { source: e.target.value })} placeholder="Ibn Ḥazm, al-Muḥallá, masʾala 150" />
                   </>
                 )}
 
@@ -389,10 +389,10 @@ export default function EditorFataawa({ existentes }) {
           {d.opciones.fuentes && (
             <section className={styles.tarjeta}>
               <h2>4. Fuentes</h2>
-              <p className={styles.ayuda}>Una por renglón. Puedes usar enlaces: [Muḥallā](https://…).</p>
+              <p className={styles.ayuda}>Una por renglón. Puedes usar enlaces: [Muḥallá](https://…).</p>
               {d.sources.map((s, i) => (
                 <div key={i} className={styles.itemLista}>
-                  <input value={s} onChange={(e) => set("sources", d.sources.map((x, k) => (k === i ? e.target.value : x)))} placeholder="Ibn Ḥazm, al-Muḥallā, masʾala 170" />
+                  <input value={s} onChange={(e) => set("sources", d.sources.map((x, k) => (k === i ? e.target.value : x)))} placeholder="Ibn Ḥazm, al-Muḥallá, masʾala 170" />
                   <button type="button" className={styles.quitar} onClick={() => set("sources", d.sources.filter((_, k) => k !== i))} aria-label="Quitar fuente">
                     ✕
                   </button>

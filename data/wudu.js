@@ -10,7 +10,7 @@ export const wudu = {
 
   // Texto bajo el título de la página (uno o dos renglones)
   intro:
-    "El wuḍūʾ es la ablución que Allah ordenó antes de la oración. Aquí lo aprendes paso a paso, tal como lo describe el Imam Ibn Ḥazm de Córdoba en el Muḥallā, distinguiendo lo obligatorio de lo recomendado.",
+    "El wuḍūʾ es la ablución que Allah ordenó antes de la oración. Aquí lo aprendes paso a paso, tal como lo describe el Imam Ibn Ḥazm de Córdoba en el Muḥallá, distinguiendo lo obligatorio de lo recomendado.",
 
   // ---------------------------------------------------------------
   //  PASOS — uno por objeto, en orden. El número se pone solo.
@@ -107,7 +107,7 @@ export const wudu = {
   ],
 
   // ---------------------------------------------------------------
-  //  DEL MUḤALLĀ — las masāʾil que tradujiste.
+  //  DEL MUḤALLÁ — las masāʾil que tradujiste.
   //    masala:  número de la masʾala (o "" si no quieres mostrarlo)
   //    titulo:  de qué trata
   //    espanol: tu traducción
