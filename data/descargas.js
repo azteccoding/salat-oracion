@@ -29,6 +29,6 @@ export const descargas = [
       "Hadices que son pruebas irrefutables, traducciones nunca antes hechas al español de la Muḥallá de Ibn Hazm y muchas cosas más hacen a este texto la guía definitiva de la oración islámica.",
     file: "/pdf/La_oracion_segun_Ibn_Hazm.pdf",
     format: "PDF",
-    size: "864 KB",
+    size: "480 KB",
   },
 ];
