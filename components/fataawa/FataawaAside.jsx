@@ -11,7 +11,10 @@ const FataawaAside = ({ showMethod = true }) => (
         <Icon name="book" size={18} /> Temas
       </h2>
       <ul className={styles.topicList}>
-        {INDEXED_TOPICS.flatMap((t) => [t, ...(t.sub || []).map((s) => ({ ...s, esSub: true }))]).map((t) => (
+        {INDEXED_TOPICS.flatMap((t) => [
+          t,
+          ...(t.sub || []).map((s) => ({ ...s, esSub: true })),
+        ]).map((t) => (
           <li key={t.slug} className={t.esSub ? styles.topicSub : undefined}>
             <Link href={`${FATAAWA_PATH}?tema=${t.slug}`}>
               <span>{t.esSub ? `— ${t.label}` : t.label}</span>
@@ -30,12 +33,14 @@ const FataawaAside = ({ showMethod = true }) => (
           <Icon name="scale" size={18} /> El método ẓāhirī
         </h2>
         <p>
-          La escuela ẓāhirī, fundada por Dāwūd ibn ʿAlī al-Iṣfahānī y sistematizada en al-Ándalus por Ibn Ḥazm de
-          Córdoba, se atiene al sentido manifiesto (ẓāhir) del Corán y de la Sunna auténtica.
+          La escuela ẓāhirī, fundada por Dāwūd ibn ʿAlī al-Iṣfahānī y
+          sistematizada en al-Ándalus por Ibn Ḥazm de Córdoba, se atiene al
+          sentido manifiesto (ẓāhir) del Corán y de la Sunna auténtica.
         </p>
         <p>
-          Acepta el consenso (iŷmāʿ) cierto y rechaza la analogía (qiyās), el istiḥsān y la imitación ciega
-          (taqlīd): toda norma debe apoyarse en una prueba textual.
+          Acepta el consenso (iŷmāʿ) cierto y rechaza la analogía (qiyās), el
+          istiḥsān y la imitación ciega (taqlīd): toda norma debe apoyarse en
+          una prueba textual.
         </p>
       </section>
     )}
@@ -50,8 +55,8 @@ const FataawaAside = ({ showMethod = true }) => (
           <span>Ibn Ḥazm · fiqh con sus pruebas</span>
         </li>
         <li>
-          <em>Al-Iḥkām fī uṣūl al-aḥkām</em>
-          <span>Ibn Ḥazm · uṣūl al-fiqh</span>
+          <em>Al-Nubaḏ fī uṣūl al-fiqh al-ẓāhirī</em>
+          <span>Ibn Ḥazm · principios fundamentales de la jurisprudencia</span>
         </li>
         <li>
           <em>Marātib al-iŷmāʿ</em>
