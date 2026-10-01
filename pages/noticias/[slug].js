@@ -5,6 +5,7 @@ import PageHero from "@/components/PageHero";
 import Seo from "@/components/Seo";
 import { formatDate } from "@/components/fataawa/format";
 import CompartirNoticia from "@/components/noticias/CompartirNoticia";
+import FotoAmpliable from "@/components/noticias/FotoAmpliable";
 import NoticiaCard from "@/components/noticias/NoticiaCard";
 import TextoRico from "@/components/noticias/TextoRico";
 import { NOTICIAS_PATH, getNoticiaTema } from "@/constants/noticias";
@@ -48,7 +49,9 @@ const Bloque = ({ b }) => {
     case "imagen":
       return (
         <figure className={styles.imagenCuerpo}>
-          <Image src={b.src} alt={b.alt || ""} width={b.ancho || 1200} height={b.alto || 675} sizes="(max-width: 860px) 100vw, 760px" />
+          <FotoAmpliable src={b.src} alt={b.alt || ""} pie={b.pie}>
+            <Image src={b.src} alt={b.alt || ""} width={b.ancho || 1200} height={b.alto || 675} sizes="(max-width: 860px) 100vw, 760px" />
+          </FotoAmpliable>
           {b.pie && (
             <figcaption>
               <TextoRico texto={b.pie} />
@@ -136,13 +139,15 @@ export default function Noticia({ noticia, relacionadas }) {
 
           {noticia.imagen && (
             <figure className={styles.imagen}>
-              <Image
-                src={noticia.imagen.src}
-                alt={noticia.imagen.alt || ""}
-                fill
-                priority
-                sizes="(max-width: 860px) 100vw, 760px"
-              />
+              <FotoAmpliable src={noticia.imagen.src} alt={noticia.imagen.alt || ""} relleno>
+                <Image
+                  src={noticia.imagen.src}
+                  alt={noticia.imagen.alt || ""}
+                  fill
+                  priority
+                  sizes="(max-width: 860px) 100vw, 760px"
+                />
+              </FotoAmpliable>
             </figure>
           )}
 
