@@ -9,14 +9,15 @@ import BusquedaEnRespuestas from "@/components/fataawa/BusquedaEnRespuestas";
 import FataawaAside from "@/components/fataawa/FataawaAside";
 import FatwaCard from "@/components/fataawa/FatwaCard";
 import SugerenciaModal from "@/components/fataawa/SugerenciaModal";
-import { normalize } from "@/components/fataawa/format";
 import { FATAAWA_PATH, INDEXED_TOPICS, getTopic } from "@/constants/fataawa";
+import { coincide, preparar } from "@/lib/busqueda";
 import { listarFataawa } from "@/lib/fataawa-db";
 import styles from "@/styles/site/Fataawa.module.css";
 import ui from "@/styles/site/ui.module.css";
 
+// Texto de cada ficha ya sin diacríticos ni letras dobles (ver lib/busqueda.js)
 const searchable = (f) =>
-  normalize(
+  preparar(
     [f.title, f.summary, f.extracto, f.codigo, getTopic(f.topic)?.label, getTopic(f.subtopic)?.label].join(" ")
   );
 
@@ -40,12 +41,13 @@ export default function FataawaIndex({ all }) {
   // Tema principal activo (si se eligió un subtema, su tema padre) para mostrar los subtemas
   const activeMain = activeTopic?.parent ? getTopic(activeTopic.parent) : activeTopic;
 
-  const results = useMemo(() => {
-    const terms = normalize(q).split(/\s+/).filter(Boolean);
-    return all.filter(
-      (f) => enTema(f, activeTopic) && terms.every((t) => searchable(f).includes(t))
-    );
-  }, [all, q, activeTopic]);
+  // El texto buscable de cada ficha se prepara una sola vez
+  const indice = useMemo(() => all.map((f) => [f, searchable(f)]), [all]);
+
+  const results = useMemo(
+    () => indice.filter(([f, texto]) => enTema(f, activeTopic) && coincide(texto, q)).map(([f]) => f),
+    [indice, q, activeTopic]
+  );
 
   // Tanda visible en «Todos». Se reinicia sola al cambiar de tema o de búsqueda.
   const modalRef = useRef(null);

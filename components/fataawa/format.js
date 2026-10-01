@@ -11,8 +11,5 @@ export const formatDate = (iso) => {
 };
 
 // Minúsculas y sin diacríticos, para buscar "tahara" y encontrar "ṭahāra".
-export const normalize = (s = "") =>
-  s
-    .normalize("NFD")
-    .replace(/[̀-ͯʾʿʼ’']/g, "")
-    .toLowerCase();
+// (La lógica completa de búsqueda vive en lib/busqueda.js.)
+export { normalizar as normalize } from "@/lib/busqueda";
