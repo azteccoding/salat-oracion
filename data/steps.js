@@ -32,7 +32,7 @@ export const steps = [
     title: "Las manos",
     description: "Recomendado",
     instruction:
-      "Durante todo el tiempo que estés de pie, pon tu mano derecha sobre la muñeca de la izquierda. Ibn Ḥazm no fija la altura: no dice si van sobre el pecho o bajo el ombligo.",
+      "Durante todo el tiempo que estés de pie, pon tu mano derecha sobre la muñeca de la izquierda. Ibn Ḥazm no fija la altura: no dice si van sobre el pecho o bajo el ombligo. Ibn Arabí dice que se pueden dejar colgando a los lados o sujetarlas frente al cuerpo: ambas opciones son válidas.",
     tripleText: [],
   },
   {
