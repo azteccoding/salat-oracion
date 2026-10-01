@@ -12,6 +12,16 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
+  /* Si el índice es más alto que la pantalla, se desplaza por dentro */
+  max-height: calc(100vh - 116px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  padding-bottom: 4px;
+}
+
+.aside > * {
+  flex-shrink: 0;
 }
 
 .steps {
@@ -299,6 +309,8 @@
   .aside {
     position: static;
     order: -1;
+    max-height: none;
+    overflow: visible;
   }
   .aside nav {
     display: none;

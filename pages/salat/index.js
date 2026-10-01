@@ -12,13 +12,14 @@ export default function SalatPage() {
     <>
       <Seo
         title="Cómo rezar en el islam: el ṣalāt (salat) paso a paso"
-        description="Guía paso a paso para rezar el ṣalāt según el Corán y la Sunna: posiciones, recitaciones en árabe, transliteración y traducción al español."
+        description="Guía paso a paso para rezar el ṣalāt según el Muḥallā del Imam Ibn Ḥazm: lo obligatorio y lo recomendado, las recitaciones en árabe, su transliteración y su traducción al español."
       />
 
       <PageHero title="Aprende a rezar el ṣalāt" arabic="الصلاة" crumbs={[{ label: "Aprende a rezar" }]}>
         <p>
           La oración es el pilar del islam y el primer acto por el que seremos preguntados. Aquí la aprendes paso a
-          paso, tal como la rezaba el Profeta ﷺ, con cada recitación en árabe, su transliteración y su significado.
+          paso, tal como la describe el Imam Ibn Ḥazm de Córdoba en el Muḥallā, distinguiendo lo obligatorio de lo
+          recomendado, con cada recitación en árabe, su transliteración y su significado.
         </p>
       </PageHero>
 
@@ -79,6 +80,39 @@ export default function SalatPage() {
               <StepCard key={step.name} step={step} number={i + 1} />
             ))}
           </ol>
+
+          {/* ---------- Notas ---------- */}
+          <section className={styles.nota}>
+            <h2>¿En voz alta o en voz baja?</h2>
+            <ul>
+              <li>En voz alta: las dos rakʿas del ṣubḥ, las dos primeras del maġrib y del ʿišāʾ, y las del ŷumuʿa.</li>
+              <li>En voz baja: todo el ẓuhr, todo el ʿaṣr, la tercera del maġrib y las dos últimas del ʿišāʾ.</li>
+              <li>
+                Esto es lo recomendado para el imam y para quien reza solo: si lo hace al revés, es reprobable pero su
+                oración vale.
+              </li>
+              <li>
+                Quien reza detrás del imam lee su Fātiḥa siempre en voz baja; si la lee en voz alta, su oración no es
+                válida.
+              </li>
+            </ul>
+          </section>
+
+          <section className={styles.nota}>
+            <h2>La oración de la mujer</h2>
+            <p>
+              La mujer reza igual que el hombre: la misma recitación, las mismas posturas en la inclinación y en la
+              postración, y el mismo salām. Las diferencias son estas:
+            </p>
+            <ul>
+              <li>Cubre todo su cuerpo salvo el rostro y las manos.</li>
+              <li>Si necesita advertir al imam de algo, aplaude con las manos (si dice «subḥāna llāhi», también está bien).</li>
+              <li>La oración en congregación no le es obligatoria; si va a la mezquita, nadie puede impedírselo.</li>
+              <li>No debe ir perfumada a la mezquita: si lo hace, su oración no es válida.</li>
+              <li>Reza detrás de los hombres. Puede dirigir la oración de otras mujeres, pero no la de los hombres.</li>
+            </ul>
+          </section>
+
         </div>
 
         <aside className={styles.aside}>
