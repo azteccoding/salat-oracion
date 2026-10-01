@@ -164,6 +164,11 @@
   background: #1faa53;
 }
 
+.x {
+  background: #000000;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+}
+
 .instagram {
   background: linear-gradient(45deg, #f09433, #dc2743 50%, #bc1888);
 }

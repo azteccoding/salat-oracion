@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import PageHero from "@/components/PageHero";
 import Seo from "@/components/Seo";
+import SubirImagen, { pesoKB } from "@/components/editor/SubirImagen";
 import TextoRico from "@/components/noticias/TextoRico";
 import { NOTICIA_TEMAS } from "@/constants/noticias";
 import styles from "@/styles/site/Editor.module.css";
@@ -30,14 +31,11 @@ const aArchivo = (t = "") => {
   return /^[0-9]/.test(n) ? `n_${n}` : n;
 };
 
-// "C:\...\foto 1.JPG" o "public/img/noticias/foto.jpg" → "/img/noticias/foto.jpg"
-const rutaImagen = (v = "") => {
-  const s = v.trim().replace(/\\/g, "/");
-  if (!s) return "";
-  if (s.includes("/img/")) return s.slice(s.indexOf("/img/"));
-  const nombre = s.split("/").pop();
-  return `/img/noticias/${nombre}`;
-};
+// Para mostrar el JSON sin los miles de caracteres del base64
+const recortarBase64 = (clave, valor) =>
+  clave === "data" && typeof valor === "string" && valor.length > 120
+    ? `${valor.slice(0, 40)}… (${pesoKB(valor)} KB de imagen en base64)`
+    : valor;
 
 let contador = 0;
 const nuevoId = () => `b${Date.now()}${contador++}`;
@@ -55,7 +53,7 @@ const bloqueVacio = (type) => {
   const base = { id: nuevoId(), type };
   if (type === "list") return { ...base, items: [""] };
   if (type === "quote") return { ...base, text: "", source: "" };
-  if (type === "imagen") return { ...base, src: "", alt: "", pie: "" };
+  if (type === "imagen") return { ...base, data: "", alt: "", pie: "" };
   if (type === "nota") return { ...base, title: "", text: "" };
   return { ...base, text: "" };
 };
@@ -70,12 +68,14 @@ const INICIAL = {
   tema: "mundo",
   resumen: "",
   opciones: { imagen: false, fuentes: false, noIndexar: false, borrador: false },
-  imagen: { src: "", alt: "" },
+  imagen: { data: "", alt: "" },
   fuentes: [{ nombre: "", url: "", nota: "" }],
   cuerpo: [],
 };
 
 const GUARDADO = "editor-noticias-borrador";
+const AVISO_KB = 2048; // aviso a partir de ~2 MB de fotos
+const LIMITE_KB = 12 * 1024; // MongoDB acepta 16 MB por documento; dejamos margen
 
 // ---------------------------------------------------------------------
 //  Campo de texto con botones: Negritas · Resaltar · Enlace
@@ -197,19 +197,18 @@ export default function EditorNoticias() {
       date: d.date,
       tema: d.tema,
     };
-    if (d.opciones.imagen && d.imagen.src.trim())
-      n.imagen = { src: rutaImagen(d.imagen.src), alt: d.imagen.alt.trim() };
+    if (d.opciones.imagen && d.imagen.data) n.imagen = { data: d.imagen.data, alt: d.imagen.alt.trim() };
     n.resumen = d.resumen.trim();
     n.cuerpo = d.cuerpo
       .map((b) => {
         if (b.type === "list") return { type: "list", items: b.items.map((t) => t.trim()).filter(Boolean) };
         if (b.type === "quote") return { type: "quote", text: b.text.trim(), ...(b.source.trim() && { source: b.source.trim() }) };
         if (b.type === "imagen")
-          return { type: "imagen", src: rutaImagen(b.src), alt: b.alt.trim(), ...(b.pie.trim() && { pie: b.pie.trim() }) };
+          return { type: "imagen", data: b.data || "", alt: (b.alt || "").trim(), ...((b.pie || "").trim() && { pie: b.pie.trim() }) };
         if (b.type === "nota") return { type: "nota", ...(b.title.trim() && { title: b.title.trim() }), text: b.text.trim() };
         return { type: b.type, text: b.text.trim() };
       })
-      .filter((b) => (b.type === "list" ? b.items.length : b.type === "imagen" ? b.src : b.text));
+      .filter((b) => (b.type === "list" ? b.items.length : b.type === "imagen" ? b.data : b.text));
     if (d.opciones.fuentes) {
       const f = d.fuentes
         .filter((x) => x.url.trim())
@@ -222,21 +221,22 @@ export default function EditorNoticias() {
   }, [d]);
 
   const archivo = d.archivo || aArchivo(d.title);
+  const pesoTotal = [noticia.imagen?.data, ...noticia.cuerpo.filter((b) => b.type === "imagen").map((b) => b.data)]
+    .filter(Boolean)
+    .reduce((t, x) => t + pesoKB(x), 0);
 
   const faltan = [
     !noticia.title && "el titular",
     !noticia.date && "la fecha",
     !noticia.resumen && "el resumen",
     !noticia.cuerpo.length && "al menos un párrafo",
-    d.opciones.imagen && !d.imagen.src.trim() && "el archivo de la imagen principal",
+    d.opciones.imagen && !d.imagen.data && "subir la imagen principal",
+    pesoTotal > LIMITE_KB && `fotos más ligeras: el JSON pesa ${Math.round(pesoTotal / 1024)} MB y MongoDB acepta hasta 16 MB por documento`,
     !/^[a-z_][a-z0-9_]*$/.test(archivo) && "un nombre de archivo válido (minúsculas, números y _)",
   ].filter(Boolean);
 
-  // Consejos que no impiden descargar
-  const nombresImagen = [noticia.imagen?.src, ...noticia.cuerpo.filter((b) => b.type === "imagen").map((b) => b.src)].filter(Boolean);
-  const consejos = nombresImagen
-    .filter((src) => /[\sA-ZÁÉÍÓÚÑáéíóúñ]/.test(src.split("/").pop()))
-    .map((src) => `Mejor renombra «${src.split("/").pop()}» en minúsculas, sin espacios ni acentos (p. ej. iftar-2026.jpg).`);
+  // Avisos que no impiden descargar
+  const consejos = pesoTotal > AVISO_KB ? [`Las fotos suman ${pesoTotal} KB. Funciona, pero conviene que una noticia no pase de ~2 MB.`] : [];
 
   const descargar = (contenido, nombre, tipo) => {
     const url = URL.createObjectURL(new Blob([contenido], { type: tipo }));
@@ -344,18 +344,13 @@ export default function EditorNoticias() {
               <div className={styles.sub}>
                 <h3>Imagen principal</h3>
                 <p className={styles.ayuda}>
-                  Copia la foto a <code>public/img/noticias/</code> y escribe aquí solo su nombre, por ejemplo{" "}
-                  <code>yemen_attack_oil.jpg</code>. Se guardará como <code>{rutaImagen(d.imagen.src || "foto.jpg")}</code>.
+                  Elige la foto de tu computadora: se reduce y se guarda dentro del JSON (base64). No hay que copiar
+                  nada a <code>public/</code>.
                 </p>
                 <div className={styles.fila}>
-                  <label>
-                    Archivo
-                    <input
-                      value={d.imagen.src}
-                      onChange={(e) => set("imagen", { ...d.imagen, src: e.target.value })}
-                      placeholder="foto.jpg"
-                    />
-                  </label>
+                  <div>
+                    <SubirImagen data={d.imagen.data} onChange={(v) => set("imagen", { ...d.imagen, data: v })} />
+                  </div>
                   <label>
                     Qué se ve en la foto
                     <input
@@ -439,12 +434,9 @@ export default function EditorNoticias() {
 
                 {b.type === "imagen" && (
                   <>
-                    <p className={styles.ayuda}>
-                      Archivo en <code>public/img/noticias/</code>: escribe solo su nombre.
-                    </p>
                     <div className={styles.fila}>
-                      <input value={b.src} onChange={(e) => cambiarBloque(b.id, { src: e.target.value })} placeholder="foto2.jpg" />
-                      <input value={b.alt} onChange={(e) => cambiarBloque(b.id, { alt: e.target.value })} placeholder="Qué se ve" />
+                      <SubirImagen data={b.data} onChange={(v) => cambiarBloque(b.id, { data: v })} />
+                      <input value={b.alt || ""} onChange={(e) => cambiarBloque(b.id, { alt: e.target.value })} placeholder="Qué se ve en la foto" />
                     </div>
                     <CampoTexto value={b.pie} onChange={(v) => cambiarBloque(b.id, { pie: v })} rows={2} placeholder="Pie de foto (opcional)" />
                   </>
@@ -504,7 +496,10 @@ export default function EditorNoticias() {
                   <TextoRico texto={noticia.resumen} />
                 </p>
               )}
-              {noticia.imagen && <p className={styles.ayuda}>🖼 {noticia.imagen.src}</p>}
+              {noticia.imagen && (
+                // eslint-disable-next-line @next/next/no-img-element -- vista previa del base64
+                <img className={styles.previewImagen} src={noticia.imagen.data} alt={noticia.imagen.alt} />
+              )}
               {noticia.cuerpo.map((b, i) => {
                 if (b.type === "h") return <h4 key={i}>{b.text}</h4>;
                 if (b.type === "list")
@@ -517,7 +512,11 @@ export default function EditorNoticias() {
                       ))}
                     </ul>
                   );
-                if (b.type === "imagen") return <p key={i} className={styles.ayuda}>🖼 {b.src}</p>;
+                if (b.type === "imagen")
+                  return (
+                    // eslint-disable-next-line @next/next/no-img-element -- vista previa del base64
+                    <img key={i} className={styles.previewImagen} src={b.data} alt={b.alt} />
+                  );
                 if (b.type === "quote")
                   return (
                     <blockquote key={i}>
@@ -572,14 +571,6 @@ export default function EditorNoticias() {
               <li>
                 <strong>Insert Document</strong> → borra lo que trae el cuadro → pega → <strong>Insert</strong>.
               </li>
-              {nombresImagen.length > 0 && (
-                <li>
-                  Copia las fotos a la carpeta del proyecto: {nombresImagen.map((src) => (
-                    <code key={src}>public{src} </code>
-                  ))}
-                  (las fotos no van en MongoDB).
-                </li>
-              )}
               <li>En menos de un minuto aparece en el sitio, sin volver a construirlo.</li>
             </ol>
             <p className={styles.aviso} role="status">
@@ -587,7 +578,7 @@ export default function EditorNoticias() {
             </p>
             <details>
               <summary>Ver el JSON</summary>
-              <pre className={styles.codigo}>{JSON.stringify(noticia, null, 2)}</pre>
+              <pre className={styles.codigo}>{JSON.stringify(noticia, recortarBase64, 2)}</pre>
             </details>
             <button type="button" className={styles.reiniciar} onClick={empezarDeNuevo}>
               Empezar una noticia nueva
