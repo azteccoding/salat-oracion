@@ -127,8 +127,6 @@ const SiteHeader = () => {
             )}
           </nav>
 
-          <SearchForm className={styles.search} id="buscar-header" />
-
           <button
             type="button"
             className={`${styles.menuBtn} ${open && !closing ? styles.menuBtnOpen : ""}`}
