@@ -6,6 +6,7 @@ import Seo from "@/components/Seo";
 import FataawaAside from "@/components/fataawa/FataawaAside";
 import FatwaCard from "@/components/fataawa/FatwaCard";
 import TextoRico from "@/components/noticias/TextoRico";
+import CompartirNoticia from "@/components/noticias/CompartirNoticia";
 import { formatDate } from "@/components/fataawa/format";
 import { FATAAWA_PATH, getTopic } from "@/constants/fataawa";
 import { fataawaPorCodigos, fatwaPorSlug, fatwaUrl, listarFataawa } from "@/lib/fataawa-db";
@@ -238,6 +239,12 @@ export default function FatwaPage({ fatwa, related }) {
               </ol>
             </section>
           )}
+
+          <CompartirNoticia
+            url={`${SITE_URL}${FATAAWA_PATH}/${fatwa.slug}`}
+            titulo={`Fatwa n.º ${fatwa.number}: ${fatwa.title}`}
+            que="esta fatwa"
+          />
 
           {related.length > 0 && (
             <section data-no-print>

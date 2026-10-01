@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "@/styles/site/Noticias.module.css";
 
-// Botones para compartir una noticia en Facebook, X (antes Twitter), WhatsApp e Instagram.
+// Botones para compartir una noticia o una fatwa en Facebook, X (antes Twitter), WhatsApp e Instagram.
 // Instagram no permite compartir enlaces desde una página web: en el celular se abre
 // el menú de compartir del teléfono (donde aparece Instagram); en la computadora se
 // copia el enlace para pegarlo en una historia o en la biografía.
@@ -29,7 +29,8 @@ const Logo = ({ nombre }) => (
   </svg>
 );
 
-const CompartirNoticia = ({ url, titulo }) => {
+// `que` cambia el texto: «esta noticia» (por defecto) o «esta fatwa».
+const CompartirNoticia = ({ url, titulo, que = "esta noticia" }) => {
   const [aviso, setAviso] = useState("");
   const texto = `${titulo} — ${url}`;
 
@@ -55,8 +56,8 @@ const CompartirNoticia = ({ url, titulo }) => {
   };
 
   return (
-    <section className={styles.compartir} aria-label="Compartir esta noticia">
-      <p className={styles.compartirTitulo}>Comparte esta noticia</p>
+    <section className={styles.compartir} aria-label={`Compartir ${que}`} data-no-print>
+      <p className={styles.compartirTitulo}>Comparte {que}</p>
       <div className={styles.compartirBotones}>
         <a
           className={`${styles.compartirBtn} ${styles.facebook}`}
