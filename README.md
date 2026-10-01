@@ -47,7 +47,7 @@ Estudiantes de Guanajuato y Aguascalientes reunidos para aprender y difundir el 
 | `/imam-ibn-hazm/obras/<slug>` | Obras de Ibn Ḥazm | `data/ibn-hazm-obras.js` |
 | `/nuestra-tariqa`, `/nuestro-maulana`, `/nuestro-sheij`, `/nuestra-recitacion` | La comunidad | las propias páginas |
 | `/descargas` y `/descargas/<slug>` | PDF para descargar | `data/descargas.js` + `public/pdf/` |
-| `/jutba` | La juṭba del viernes del Sheij Mudar (San Cristóbal de las Casas). No está en el menú: se llega por el botón de audífonos del inicio, que solo sale los viernes; otro día dice «Vuelve el viernes» | MongoDB, colección `podcasts_khutbah` + audios en Google Drive |
+| `/jutba` | La juṭba del viernes del Sheij Mudar (San Cristóbal de las Casas). No está en el menú: se llega por el botón flotante de audífonos, que aparece en todas las páginas solo los viernes (`components/Layout.jsx` → `BotonJutba`); otro día dice «Vuelve el viernes» | MongoDB, colección `podcasts_khutbah` + audios en Google Drive |
 | `/editor-fataawa`, `/editor-noticias`, `/editor-jutbas` | Editores internos (no salen en el menú ni en Google) | — |
 | `/sitemap.xml` | Mapa del sitio para Google, se genera solo | `pages/sitemap.xml.js` |
 
@@ -96,7 +96,7 @@ NEXT_PUBLIC_SITE_URL=https://www.islamguanajuato.com
 | `npm run build` | Compila el sitio como en producción. Úsalo antes de subir cambios grandes: si falla aquí, fallará en Vercel. |
 | `npm start` | Sirve la versión compilada con `build`. |
 | `npm run lint` | Revisa el código en busca de errores comunes. |
-| `npm run subir-semilla` | Sube a MongoDB las fatāwá y noticias de respaldo de `data/semilla/`. Es seguro repetirlo: actualiza, no duplica. |
+| `npm run subir-semilla` | Sube a MongoDB las fatāwá y noticias de respaldo de `data/semilla/` (las juṭbas no: esas se insertan a mano). Es seguro repetirlo: actualiza, no duplica. |
 
 ---
 
@@ -114,10 +114,12 @@ salat/
 │   ├── descargas/
 │   ├── editor-fataawa.js   → editor interno de fatāwá
 │   ├── editor-noticias.js  → editor interno de noticias
+│   ├── jutba.js            → /jutba (juṭba del viernes)
+│   ├── editor-jutbas.js    → editor interno de juṭbas
 │   ├── sitemap.xml.js      → /sitemap.xml
 │   └── api/                ← servicio interno (consulta MongoDB)
 │       ├── fataawa/        → /api/fataawa y /api/fataawa/<código>
-│       ├── noticias/       → /api/noticias y /api/noticias/<slug>
+│       ├── noticias/       → /api/noticias, /api/noticias/<slug> y /api/noticias/imagen/…
 │       └── og.js           → /api/og (imagen para redes)
 │
 ├── data/                   ← CONTENIDO editable (aquí se trabaja casi siempre)
@@ -126,12 +128,13 @@ salat/
 │   ├── descargas.js        → PDF de /descargas
 │   ├── ibn-hazm-obras.js   → obras de Ibn Ḥazm
 │   ├── corridos.js         → videos de YouTube del inicio
-│   └── semilla/            → respaldo en JSON de fatāwá y noticias
+│   └── semilla/            → respaldo en JSON de fatāwá, noticias y juṭbas
 │
 ├── constants/              ← configuración: nombre del sitio, menú, temas
 │   ├── site.js             → nombre, dominio, menú (NAV_LINKS)
 │   ├── fataawa.js          → temas de las fatāwá y sus rangos de códigos
 │   ├── noticias.js         → temas de las noticias
+│   ├── jutbas.js           → sheij de las juṭbas, cálculo del viernes, links de Drive
 │   └── api.js              → rutas del servicio interno
 │
 ├── components/             ← piezas reutilizables (Seo, PageHero, Icon, StepCard…)
@@ -480,7 +483,7 @@ import Icon from "@/components/Icon";
 <Icon name="mihrab" size={18} />
 ```
 
-Nombres disponibles: `search`, `menu`, `close`, `arrow`, `chevron`, `play`, `cart`, `external`, `arrowLeft`, `book`, `download`, `clock`, `moon`, `calendar`, `link`, `print`, `check`, `scale`, `question`, `pin`, `water`, `mihrab`, `star`.
+Nombres disponibles: `search`, `menu`, `close`, `arrow`, `chevron`, `play`, `cart`, `external`, `arrowLeft`, `book`, `download`, `clock`, `moon`, `calendar`, `link`, `print`, `check`, `scale`, `question`, `pin`, `headphones`, `water`, `mihrab`, `star`.
 
 Para agregar uno, añade su `<path>` en el objeto `PATHS` de `components/Icon.jsx`.
 
@@ -528,10 +531,10 @@ import styles from "@/styles/site/Salat.module.css";
 | | |
 |---|---|
 | Base de datos | `islamic_website` |
-| Colecciones | `fataawa` (índice único en `codigo`) · `noticias` (índice único en `slug`) · `podcasts_khutbah` (índice único en `driveId`) |
+| Colecciones | `fataawa` (índice único en `codigo`) · `noticias` (índice único en `slug`) · `podcasts_khutbah` (juṭbas; sin índice creado por el proyecto) |
 | Conexión | `lib/mongodb.js` (lee `MONGODB_URI`) |
 | Consultas | `lib/fataawa-db.js` · `lib/noticias-db.js` · `lib/jutbas-db.js` |
-| Respaldo | `data/semilla/fataawa/*.json` · `data/semilla/noticias/*.json` |
+| Respaldo | `data/semilla/fataawa/*.json` · `data/semilla/noticias/*.json` · `data/semilla/jutbas/*.json` |
 
 Para restaurar el respaldo o llenar una base vacía:
 
@@ -550,6 +553,8 @@ npm run subir-semilla
 | `GET /api/fataawa/3500` | Una fatwa completa |
 | `GET /api/noticias?q=yemen&tema=mundo` | `{ total, resultados }` |
 | `GET /api/noticias/<slug>` | Una noticia completa |
+| `GET /api/noticias/imagen/<slug>` | La foto principal de una noticia (guardada en base64 en MongoDB) |
+| `GET /api/noticias/imagen/<slug>/<bloque>` | Una foto dentro del texto (`bloque` = su posición en `cuerpo`) |
 | `GET /api/og?n=3500&t=Título&tema=Purificación` | Imagen de 1200×630 para redes |
 
 Desde el navegador se usan las funciones de `services/requests.js`, que nunca lanzan errores:
@@ -611,7 +616,9 @@ if (!hasExternalError) console.log(data.data.resultados);
 | Una fatwa se ve en local pero no en el sitio | Tiene `"borrador": true`. Cámbialo a `false`. |
 | Una página no sale en Google | Le quedó algún `✍️` en el texto, o tiene `noIndex` / `"indexar": false`. |
 | Cambié un archivo de `data/` y no se ve | Guarda el archivo y recarga. Si sigue igual, detén `npm run dev`, borra la carpeta `.next` y vuelve a arrancar. |
-| Una foto de noticia no aparece | La ruta debe empezar con `/img/noticias/…` y el archivo debe estar en `public/img/noticias/` y subido a GitHub. |
+| Una foto de noticia no aparece | Las fotos nuevas van dentro del JSON (base64) y se sirven desde `/api/noticias/imagen/<slug>`: revisa que el documento en Atlas tenga `imagen.data`. Las noticias antiguas con `src` necesitan el archivo en `public/img/noticias/` subido a GitHub. |
+| El botón de la juṭba no aparece | Solo sale los viernes, con la hora de México. Para probarlo otro día en tu computadora: `http://localhost:3000/?probar=1`. |
+| Una juṭba no suena | El archivo de Google Drive debe estar compartido como «Cualquier persona con el enlace». |
 | `npm run build` falla en un import | Revisa mayúsculas y minúsculas del nombre del archivo: en Vercel (Linux) `Icon.jsx` y `icon.jsx` son distintos. |
 
 ---

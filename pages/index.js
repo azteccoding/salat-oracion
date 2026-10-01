@@ -13,7 +13,6 @@ import { conContexto, organizacion } from "@/lib/seo";
 import { corridos } from "@/data/corridos";
 import { descargas } from "@/data/descargas";
 import { ultimasFataawa } from "@/lib/fataawa-db";
-import BotonJutba from "@/components/BotonJutba";
 import NoticiaPreview from "@/components/noticias/NoticiaPreview";
 import { NOTICIAS_PATH } from "@/constants/noticias";
 import { ultimaNoticia } from "@/lib/noticias-db";
@@ -328,9 +327,6 @@ export default function Home({ latest, noticia }) {
           </Link>
         </div>
       </section>
-
-      {/* Botón flotante: solo aparece los viernes (hora de México) */}
-      <BotonJutba />
     </>
   );
 }

@@ -5,11 +5,12 @@ import Icon from "@/components/Icon";
 import { JUTBA_PATH, esViernes } from "@/constants/jutbas";
 import styles from "@/styles/site/Jutba.module.css";
 
-// Botón flotante de audífonos en el inicio. Solo aparece los viernes (hora de México).
+// Botón flotante de audífonos en todas las páginas (va en components/Layout.jsx).
+// Solo aparece los viernes (hora de México) y no se muestra dentro de la propia página /jutba.
 // El día se revisa en el navegador: el inicio se guarda ya armado y no sabe qué día es.
 // Para probarlo otro día en tu computadora: http://localhost:3000/?probar=1
 const BotonJutba = () => {
-  const { query } = useRouter();
+  const { query, pathname } = useRouter();
   const [visible, setVisible] = useState(false);
   const probar = process.env.NODE_ENV === "development" && query.probar === "1";
 
@@ -17,7 +18,7 @@ const BotonJutba = () => {
     setVisible(probar || esViernes());
   }, [probar]);
 
-  if (!visible) return null;
+  if (!visible || pathname === JUTBA_PATH) return null;
 
   return (
     <Link href={probar ? `${JUTBA_PATH}?probar=1` : JUTBA_PATH} className={styles.flotante} data-no-print>
