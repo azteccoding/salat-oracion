@@ -2,8 +2,10 @@ import Link from "next/link";
 import Icon from "@/components/Icon";
 import PageHero from "@/components/PageHero";
 import Seo from "@/components/Seo";
+import CompartirNoticia from "@/components/noticias/CompartirNoticia";
 import StepCard from "@/components/salat/StepCard";
 import { steps } from "@/data/steps";
+import { SITE_URL } from "@/constants/site";
 import styles from "@/styles/site/Salat.module.css";
 import ui from "@/styles/site/ui.module.css";
 
@@ -113,6 +115,12 @@ export default function SalatPage() {
             </ul>
           </section>
 
+          <CompartirNoticia
+            url={`${SITE_URL}/salat`}
+            titulo="Aprende a rezar el ṣalāt paso a paso"
+            que="esta guía"
+            imagen="/og-image.png"
+          />
         </div>
 
         <aside className={styles.aside}>

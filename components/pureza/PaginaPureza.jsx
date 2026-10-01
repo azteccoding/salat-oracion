@@ -3,6 +3,8 @@ import Icon from "@/components/Icon";
 import PageHero from "@/components/PageHero";
 import Seo from "@/components/Seo";
 import StepCard from "@/components/salat/StepCard";
+import CompartirNoticia from "@/components/noticias/CompartirNoticia";
+import { SITE_URL } from "@/constants/site";
 import { conContexto, tienePendientes } from "@/lib/seo";
 import styles from "@/styles/site/Salat.module.css";
 import ui from "@/styles/site/ui.module.css";
@@ -97,6 +99,13 @@ const PaginaPureza = ({ clave, datos }) => {
               )}
             </section>
           ))}
+
+          <CompartirNoticia
+            url={`${SITE_URL}/${clave}`}
+            titulo={`${datos.titulo}: ${datos.subtitulo.toLowerCase()} paso a paso`}
+            que="esta guía"
+            imagen="/og-image.png"
+          />
         </div>
 
         <aside className={styles.aside}>
