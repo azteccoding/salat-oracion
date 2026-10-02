@@ -42,4 +42,15 @@ export const descargas = [
     format: "PDF",
     size: "281 KB",
   },
+  {
+    slug: "El_masbuq_segun_Ibn_Hazm",
+    title: "El que llega tarde a la oración según Ibn Hazm",
+    teaser:
+      "Cómo completar la oración cuando llegas tarde al rezo en congregación.",
+    description:
+      "Qué hacer cuando no alcanzas la oración desde el principio: cómo entrar con el imam, qué rakʿa cuenta y cuál no, y cómo completar lo que faltó, caso por caso. Con traducciones de la Muḥallá de Ibn Hazm, la explicación de Ibn Rušd en la Bidāya y los hadices de prueba localizados.",
+    file: "/pdf/El_masbuq_segun_Ibn_Hazm.pdf",
+    format: "PDF",
+    size: "319 KB",
+  },
 ];
