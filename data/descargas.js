@@ -3,9 +3,9 @@ export const descargas = [
     slug: "sura-fatiha",
     title: "Sūrat al-Fātiḥa con Tafsīr al-Ŷalālayn",
     teaser:
-      "La Madre del Libro con taŷwīd, tafsīr y gramática palabra por palabra.",
+      "La recitas diecisiete veces al día. ¿Sabes de verdad lo que le estás diciendo a Allah?",
     description:
-      "La Madre del Libro, aleya por aleya: texto árabe en la lectura de Jalaf ʿan Ḥamza con guía de taŷwīd por colores, transliteración, el Tafsīr al-Ŷalālayn en español y un análisis gramatical de cada palabra, con notas de Ibn ʿArabī sobre los nombres divinos.",
+      "La Fātiḥa es la sura que más repites en tu vida y la que menos te detienes a entender. Aquí la vas a leer como nunca: cada aleya con su árabe en la lectura de Jalaf ʿan Ḥamza y el taŷwīd marcado por colores, su transliteración, el Tafsīr al-Ŷalālayn en español y la gramática palabra por palabra. Y para quien busque más hondo, las notas de Ibn ʿArabī sobre los nombres divinos. Después de esto, tu próxima oración no va a sonar igual.",
     file: "/pdf/sura-fatiha.pdf",
     format: "PDF",
     size: "259 KB",
@@ -13,10 +13,9 @@ export const descargas = [
   {
     slug: "sura-nasr",
     title: "Sūrat al-Naṣr con Tafsīr al-Ŷalālayn",
-    teaser:
-      "La sura de la victoria, explicada aleya por aleya y palabra por palabra.",
+    teaser: "Tres aleyas que anunciaron una victoria… y una despedida.",
     description:
-      "La sura que anunció al Profeta ﷺ que su misión estaba cumplida: texto árabe en la lectura de Jalaf ʿan Ḥamza con guía de taŷwīd, transliteración, el Tafsīr al-Ŷalālayn en español y el análisis de cada palabra con su raíz.",
+      "Cuando descendió, muchos vieron una noticia de triunfo; los que entendían, supieron que el Profeta ﷺ estaba por despedirse. Descubre por qué una de las suras más breves del Corán guarda uno de sus mensajes más conmovedores: árabe en la lectura de Jalaf ʿan Ḥamza con taŷwīd por colores, transliteración, el Tafsīr al-Ŷalālayn en español y cada palabra desarmada hasta su raíz.",
     file: "/pdf/sura-nasr.pdf",
     format: "PDF",
     size: "194 KB",
@@ -24,9 +23,10 @@ export const descargas = [
   {
     slug: "La_oracion_segun_Ibn_Hazm",
     title: "La oración según Ibn Hazm",
-    teaser: "La oración con pruebas extensas. La guía para expertos",
+    teaser:
+      "Deja de rezar «porque así me enseñaron». Reza con la prueba en la mano.",
     description:
-      "Hadices que son pruebas irrefutables, traducciones nunca antes hechas al español de la Muḥallá de Ibn Hazm y muchas cosas más hacen a este texto la guía definitiva de la oración islámica.",
+      "¿Por qué levantas las manos ahí? ¿Por qué esa postura, esa recitación, ese orden? Esta es la oración explicada sin atajos, desde los textos: la Muḥallá de Ibn Hazm traducida al español y los hadices que sostienen cada movimiento. No es un manual para principiantes; es para quien ya reza y quiere saber exactamente por qué lo hace así.",
     file: "/pdf/La_oracion_segun_Ibn_Hazm.pdf",
     format: "PDF",
     size: "480 KB",
@@ -35,9 +35,9 @@ export const descargas = [
     slug: "El_witr_segun_Ibn_Hazm",
     title: "El witr según Ibn Hazm",
     teaser:
-      "El Ṭarawīḥ con pruebas. Una guía definitiva de cuántas raka'at se deben rezar en Ramadán",
+      "¿8 o 20 rakʿāt? Cada Ramadán la misma discusión. Aquí está la respuesta con pruebas.",
     description:
-      "Hadices que son pruebas irrefutables, traducciones nunca antes hechas al español de la Muḥallá de Ibn Hazm y muchas cosas más hacen a este texto la guía definitiva de la Ṭarawīḥ de Ramadán.",
+      "Cada Ramadán vuelve el debate de la mezquita: ¿cuántas rakʿāt tiene el Ṭarawīḥ?, ¿cómo se reza el witr? Antes de discutir otra vez, mira lo que dicen los textos. Los hadices de la oración nocturna del Profeta ﷺ y la Muḥallá de Ibn Hazm traducida al español, reunidos en una guía que te deja llegar a Ramadán con la cuestión resuelta.",
     file: "/pdf/El_witr_segun_Ibn_Hazm.pdf",
     format: "PDF",
     size: "281 KB",
@@ -45,12 +45,33 @@ export const descargas = [
   {
     slug: "El_masbuq_segun_Ibn_Hazm",
     title: "El que llega tarde a la oración según Ibn Hazm",
-    teaser:
-      "Cómo completar la oración cuando llegas tarde al rezo en congregación.",
+    teaser: "Entraste y el imam ya iba en el rukūʿ. ¿Esa rakʿa cuenta o no?",
     description:
-      "Qué hacer cuando no alcanzas la oración desde el principio: cómo entrar con el imam, qué rakʿa cuenta y cuál no, y cómo completar lo que faltó, caso por caso. Con traducciones de la Muḥallá de Ibn Hazm, la explicación de Ibn Rušd en la Bidāya y los hadices de prueba localizados.",
+      "A todos nos ha pasado: llegas tarde, te unes a la fila y no sabes qué alcanzaste ni qué te falta. Esta guía resuelve la duda caso por caso: cómo entrar con el imam, qué rakʿa cuenta y cuál no, y cómo completar lo que perdiste. Con la Muḥallá de Ibn Hazm en español, la explicación de Ibn Rušd en la Bidāya y los hadices de prueba localizados. Para que la próxima vez sepas exactamente qué hacer.",
     file: "/pdf/El_masbuq_segun_Ibn_Hazm.pdf",
     format: "PDF",
     size: "319 KB",
+  },
+  {
+    slug: "El_oro_de_los_tontos",
+    title: "El oro de los tontos",
+    teaser:
+      "Te dijeron que debes zakat por tu dinero en el banco. Ibn Hazm no está tan seguro.",
+    description:
+      "Tu billete no pesa nada, no contiene nada y vale lo que el gobierno dice que vale. ¿Hereda por simple parecido la ley que Dios dio para el oro y la plata? Dos fatwas que van contra la corriente, sobre el dinero fiduciario y el bitcoin, con la Muḥallá traducida al español, la historia de cómo el peso dejó de ser plata y lo que Nixon cambió en 1971. Y una advertencia para el que busque excusas: la exención no es licencia para la avaricia.",
+    file: "/pdf/El_oro_de_los_tontos.pdf",
+    format: "PDF",
+    size: "525 KB",
+  },
+  {
+    slug: "La_musica_es_licita_segun_Ibn_Hazm",
+    title: "La música es lícita según Ibn Hazm",
+    teaser:
+      "«Quien la rechace, yerra sin duda». La defensa de la música que nadie te ha contado.",
+    description:
+      "El Profeta ﷺ dejó cantar en su casa y reprendió a Abū Bakr por llamarlo «flauta del demonio». Compañeros de Badr escuchaban canto en las bodas. Ibn Hazm tomó cada hadiz que se usa para prohibir la música y lo derribó eslabón por eslabón, y aquí lo verás confirmado con el Taqrīb de Ibn Ḥaŷar en la mano. Traducido al español, con cada hadiz localizado. Después de leerlo no vas a volver a escuchar el «es haram» de la misma manera.",
+    file: "/pdf/La_musica_es_licita_Ibn_Hazm_cuestion_1566_firma.pdf",
+    format: "PDF",
+    size: "753 KB",
   },
 ];
