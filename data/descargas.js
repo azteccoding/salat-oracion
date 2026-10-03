@@ -58,7 +58,7 @@ export const descargas = [
     teaser:
       "Te dijeron que debes zakat por tu dinero en el banco. Ibn Hazm no está tan seguro.",
     description:
-      "Tu billete no pesa nada, no contiene nada y vale lo que el gobierno dice que vale. ¿Hereda por simple parecido la ley que Dios dio para el oro y la plata? Dos fatwas que van contra la corriente, sobre el dinero fiduciario y el bitcoin, con la Muḥallá traducida al español, la historia de cómo el peso dejó de ser plata y lo que Nixon cambió en 1971. Y una advertencia para el que busque excusas: la exención no es licencia para la avaricia.",
+      "Tu billete no pesa nada, no contiene nada y vale lo que el gobierno dice que vale. ¿Le aplica la ley que Dios dio para el oro y la plata? Dos fatwas que van contra la corriente, sobre el dinero fiduciario y el bitcoin, con la Muḥallá traducida al español, la historia de cómo el peso dejó de ser de plata y lo que Nixon cambió en 1971. Y una advertencia para el que busque excusas: la exención no es licencia para la avaricia.",
     file: "/pdf/El_oro_de_los_tontos.pdf",
     format: "PDF",
     size: "525 KB",
