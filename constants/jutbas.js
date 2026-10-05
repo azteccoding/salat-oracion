@@ -10,10 +10,11 @@ export const JUTBA_PATH = "/jutba";
 
 // Quién da las juṭbas, salvo que el documento de MongoDB diga otra cosa ("sheij": "…")
 export const SHEIJ_JUTBA = {
-  nombre: "Sheij Mudar",
-  lugar: "San Cristóbal de las Casas, Chiapas",
-  foto: "/img/jutba/sheij_mudar.jpg",
-  alt: "El Sheij Mudar sentado junto a la ventana, con un libro en las manos",
+  nombre: "Mullah Khalid",
+  lugar: "León de los Aldama, Guanajuato",
+  foto: "/img/jutba/foto_principal.jpg",
+  alt: "El Mullah Khalid, sentado con libros de su biblioteca detrás.",
+  link: "",
 };
 
 // El viernes se cuenta con la hora de México, sin importar dónde esté el visitante
@@ -23,11 +24,22 @@ const DIAS = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
 
 const partesHoy = (ahora = new Date()) => {
   const p = Object.fromEntries(
-    new Intl.DateTimeFormat("en-US", { timeZone: ZONA, year: "numeric", month: "2-digit", day: "2-digit", weekday: "short" })
+    new Intl.DateTimeFormat("en-US", {
+      timeZone: ZONA,
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      weekday: "short",
+    })
       .formatToParts(ahora)
-      .map((x) => [x.type, x.value])
+      .map((x) => [x.type, x.value]),
   );
-  return { y: Number(p.year), m: Number(p.month), d: Number(p.day), dia: DIAS[p.weekday] };
+  return {
+    y: Number(p.year),
+    m: Number(p.month),
+    d: Number(p.day),
+    dia: DIAS[p.weekday],
+  };
 };
 
 export const esViernes = (ahora = new Date()) => partesHoy(ahora).dia === 5;
@@ -62,5 +74,6 @@ export const idDeDrive = (link = "") => {
 };
 
 // Reproductor incrustado de Google Drive
-export const reproductorDrive = (id) => `https://drive.google.com/file/d/${id}/preview`;
+export const reproductorDrive = (id) =>
+  `https://drive.google.com/file/d/${id}/preview`;
 export const enlaceDrive = (id) => `https://drive.google.com/file/d/${id}/view`;

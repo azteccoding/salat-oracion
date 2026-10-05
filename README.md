@@ -34,22 +34,22 @@ Estudiantes de Guanajuato y Aguascalientes reunidos para aprender y difundir el 
 
 ## Qué hay en el sitio
 
-| Ruta | Página | De dónde sale el contenido |
-|---|---|---|
-| `/` | Inicio: horarios de oración, fecha hiŷrī, últimas fatāwá, la noticia más reciente, descargas y corridos | `pages/index.js`, `data/corridos.js`, MongoDB |
-| `/salat` | Aprende a rezar el ṣalāt, paso a paso según el Muḥallá | `data/steps.js` |
-| `/wudu` | El wuḍūʾ (ablución menor) | `data/wudu.js` |
-| `/gusl` | El gusl (baño ritual) | `data/gusl.js` |
-| `/fataawa-zahiri-fiqh` | Buscador de fatāwá según el fiqh ẓāhirī | MongoDB, colección `fataawa` |
-| `/fataawa-zahiri-fiqh/<slug>-<código>` | Una fatwa | MongoDB |
-| `/noticias` y `/noticias/<slug>` | Noticias de la comunidad y del mundo islámico | MongoDB, colección `noticias` |
-| `/imam-ibn-hazm`, `/imam-ibn-hazm/escuela-zahiri` | El Imam Ibn Ḥazm y la escuela ẓāhirī | las propias páginas |
-| `/imam-ibn-hazm/obras/<slug>` | Obras de Ibn Ḥazm | `data/ibn-hazm-obras.js` |
-| `/nuestra-tariqa`, `/nuestro-maulana`, `/nuestro-sheij`, `/nuestra-recitacion` | La comunidad | las propias páginas |
-| `/descargas` y `/descargas/<slug>` | PDF para descargar | `data/descargas.js` + `public/pdf/` |
-| `/jutba` | La juṭba del viernes del Sheij Mudar (San Cristóbal de las Casas). No está en el menú: se llega por el botón flotante de audífonos, que aparece en todas las páginas solo los viernes (`components/Layout.jsx` → `BotonJutba`); otro día dice «Vuelve el viernes» | MongoDB, colección `podcasts_khutbah` + audios en Google Drive |
-| `/editor-fataawa`, `/editor-noticias`, `/editor-jutbas` | Editores internos (no salen en el menú ni en Google) | — |
-| `/sitemap.xml` | Mapa del sitio para Google, se genera solo | `pages/sitemap.xml.js` |
+| Ruta                                                                           | Página                                                                                                                                                                                                                                             | De dónde sale el contenido                                     |
+| ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| `/`                                                                            | Inicio: horarios de oración, fecha hiŷrī, últimas fatāwá, la noticia más reciente, descargas y corridos                                                                                                                                            | `pages/index.js`, `data/corridos.js`, MongoDB                  |
+| `/salat`                                                                       | Aprende a rezar el ṣalāt, paso a paso según el Muḥallá                                                                                                                                                                                             | `data/steps.js`                                                |
+| `/wudu`                                                                        | El wuḍūʾ (ablución menor)                                                                                                                                                                                                                          | `data/wudu.js`                                                 |
+| `/gusl`                                                                        | El gusl (baño ritual)                                                                                                                                                                                                                              | `data/gusl.js`                                                 |
+| `/fataawa-zahiri-fiqh`                                                         | Buscador de fatāwá según el fiqh ẓāhirī                                                                                                                                                                                                            | MongoDB, colección `fataawa`                                   |
+| `/fataawa-zahiri-fiqh/<slug>-<código>`                                         | Una fatwa                                                                                                                                                                                                                                          | MongoDB                                                        |
+| `/noticias` y `/noticias/<slug>`                                               | Noticias de la comunidad y del mundo islámico                                                                                                                                                                                                      | MongoDB, colección `noticias`                                  |
+| `/imam-ibn-hazm`, `/imam-ibn-hazm/escuela-zahiri`                              | El Imam Ibn Ḥazm y la escuela ẓāhirī                                                                                                                                                                                                               | las propias páginas                                            |
+| `/imam-ibn-hazm/obras/<slug>`                                                  | Obras de Ibn Ḥazm                                                                                                                                                                                                                                  | `data/ibn-hazm-obras.js`                                       |
+| `/nuestra-tariqa`, `/nuestro-maulana`, `/nuestro-sheij`, `/nuestra-recitacion` | La comunidad                                                                                                                                                                                                                                       | las propias páginas                                            |
+| `/descargas` y `/descargas/<slug>`                                             | PDF para descargar                                                                                                                                                                                                                                 | `data/descargas.js` + `public/pdf/`                            |
+| `/jutba`                                                                       | La juṭba del viernes del Mullah Khalid (León, Gto). No está en el menú: se llega por el botón flotante de audífonos, que aparece en todas las páginas solo los viernes (`components/Layout.jsx` → `BotonJutba`); otro día dice «Vuelve el viernes» | MongoDB, colección `podcasts_khutbah` + audios en Google Drive |
+| `/editor-fataawa`, `/editor-noticias`, `/editor-jutbas`                        | Editores internos (no salen en el menú ni en Google)                                                                                                                                                                                               | —                                                              |
+| `/sitemap.xml`                                                                 | Mapa del sitio para Google, se genera solo                                                                                                                                                                                                         | `pages/sitemap.xml.js`                                         |
 
 ---
 
@@ -90,12 +90,12 @@ NEXT_PUBLIC_SITE_URL=https://www.islamguanajuato.com
 
 ### Comandos
 
-| Comando | Para qué sirve |
-|---|---|
-| `npm run dev` | Sitio en modo desarrollo, se recarga solo al guardar. Muestra también los **borradores** de fatāwá. |
-| `npm run build` | Compila el sitio como en producción. Úsalo antes de subir cambios grandes: si falla aquí, fallará en Vercel. |
-| `npm start` | Sirve la versión compilada con `build`. |
-| `npm run lint` | Revisa el código en busca de errores comunes. |
+| Comando                 | Para qué sirve                                                                                                                                            |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `npm run dev`           | Sitio en modo desarrollo, se recarga solo al guardar. Muestra también los **borradores** de fatāwá.                                                       |
+| `npm run build`         | Compila el sitio como en producción. Úsalo antes de subir cambios grandes: si falla aquí, fallará en Vercel.                                              |
+| `npm start`             | Sirve la versión compilada con `build`.                                                                                                                   |
+| `npm run lint`          | Revisa el código en busca de errores comunes.                                                                                                             |
 | `npm run subir-semilla` | Sube a MongoDB las fatāwá y noticias de respaldo de `data/semilla/` (las juṭbas no: esas se insertan a mano). Es seguro repetirlo: actualiza, no duplica. |
 
 ---
@@ -148,31 +148,31 @@ salat/
 Los imports usan el alias `@/`, que apunta a la raíz del proyecto (`jsconfig.json`):
 
 ```js
-import Seo from "@/components/Seo";          // = ./components/Seo
-import { steps } from "@/data/steps";        // = ./data/steps
+import Seo from "@/components/Seo"; // = ./components/Seo
+import { steps } from "@/data/steps"; // = ./data/steps
 ```
 
 ---
 
 ## ¿Qué quiero cambiar? → ¿Qué archivo abro?
 
-| Quiero… | Archivo |
-|---|---|
-| Cambiar un paso de la oración | `data/steps.js` |
-| Cambiar un paso de wuḍūʾ o gusl, o una masʾala o nota | `data/wudu.js` / `data/gusl.js` |
-| Publicar una fatwa | `/editor-fataawa` → MongoDB ([ver receta](#3-publicar-una-fatwa)) |
-| Publicar una noticia | `/editor-noticias` → MongoDB ([ver receta](#4-publicar-una-noticia)) |
-| Publicar la juṭba del viernes | `/editor-jutbas` → MongoDB ([ver receta](#15-publicar-la-juṭba-del-viernes)) |
-| Cambiar el sheij de las juṭbas o su foto | `constants/jutbas.js` → `SHEIJ_JUTBA` · `public/img/jutba/` |
-| Agregar un tema de fatāwá | `constants/fataawa.js` |
-| Agregar un tema de noticias | `constants/noticias.js` |
-| Subir un PDF a Descargas | `public/pdf/` + `data/descargas.js` |
-| Agregar una obra de Ibn Ḥazm | `data/ibn-hazm-obras.js` |
-| Agregar un corrido al inicio | `data/corridos.js` |
-| Cambiar el menú | `constants/site.js` → `NAV_LINKS` |
-| Cambiar el nombre, la descripción o el dominio | `constants/site.js` |
-| Cambiar colores, tipografía o espacios generales | `styles/globals.css` |
-| Cambiar el diseño de una sola página | `styles/site/<Página>.module.css` |
+| Quiero…                                               | Archivo                                                                      |
+| ----------------------------------------------------- | ---------------------------------------------------------------------------- |
+| Cambiar un paso de la oración                         | `data/steps.js`                                                              |
+| Cambiar un paso de wuḍūʾ o gusl, o una masʾala o nota | `data/wudu.js` / `data/gusl.js`                                              |
+| Publicar una fatwa                                    | `/editor-fataawa` → MongoDB ([ver receta](#3-publicar-una-fatwa))            |
+| Publicar una noticia                                  | `/editor-noticias` → MongoDB ([ver receta](#4-publicar-una-noticia))         |
+| Publicar la juṭba del viernes                         | `/editor-jutbas` → MongoDB ([ver receta](#15-publicar-la-juṭba-del-viernes)) |
+| Cambiar el sheij de las juṭbas o su foto              | `constants/jutbas.js` → `SHEIJ_JUTBA` · `public/img/jutba/`                  |
+| Agregar un tema de fatāwá                             | `constants/fataawa.js`                                                       |
+| Agregar un tema de noticias                           | `constants/noticias.js`                                                      |
+| Subir un PDF a Descargas                              | `public/pdf/` + `data/descargas.js`                                          |
+| Agregar una obra de Ibn Ḥazm                          | `data/ibn-hazm-obras.js`                                                     |
+| Agregar un corrido al inicio                          | `data/corridos.js`                                                           |
+| Cambiar el menú                                       | `constants/site.js` → `NAV_LINKS`                                            |
+| Cambiar el nombre, la descripción o el dominio        | `constants/site.js`                                                          |
+| Cambiar colores, tipografía o espacios generales      | `styles/globals.css`                                                         |
+| Cambiar el diseño de una sola página                  | `styles/site/<Página>.module.css`                                            |
 
 ---
 
@@ -187,14 +187,14 @@ Todos los pasos de `/salat` están en `data/steps.js`. **El número se pone solo
 export const steps = [
   // …
   {
-    name: "paso-9",                       // identificador único, sin espacios
-    title: "La inclinación (rukūʿ)",      // título grande
-    description: "Obligatorio",           // texto pequeño arriba: Obligatorio / Recomendado
+    name: "paso-9", // identificador único, sin espacios
+    title: "La inclinación (rukūʿ)", // título grande
+    description: "Obligatorio", // texto pequeño arriba: Obligatorio / Recomendado
     instruction:
       "Di «Allāhu akbar» e inclínate con las manos sobre las rodillas…",
     tripleText: [
-      "سُبْحَانَ رَبِّيَ الْعَظِيمِ",          // 1. árabe
-      "Subḥāna rabbiya l-ʿaẓīmi",          // 2. transliteración
+      "سُبْحَانَ رَبِّيَ الْعَظِيمِ", // 1. árabe
+      "Subḥāna rabbiya l-ʿaẓīmi", // 2. transliteración
       "Glorificado sea mi Señor, el Inmenso", // 3. traducción
     ],
   },
@@ -219,15 +219,22 @@ export const wudu = {
   intro: "El wuḍūʾ es la ablución que Allah ordenó antes de la oración…",
 
   pasos: [
-    { name: "paso-1", title: "Nombrar a Allah", description: "Recomendado",
+    {
+      name: "paso-1",
+      title: "Nombrar a Allah",
+      description: "Recomendado",
       instruction: "Es recomendable nombrar a Allah…",
-      tripleText: ["بِسْمِ اللَّهِ", "bi-smi llāhi", "En el nombre de Allah"] },
+      tripleText: ["بِسْمِ اللَّهِ", "bi-smi llāhi", "En el nombre de Allah"],
+    },
   ],
 
   // Traducciones del Muḥallá (deja muhalla: [] para ocultar la sección)
   muhalla: [
-    { masala: "198", titulo: "Por qué el enjuague de la boca no es obligatorio",
-      espanol: "En cuanto a lo que decimos del enjuague de la boca…" },
+    {
+      masala: "198",
+      titulo: "Por qué el enjuague de la boca no es obligatorio",
+      espanol: "En cuanto a lo que decimos del enjuague de la boca…",
+    },
   ],
 
   // Apartados al final: viñetas, párrafos y un botón opcional
@@ -235,8 +242,10 @@ export const wudu = {
     {
       titulo: "Lo que anula el wuḍūʾ",
       parrafos: ["Hay cosas que anulan el wuḍūʾ…"],
-      enlace: { href: "/fataawa-zahiri-fiqh/lo-que-anula-el-wudu-3500",
-                texto: "¿Qué anula el wuḍūʾ? (Fatwa n.º 3500)" },
+      enlace: {
+        href: "/fataawa-zahiri-fiqh/lo-que-anula-el-wudu-3500",
+        texto: "¿Qué anula el wuḍūʾ? (Fatwa n.º 3500)",
+      },
     },
   ],
 };
@@ -254,19 +263,19 @@ export const wudu = {
 
 **El código decide el tema automáticamente** (`constants/fataawa.js`):
 
-| Código | Tema |
-|---|---|
-| `1000–1999` | ʿAqīda |
-| `2000–2999` | Uṣūl al-fiqh |
+| Código      | Tema                                          |
+| ----------- | --------------------------------------------- |
+| `1000–1999` | ʿAqīda                                        |
+| `2000–2999` | Uṣūl al-fiqh                                  |
 | `3000–3999` | Ṭahāra (`3300–3499` gusl · `3500–3699` wuḍūʾ) |
-| `4000–4999` | Ṣalāt |
-| `5000–5999` | Zakāt |
-| `6000–6999` | Ayuno |
-| `7000–7999` | Peregrinación |
-| `8000–8999` | Matrimonio y divorcio |
-| `9000–9999` | Sufismo |
-| `an00–an99` | Asuntos novedosos |
-| `ac00–ac99` | Asuntos cotidianos |
+| `4000–4999` | Ṣalāt                                         |
+| `5000–5999` | Zakāt                                         |
+| `6000–6999` | Ayuno                                         |
+| `7000–7999` | Peregrinación                                 |
+| `8000–8999` | Matrimonio y divorcio                         |
+| `9000–9999` | Sufismo                                       |
+| `an00–an99` | Asuntos novedosos                             |
+| `ac00–ac99` | Asuntos cotidianos                            |
 
 Así se ve el documento (lo genera el editor; este es solo de referencia):
 
@@ -284,7 +293,13 @@ Así se ve el documento (lo genera el editor; este es solo de referencia):
     { "type": "h", "text": "Un subtítulo" },
     { "type": "list", "items": ["Un punto", "Otro punto"] },
     { "type": "quote", "text": "Una cita…", "source": "Su fuente" },
-    { "type": "arabic", "text": "…", "translit": "…", "translation": "…", "source": "Corán …" },
+    {
+      "type": "arabic",
+      "text": "…",
+      "translit": "…",
+      "translation": "…",
+      "source": "Corán …"
+    },
     { "type": "nota", "title": "Recuadro", "text": "Aviso importante…" },
     { "type": "link", "codigo": "3500", "text": "Lo que anula el wuḍūʾ" }
   ],
@@ -306,12 +321,12 @@ Así se ve el documento (lo genera el editor; este es solo de referencia):
 
 Marcas que entiende el texto de noticias y fatāwá:
 
-| Escribes | Se ve |
-|---|---|
-| `**texto**` | **negritas** |
-| `==texto==` | texto resaltado |
-| `[Ibn Hazm](https://es.wikipedia.org/wiki/Ibn_Hazm)` | enlace a otro sitio |
-| `[nuestras fatāwá](/fataawa-zahiri-fiqh)` | enlace dentro del sitio |
+| Escribes                                             | Se ve                   |
+| ---------------------------------------------------- | ----------------------- |
+| `**texto**`                                          | **negritas**            |
+| `==texto==`                                          | texto resaltado         |
+| `[Ibn Hazm](https://es.wikipedia.org/wiki/Ibn_Hazm)` | enlace a otro sitio     |
+| `[nuestras fatāwá](/fataawa-zahiri-fiqh)`            | enlace dentro del sitio |
 
 Bloques del cuerpo de una noticia: `p` (párrafo), `h` (subtítulo), `list`, `quote`, `imagen` (con `src`, `alt` y `pie`) y `nota` (recuadro). El archivo `data/noticias-escritas/ejemplo_de_noticia.js` tiene un ejemplo con todas las opciones; con `"indexar": false` una noticia no sale en las listas del sitio ni en Google (sirve para pruebas).
 
@@ -322,7 +337,7 @@ Bloques del cuerpo de una noticia: `p` (párrafo), `h` (subtítulo), `list`, `qu
 export const NOTICIA_TEMAS = [
   { slug: "comunidad", label: "Nuestra comunidad", arabic: "جماعتنا" },
   // …
-  { slug: "dawa", label: "Daʿwa", arabic: "الدعوة" },   // ← nuevo
+  { slug: "dawa", label: "Daʿwa", arabic: "الدعوة" }, // ← nuevo
 ];
 ```
 
@@ -353,11 +368,11 @@ Toda fatwa con código entre 4500 y 4599 cae sola en «Ŷumuʿa». Con `indexado
 export const descargas = [
   // …
   {
-    slug: "sura-ijlas",                          // → /descargas/sura-ijlas
+    slug: "sura-ijlas", // → /descargas/sura-ijlas
     title: "Sūrat al-Ijlāṣ",
     teaser: "Una línea para la tarjeta.",
     description: "Descripción completa para la página y para Google.",
-    file: "/pdf/sura-ijlas.pdf",                 // ruta dentro de public/
+    file: "/pdf/sura-ijlas.pdf", // ruta dentro de public/
     format: "PDF",
     size: "180 KB",
   },
@@ -394,7 +409,7 @@ La página `/descargas/sura-ijlas` y su entrada en el sitemap se crean solas.
 // data/corridos.js — el id es lo que va después de "watch?v=" en YouTube
 export const corridos = [
   { id: "NqL6QNLkKwg", titulo: "El que no se dobló (feat. Ibn Hazm)" },
-  { id: "AbCdEfGhIjk", titulo: "Corrido nuevo" },   // ← nuevo
+  { id: "AbCdEfGhIjk", titulo: "Corrido nuevo" }, // ← nuevo
 ];
 ```
 
@@ -448,7 +463,11 @@ export default function AyunoPage() {
           <p>…</p>
         </section>
 
-        <CompartirNoticia url={`${SITE_URL}/ayuno`} titulo="El ayuno según Ibn Ḥazm" que="esta guía" />
+        <CompartirNoticia
+          url={`${SITE_URL}/ayuno`}
+          titulo="El ayuno según Ibn Ḥazm"
+          que="esta guía"
+        />
       </div>
     </>
   );
@@ -468,10 +487,10 @@ Luego agrégala al sitemap:
 
 ```jsx
 <CompartirNoticia
-  url={`${SITE_URL}/salat`}                       // dirección completa de la página
-  titulo="Aprende a rezar el ṣalāt paso a paso"   // texto que acompaña al enlace
-  que="esta guía"                                 // «Comparte esta guía»
-  imagen="/og-image.png"                          // imagen que se manda a Instagram (opcional)
+  url={`${SITE_URL}/salat`} // dirección completa de la página
+  titulo="Aprende a rezar el ṣalāt paso a paso" // texto que acompaña al enlace
+  que="esta guía" // «Comparte esta guía»
+  imagen="/og-image.png" // imagen que se manda a Instagram (opcional)
 />
 ```
 
@@ -480,7 +499,7 @@ Luego agrégala al sitemap:
 ```jsx
 import Icon from "@/components/Icon";
 
-<Icon name="mihrab" size={18} />
+<Icon name="mihrab" size={18} />;
 ```
 
 Nombres disponibles: `search`, `menu`, `close`, `arrow`, `chevron`, `play`, `cart`, `external`, `arrowLeft`, `book`, `download`, `clock`, `moon`, `calendar`, `link`, `print`, `check`, `scale`, `question`, `pin`, `headphones`, `water`, `mihrab`, `star`.
@@ -495,13 +514,15 @@ Para agregar uno, añade su `<path>` en el objeto `PATHS` de `components/Icon.js
 ```jsx
 import styles from "@/styles/site/Salat.module.css";
 
-<section className={styles.nota}>…</section>
+<section className={styles.nota}>…</section>;
 ```
 
 - Para texto árabe usa la clase global `arabe` y `lang="ar"`:
 
 ```jsx
-<p className="arabe" lang="ar">الصلاة</p>
+<p className="arabe" lang="ar">
+  الصلاة
+</p>
 ```
 
 ### 15. Publicar la juṭba del viernes
@@ -521,20 +542,20 @@ import styles from "@/styles/site/Salat.module.css";
 }
 ```
 
-- Si la da otro sheij, agrega `"sheij"` y `"lugar"`; si no, se muestra el Sheij Mudar.
+- Si la da otro sheij, agrega `"sheij"` y `"lugar"`; si no, se muestra el Mullah Khalid.
 - El viernes se cuenta con la hora de México (`constants/jutbas.js`). Para probar otro día en tu computadora: `http://localhost:3000/?probar=1` (botón) y `http://localhost:3000/jutba?probar=1` (página).
 
 ---
 
 ## Fatāwá y noticias en MongoDB
 
-| | |
-|---|---|
-| Base de datos | `islamic_website` |
-| Colecciones | `fataawa` (índice único en `codigo`) · `noticias` (índice único en `slug`) · `podcasts_khutbah` (juṭbas; sin índice creado por el proyecto) |
-| Conexión | `lib/mongodb.js` (lee `MONGODB_URI`) |
-| Consultas | `lib/fataawa-db.js` · `lib/noticias-db.js` · `lib/jutbas-db.js` |
-| Respaldo | `data/semilla/fataawa/*.json` · `data/semilla/noticias/*.json` · `data/semilla/jutbas/*.json` |
+|               |                                                                                                                                             |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| Base de datos | `islamic_website`                                                                                                                           |
+| Colecciones   | `fataawa` (índice único en `codigo`) · `noticias` (índice único en `slug`) · `podcasts_khutbah` (juṭbas; sin índice creado por el proyecto) |
+| Conexión      | `lib/mongodb.js` (lee `MONGODB_URI`)                                                                                                        |
+| Consultas     | `lib/fataawa-db.js` · `lib/noticias-db.js` · `lib/jutbas-db.js`                                                                             |
+| Respaldo      | `data/semilla/fataawa/*.json` · `data/semilla/noticias/*.json` · `data/semilla/jutbas/*.json`                                               |
 
 Para restaurar el respaldo o llenar una base vacía:
 
@@ -547,22 +568,25 @@ npm run subir-semilla
 
 ## El servicio interno (`/api`)
 
-| Petición | Devuelve |
-|---|---|
+| Petición                                              | Devuelve                                                           |
+| ----------------------------------------------------- | ------------------------------------------------------------------ |
 | `GET /api/fataawa?q=wudu&tema=tahara&limit=20&skip=0` | `{ total, resultados }` con las fichas (sin la respuesta completa) |
-| `GET /api/fataawa/3500` | Una fatwa completa |
-| `GET /api/noticias?q=yemen&tema=mundo` | `{ total, resultados }` |
-| `GET /api/noticias/<slug>` | Una noticia completa |
-| `GET /api/noticias/imagen/<slug>` | La foto principal de una noticia (guardada en base64 en MongoDB) |
-| `GET /api/noticias/imagen/<slug>/<bloque>` | Una foto dentro del texto (`bloque` = su posición en `cuerpo`) |
-| `GET /api/og?n=3500&t=Título&tema=Purificación` | Imagen de 1200×630 para redes |
+| `GET /api/fataawa/3500`                               | Una fatwa completa                                                 |
+| `GET /api/noticias?q=yemen&tema=mundo`                | `{ total, resultados }`                                            |
+| `GET /api/noticias/<slug>`                            | Una noticia completa                                               |
+| `GET /api/noticias/imagen/<slug>`                     | La foto principal de una noticia (guardada en base64 en MongoDB)   |
+| `GET /api/noticias/imagen/<slug>/<bloque>`            | Una foto dentro del texto (`bloque` = su posición en `cuerpo`)     |
+| `GET /api/og?n=3500&t=Título&tema=Purificación`       | Imagen de 1200×630 para redes                                      |
 
 Desde el navegador se usan las funciones de `services/requests.js`, que nunca lanzan errores:
 
 ```js
 import { findFataawa } from "@/services/requests";
 
-const { hasExternalError, data, errorMessage } = await findFataawa("gusl", "tahara");
+const { hasExternalError, data, errorMessage } = await findFataawa(
+  "gusl",
+  "tahara",
+);
 if (!hasExternalError) console.log(data.data.resultados);
 ```
 
@@ -574,11 +598,11 @@ if (!hasExternalError) console.log(data.data.resultados);
 
 ```jsx
 <Seo
-  title="Título de la página"            // se le agrega « · Islam Guanajuato»
+  title="Título de la página" // se le agrega « · Islam Guanajuato»
   description="Resumen de ~150 caracteres."
-  image="/og-image.png"                  // opcional
-  type="article"                         // website | article | profile
-  noIndex={false}                        // true = que Google no la muestre
+  image="/og-image.png" // opcional
+  type="article" // website | article | profile
+  noIndex={false} // true = que Google no la muestre
 />
 ```
 
@@ -603,23 +627,23 @@ if (!hasExternalError) console.log(data.data.resultados);
 - **Corán:** en árabe original, en la lectura de **Jalaf ʿan Ḥamza**.
 - **Hadices y Muḥallá:** en traducción al español.
 - **Fiqh:** según el método del Imam Ibn Ḥazm (al-Muḥallá). En las guías se distingue siempre lo **obligatorio** de lo **recomendado**.
-- **Transliteración:** sistema de la Casa de Velázquez (ṯ, ŷ, j, ḏ, š, ʿ, g, ʾ; ā, ī, ū; á para alif maqṣūra), en forma completa con desinencias: *Allāhu akbaru*, *Subḥāna rabbiya l-ʿaẓīmi*.
+- **Transliteración:** sistema de la Casa de Velázquez (ṯ, ŷ, j, ḏ, š, ʿ, g, ʾ; ā, ī, ū; á para alif maqṣūra), en forma completa con desinencias: _Allāhu akbaru_, _Subḥāna rabbiya l-ʿaẓīmi_.
 
 ---
 
 ## Problemas comunes
 
-| Síntoma | Causa y solución |
-|---|---|
-| `Falta la variable MONGODB_URI` | No existe `.env.local` o no tiene `MONGODB_URI`. Créalo en la raíz y reinicia `npm run dev`. |
-| Las fatāwá o noticias salen vacías | Revisa que en Atlas tu IP esté permitida (**Network Access**) y que la base se llame `islamic_website`. |
-| Una fatwa se ve en local pero no en el sitio | Tiene `"borrador": true`. Cámbialo a `false`. |
-| Una página no sale en Google | Le quedó algún `✍️` en el texto, o tiene `noIndex` / `"indexar": false`. |
-| Cambié un archivo de `data/` y no se ve | Guarda el archivo y recarga. Si sigue igual, detén `npm run dev`, borra la carpeta `.next` y vuelve a arrancar. |
-| Una foto de noticia no aparece | Las fotos nuevas van dentro del JSON (base64) y se sirven desde `/api/noticias/imagen/<slug>`: revisa que el documento en Atlas tenga `imagen.data`. Las noticias antiguas con `src` necesitan el archivo en `public/img/noticias/` subido a GitHub. |
-| El botón de la juṭba no aparece | Solo sale los viernes, con la hora de México. Para probarlo otro día en tu computadora: `http://localhost:3000/?probar=1`. |
-| Una juṭba no suena | El archivo de Google Drive debe estar compartido como «Cualquier persona con el enlace». |
-| `npm run build` falla en un import | Revisa mayúsculas y minúsculas del nombre del archivo: en Vercel (Linux) `Icon.jsx` y `icon.jsx` son distintos. |
+| Síntoma                                      | Causa y solución                                                                                                                                                                                                                                     |
+| -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `Falta la variable MONGODB_URI`              | No existe `.env.local` o no tiene `MONGODB_URI`. Créalo en la raíz y reinicia `npm run dev`.                                                                                                                                                         |
+| Las fatāwá o noticias salen vacías           | Revisa que en Atlas tu IP esté permitida (**Network Access**) y que la base se llame `islamic_website`.                                                                                                                                              |
+| Una fatwa se ve en local pero no en el sitio | Tiene `"borrador": true`. Cámbialo a `false`.                                                                                                                                                                                                        |
+| Una página no sale en Google                 | Le quedó algún `✍️` en el texto, o tiene `noIndex` / `"indexar": false`.                                                                                                                                                                             |
+| Cambié un archivo de `data/` y no se ve      | Guarda el archivo y recarga. Si sigue igual, detén `npm run dev`, borra la carpeta `.next` y vuelve a arrancar.                                                                                                                                      |
+| Una foto de noticia no aparece               | Las fotos nuevas van dentro del JSON (base64) y se sirven desde `/api/noticias/imagen/<slug>`: revisa que el documento en Atlas tenga `imagen.data`. Las noticias antiguas con `src` necesitan el archivo en `public/img/noticias/` subido a GitHub. |
+| El botón de la juṭba no aparece              | Solo sale los viernes, con la hora de México. Para probarlo otro día en tu computadora: `http://localhost:3000/?probar=1`.                                                                                                                           |
+| Una juṭba no suena                           | El archivo de Google Drive debe estar compartido como «Cualquier persona con el enlace».                                                                                                                                                             |
+| `npm run build` falla en un import           | Revisa mayúsculas y minúsculas del nombre del archivo: en Vercel (Linux) `Icon.jsx` y `icon.jsx` son distintos.                                                                                                                                      |
 
 ---
 
