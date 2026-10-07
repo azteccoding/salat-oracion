@@ -3,15 +3,29 @@ import PageHero from "@/components/PageHero";
 import Seo from "@/components/Seo";
 import { descargas } from "@/data/descargas";
 import styles from "@/styles/site/Descargas.module.css";
+import fx from "@/styles/site/Fataawa.module.css";
 
 export default function Descargas() {
   return (
     <>
-      <Seo title="Descargas" description="Libros y materiales gratuitos para aprender sobre el islam." />
-      <PageHero title="Libros y descargas" arabic="المكتبة" crumbs={[{ label: "Descargas" }]}>
-        <p>Materiales gratuitos para estudiar en casa, compartir con tu familia o leer en la musala.</p>
+      <Seo
+        title="Descargas"
+        description="Libros y materiales gratuitos para aprender sobre el islam."
+      />
+      <PageHero
+        title="Libros y descargas"
+        arabic="المكتبة"
+        crumbs={[{ label: "Descargas" }]}
+      >
+        <p>
+          Materiales gratuitos para estudiar en casa, compartir con tu familia o
+          leer en la musala.
+        </p>
       </PageHero>
       <div className={`contenedor ${styles.list}`}>
+        <p className={fx.count}>
+          {descargas.length} {descargas.length === 1 ? "archivo" : "archivos"}
+        </p>
         {descargas.map((d) => (
           <DownloadCard key={d.slug} item={d} />
         ))}
