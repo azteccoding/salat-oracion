@@ -76,7 +76,7 @@ export const descargas = [
   },
   {
     slug: "Surat_al-Naba_al-Bahr_al-Muḥīt_Mullah_Khalid",
-    title: "Traducción del Tafsīr al-Bahr al-Muḥīt Surat al-Naba'",
+    title: "Traducción del Tafsīr al-Baḥr al-Muḥīt Surat al-Naba'",
     teaser:
       "Por primera vez al español un Tafsīr de la España Musulmana de una de las suras más hermosas del Corán",
     description:
