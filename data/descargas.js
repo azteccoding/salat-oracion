@@ -1,7 +1,7 @@
 export const descargas = [
   {
     slug: "sura-fatiha",
-    title: "Sūrat al-Fātiḥa con Tafsīr al-Ŷalālayn",
+    title: "Taŷwīd de Sūra al-Fātiḥa y Tafsīr Jalalayn",
     teaser:
       "La recitas diecisiete veces al día. ¿Sabes de verdad lo que le estás diciendo a Allah?",
     description:
@@ -12,7 +12,7 @@ export const descargas = [
   },
   {
     slug: "sura-nasr",
-    title: "Sūrat al-Naṣr con Tafsīr al-Ŷalālayn",
+    title: "Taŷwīd de Sūra al-Naṣr y Tafsīr Jalalayn",
     teaser: "Tres aleyas que anunciaron una victoria… y una despedida.",
     description:
       "Cuando descendió, muchos vieron una noticia de triunfo; los que entendían, supieron que el Profeta ﷺ estaba por despedirse. Descubre por qué una de las suras más breves del Corán guarda uno de sus mensajes más conmovedores: árabe en la lectura de Jalaf ʿan Ḥamza con taŷwīd por colores, transliteración, el Tafsīr al-Ŷalālayn en español y cada palabra desarmada hasta su raíz.",
@@ -74,4 +74,17 @@ export const descargas = [
     format: "PDF",
     size: "753 KB",
   },
+  {
+    slug: "Surat_al-Naba_al-Bahr_al-Muhit_Mullah_Khalid",
+    title: "Traducción del Tafsīr al-Bahr al-Muhit Surat al-Naba'",
+    teaser:
+      "Por primera vez al español un Tafsīr de la España Musulmana de una de las suras más hermosas del Corán",
+    description:
+      "¿De qué están hablando? De la gran noticia... así comienza la sura que describe el Día del Juicio y el Infierno, la maravillas de Allah en este mundo y las hermosas huríes del Paraíso. Disfruta la recitación de la mano de Mullah Khalid que ha puesto su glosa junto al comentario completo de Abu Hayyan de Granada, el mejor Tafsīr de la España Musulmana.",
+    file: "/pdf/Surat_al-Naba_al-Bahr_al-Muhit_Mullah_Khalid.pdf",
+    format: "PDF",
+    size: "888 KB",
+  },
 ];
+
+export const tresDescargasAlAzar = [descargas[0], descargas[2], descargas[7]];

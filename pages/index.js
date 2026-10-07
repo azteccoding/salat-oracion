@@ -11,7 +11,7 @@ import { NUESTRO_SHEIJ } from "@/constants/content";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/constants/site";
 import { conContexto, organizacion } from "@/lib/seo";
 import { corridos } from "@/data/corridos";
-import { descargas } from "@/data/descargas";
+import { tresDescargasAlAzar } from "@/data/descargas";
 import { ultimasFataawa } from "@/lib/fataawa-db";
 import NoticiaPreview from "@/components/noticias/NoticiaPreview";
 import { NOTICIAS_PATH } from "@/constants/noticias";
@@ -21,10 +21,30 @@ import fx from "@/styles/site/Fataawa.module.css";
 import ui from "@/styles/site/ui.module.css";
 
 const QUICK = [
-  { href: "/salat", icon: "mihrab", title: "Aprende a rezar", text: "El ṣalāt paso a paso, en árabe y en español" },
-  { href: FATAAWA_PATH, icon: "scale", title: "Fatāwá", text: "Preguntas de fiqh según el método ẓāhirī" },
-  { href: "#horarios", icon: "clock", title: "Horarios", text: "Las cinco oraciones de hoy en León" },
-  { href: "/descargas", icon: "download", title: "Descargas", text: "Libros y materiales para estudiar" },
+  {
+    href: "/salat",
+    icon: "mihrab",
+    title: "Aprende a rezar",
+    text: "El ṣalāt paso a paso, en árabe y en español",
+  },
+  {
+    href: FATAAWA_PATH,
+    icon: "scale",
+    title: "Fatāwá",
+    text: "Preguntas de fiqh según el método ẓāhirī",
+  },
+  {
+    href: "#horarios",
+    icon: "clock",
+    title: "Horarios",
+    text: "Las cinco oraciones de hoy en León",
+  },
+  {
+    href: "/descargas",
+    icon: "download",
+    title: "Descargas",
+    text: "Libros y materiales para estudiar",
+  },
 ];
 
 // Tarjetas de «Lo esencial».
@@ -80,12 +100,22 @@ export default function Home({ latest, noticia }) {
             <h1>{SITE_NAME}</h1>
             <p className={styles.heroLead}>{SITE_DESCRIPTION}</p>
 
-            <form action={FATAAWA_PATH} method="get" role="search" className={styles.heroSearch}>
+            <form
+              action={FATAAWA_PATH}
+              method="get"
+              role="search"
+              className={styles.heroSearch}
+            >
               <Icon name="search" size={22} />
               <label htmlFor="buscar-inicio" className="sr-only">
                 Buscar una pregunta
               </label>
-              <input id="buscar-inicio" name="q" type="search" placeholder="¿Qué quieres aprender hoy?" />
+              <input
+                id="buscar-inicio"
+                name="q"
+                type="search"
+                placeholder="¿Qué quieres aprender hoy?"
+              />
               <button type="submit" className={`${ui.btn} ${ui.btnGold}`}>
                 Buscar
               </button>
@@ -103,7 +133,13 @@ export default function Home({ latest, noticia }) {
 
           <div className={styles.heroArt} aria-hidden>
             <div className={styles.heroHalo} />
-            <Image src="/img/logo.svg" alt="" width={360} height={360} priority />
+            <Image
+              src="/img/logo.svg"
+              alt=""
+              width={360}
+              height={360}
+              priority
+            />
           </div>
         </div>
       </section>
@@ -186,7 +222,10 @@ export default function Home({ latest, noticia }) {
                   </Link>
                 ) : (
                   /* proximamente card greyed out — se usa cuando la tarjeta no tiene href */
-                  <div key={e.title} className={`${styles.essCard} ${styles.essSoon}`}>
+                  <div
+                    key={e.title}
+                    className={`${styles.essCard} ${styles.essSoon}`}
+                  >
                     {inner}
                   </div>
                 );
@@ -198,11 +237,13 @@ export default function Home({ latest, noticia }) {
             <p className={styles.musicaEyebrow}>¿Sabías que…?</p>
             <h2>En el fiqh ẓāhirī se puede escuchar música</h2>
             <p>
-              El Imam Ibn Ḥazm revisó uno por uno los ḥadīṯ que se citan para prohibir la música y concluyó que ninguno
-              es auténtico. En <em>al-Muḥallá</em> la declara permitida y enseña que su valor depende de la intención:
-              «las acciones valen según las intenciones». Quien escucha para descansar el alma y fortalecerse en la
-              obediencia a Allah, obra bien. Es una postura minoritaria frente a las demás escuelas, pero firme en sus
-              pruebas.
+              El Imam Ibn Ḥazm revisó uno por uno los ḥadīṯ que se citan para
+              prohibir la música y concluyó que ninguno es auténtico. En{" "}
+              <em>al-Muḥallá</em> la declara permitida y enseña que su valor
+              depende de la intención: «las acciones valen según las
+              intenciones». Quien escucha para descansar el alma y fortalecerse
+              en la obediencia a Allah, obra bien. Es una postura minoritaria
+              frente a las demás escuelas, pero firme en sus pruebas.
             </p>
             <p>Escucha los corridos tumbados de Banda Jorgilios:</p>
             <div className={styles.videos}>
@@ -216,7 +257,11 @@ export default function Home({ latest, noticia }) {
                     allowFullScreen
                   />
                   <figcaption>
-                    <a href={`https://www.youtube.com/watch?v=${v.id}`} target="_blank" rel="noopener noreferrer">
+                    <a
+                      href={`https://www.youtube.com/watch?v=${v.id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       {v.titulo} <Icon name="external" size={14} />
                     </a>
                   </figcaption>
@@ -250,16 +295,21 @@ export default function Home({ latest, noticia }) {
             </p>
             <h3>{NUESTRO_SHEIJ.nombre}</h3>
             <p>{NUESTRO_SHEIJ.resumen}</p>
-            <Link href="/nuestro-sheij" className={`${ui.btn} ${ui.btnPrimary}`}>
+            <Link
+              href="/nuestro-sheij"
+              className={`${ui.btn} ${ui.btnPrimary}`}
+            >
               Conocer al Sheij
             </Link>
           </section>
 
-          <section className={`${ui.card} ${ui.cardPad} ${styles.downloadCard}`}>
+          <section
+            className={`${ui.card} ${ui.cardPad} ${styles.downloadCard}`}
+          >
             <h2 className={ui.cardTitle}>
               <Icon name="download" size={18} /> Descargas gratuitas
             </h2>
-            {descargas.map((d) => (
+            {tresDescargasAlAzar.map((d) => (
               <div key={d.slug} className={styles.downloadItem}>
                 <h3>
                   <Link href={`/descargas/${d.slug}`}>{d.title}</Link>
@@ -268,7 +318,7 @@ export default function Home({ latest, noticia }) {
               </div>
             ))}
             <Link href="/descargas" className={`${ui.btn} ${ui.btnPrimary}`}>
-              Ver descargas
+              Ver todas las descargas
             </Link>
           </section>
         </aside>
@@ -281,8 +331,12 @@ export default function Home({ latest, noticia }) {
             قِيمَةُ كُلِّ امْرِئٍ مَا يُحْسِنُهُ
           </p>
           <p className={styles.wisdomTr}>qīmatu kulli mriʾin mā yuḥsinuhu</p>
-          <p className={styles.wisdomEs}>«El valor de cada persona está en lo que sabe hacer bien.»</p>
-          <p className={styles.wisdomRef}>ʿAlī ibn Abī Ṭālib (karrama llāhu waŷhahu) · Nahŷ al-balāga</p>
+          <p className={styles.wisdomEs}>
+            «El valor de cada persona está en lo que sabe hacer bien.»
+          </p>
+          <p className={styles.wisdomRef}>
+            ʿAlī ibn Abī Ṭālib (karrama llāhu waŷhahu) · Nahŷ al-balāga
+          </p>
         </div>
       </section>
 
@@ -296,13 +350,16 @@ export default function Home({ latest, noticia }) {
         </div>
         <div>
           <p>
-            Somos estudiantes de Guanajuato y Aguascalientes reunidos para aprender y difundir el islam de forma
-            pacífica, tolerante y académica. Muchos llegamos al islam desde otras tradiciones y sabemos lo que es
-            empezar de cero: por eso explicamos cada término en árabe y cada práctica con sus fuentes.
+            Somos estudiantes de Guanajuato y Aguascalientes reunidos para
+            aprender y difundir el islam de forma pacífica, tolerante y
+            académica. Muchos llegamos al islam desde otras tradiciones y
+            sabemos lo que es empezar de cero: por eso explicamos cada término
+            en árabe y cada práctica con sus fuentes.
           </p>
           <p>
-            Nuestras fatāwá siguen el método ẓāhirī de Ibn Ḥazm de Córdoba: volver al texto del Corán y de la Sunna
-            auténtica, con respeto a todas las escuelas y a la unidad de los musulmanes.
+            Nuestras fatāwá siguen el método ẓāhirī de Ibn Ḥazm de Córdoba:
+            volver al texto del Corán y de la Sunna auténtica, con respeto a
+            todas las escuelas y a la unidad de los musulmanes.
           </p>
         </div>
       </section>
@@ -318,9 +375,10 @@ export default function Home({ latest, noticia }) {
           </p>
           <h2>Imam Ibn Hazm de Córdoba</h2>
           <p>
-            Poeta, visir, jurista y teólogo de al-Andalus. Escribió sobre el amor en <em>El Collar de la Paloma</em> y
-            sobre la ley en <em>al-Muḥallá</em>, y enseñó a volver siempre al texto revelado. Te invitamos a conocer su
-            vida, sus obras y su escuela.
+            Poeta, visir, jurista y teólogo de al-Andalus. Escribió sobre el
+            amor en <em>El Collar de la Paloma</em> y sobre la ley en{" "}
+            <em>al-Muḥallá</em>, y enseñó a volver siempre al texto revelado. Te
+            invitamos a conocer su vida, sus obras y su escuela.
           </p>
           <Link href="/imam-ibn-hazm" className={`${ui.btn} ${ui.btnGold}`}>
             Conocer al Imam <Icon name="arrow" size={18} />
