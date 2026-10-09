@@ -5,7 +5,14 @@ import { useEffect, useState } from "react";
 import Icon from "@/components/Icon";
 import PageHero from "@/components/PageHero";
 import Seo from "@/components/Seo";
-import { SHEIJ_JUTBA, enlaceDrive, esViernes, fechaLarga, reproductorDrive, viernesProximo } from "@/constants/jutbas";
+import {
+  SHEIJ_JUTBA,
+  enlaceDrive,
+  esViernes,
+  fechaLarga,
+  reproductorDrive,
+  viernesProximo,
+} from "@/constants/jutbas";
 import { listarJutbas } from "@/lib/jutbas-db";
 // Nota: lib/jutbas-db (MongoDB) solo se usa en getStaticProps (servidor).
 import styles from "@/styles/site/Jutba.module.css";
@@ -22,7 +29,11 @@ const Reproductor = ({ jutba, abierto: abiertoInicial = false }) => {
   const [abierto, setAbierto] = useState(abiertoInicial);
   if (!abierto) {
     return (
-      <button type="button" className={`${ui.btn} ${ui.btnGhost}`} onClick={() => setAbierto(true)}>
+      <button
+        type="button"
+        className={`${ui.btn} ${ui.btnGhost}`}
+        onClick={() => setAbierto(true)}
+      >
         <Icon name="play" size={18} /> Escuchar
       </button>
     );
@@ -35,7 +46,12 @@ const Reproductor = ({ jutba, abierto: abiertoInicial = false }) => {
         allow="autoplay"
         loading="lazy"
       />
-      <a href={enlaceDrive(jutba.driveId)} target="_blank" rel="noopener noreferrer" className={styles.abrirDrive}>
+      <a
+        href={enlaceDrive(jutba.driveId)}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={styles.abrirDrive}
+      >
         ¿No se oye? Ábrela en Google Drive <Icon name="external" size={14} />
       </a>
     </div>
@@ -88,7 +104,8 @@ export default function JutbaPage({ jutbas }) {
         crumbs={[{ label: "Juṭba del viernes" }]}
       >
         <p>
-          Cada viernes, la juṭba del {SHEIJ_JUTBA.nombre} desde {SHEIJ_JUTBA.lugar}, para escucharla donde estés.
+          Cada viernes, la juṭba del {SHEIJ_JUTBA.nombre} desde{" "}
+          {SHEIJ_JUTBA.lugar}, para escucharla donde estés.
         </p>
       </PageHero>
 
@@ -101,15 +118,19 @@ export default function JutbaPage({ jutbas }) {
               <Icon name="headphones" size={40} />
               <h2>Vuelve el viernes</h2>
               <p>
-                La juṭba se escucha solo los viernes. La próxima es el <strong>{fechaLarga(viernesProximo())}</strong>,
-                in šāʾa llāhu.
+                La juṭba se escucha solo los viernes. La próxima es el{" "}
+                <strong>{fechaLarga(viernesProximo())}</strong>, in šāʾa llāhu.
               </p>
               <Link href="/" className={`${ui.btn} ${ui.btnPrimary}`}>
                 <Icon name="arrowLeft" size={18} /> Volver al inicio
               </Link>
               {process.env.NODE_ENV === "development" && (
                 <p className={styles.soloDev}>
-                  Solo en tu computadora: <Link href="/jutba?probar=1">verla como si fuera viernes</Link>.
+                  Solo en tu computadora:{" "}
+                  <Link href="/jutba?probar=1">
+                    verla como si fuera viernes
+                  </Link>
+                  .
                 </p>
               )}
             </section>
@@ -119,17 +140,22 @@ export default function JutbaPage({ jutbas }) {
             <section className={`${ui.card} ${ui.cardPad} ${styles.vuelve}`}>
               <Icon name="headphones" size={40} />
               <h2>La juṭba de hoy aún no está lista</h2>
-              <p>Vuelve más tarde, in šāʾa llāhu.</p>
+              <p>Vuelve más tarde, in šāʾa llāh.</p>
             </section>
           )}
 
           {viernes === true && ultima && (
             <>
-              <article className={`${ui.card} ${ui.cardPad} ${styles.destacada}`} id={ultima.slug || undefined}>
+              <article
+                className={`${ui.card} ${ui.cardPad} ${styles.destacada}`}
+                id={ultima.slug || undefined}
+              >
                 <p className={styles.kicker}>La más reciente</p>
                 <h2>{ultima.titulo}</h2>
                 <Datos jutba={ultima} />
-                {ultima.resumen && <p className={styles.resumen}>{ultima.resumen}</p>}
+                {ultima.resumen && (
+                  <p className={styles.resumen}>{ultima.resumen}</p>
+                )}
                 <Reproductor jutba={ultima} abierto />
               </article>
 
@@ -137,10 +163,16 @@ export default function JutbaPage({ jutbas }) {
                 <section className={styles.anteriores}>
                   <h2 className={ui.sectionTitle}>Juṭbas anteriores</h2>
                   {anteriores.map((j) => (
-                    <article key={j.driveId} className={`${ui.card} ${ui.cardPad} ${styles.item}`} id={j.slug || undefined}>
+                    <article
+                      key={j.driveId}
+                      className={`${ui.card} ${ui.cardPad} ${styles.item}`}
+                      id={j.slug || undefined}
+                    >
                       <h3>{j.titulo}</h3>
                       <Datos jutba={j} />
-                      {j.resumen && <p className={styles.resumen}>{j.resumen}</p>}
+                      {j.resumen && (
+                        <p className={styles.resumen}>{j.resumen}</p>
+                      )}
                       <Reproductor jutba={j} />
                     </article>
                   ))}
@@ -153,7 +185,12 @@ export default function JutbaPage({ jutbas }) {
         <aside className={styles.aside}>
           <figure className={`${ui.card} ${styles.sheij}`}>
             <div className={styles.sheijFoto}>
-              <Image src={SHEIJ_JUTBA.foto} alt={SHEIJ_JUTBA.alt} fill sizes="(max-width: 900px) 100vw, 320px" />
+              <Image
+                src={SHEIJ_JUTBA.foto}
+                alt={SHEIJ_JUTBA.alt}
+                fill
+                sizes="(max-width: 900px) 100vw, 320px"
+              />
             </div>
             <figcaption>
               <strong>{SHEIJ_JUTBA.nombre}</strong>
@@ -168,7 +205,7 @@ export default function JutbaPage({ jutbas }) {
   );
 }
 
-// Se renueva cada 60 s: una juṭba nueva en MongoDB aparece sola, sin volver a construir el sitio
+// Se renueva cada 120 s: una juṭba nueva en MongoDB aparece sola, sin volver a construir el sitio
 export async function getStaticProps() {
   let jutbas = [];
   try {
@@ -176,5 +213,5 @@ export async function getStaticProps() {
   } catch (error) {
     console.error("[jutba] No se pudo leer MongoDB:", error.message);
   }
-  return { props: { jutbas }, revalidate: 60 };
+  return { props: { jutbas }, revalidate: 120 };
 }
