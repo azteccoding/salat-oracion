@@ -443,10 +443,8 @@
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  .itemNum {
-    color: var(--oro-300);
-  }
+:global(:root[data-tema="oscuro"]) .itemNum {
+  color: var(--oro-300);
 }
 
 .searchBox button {

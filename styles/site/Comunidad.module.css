@@ -293,10 +293,8 @@
   margin: 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  .citaFuente {
-    color: var(--oro-300);
-  }
+:global(:root[data-tema="oscuro"]) .citaFuente {
+  color: var(--oro-300);
 }
 
 /* ---------- Tarjetas en rejilla ---------- */

@@ -261,13 +261,11 @@
   letter-spacing: 0.04em;
 }
 
-@media (prefers-color-scheme: dark) {
-  .badge {
-    color: var(--oro-300);
-  }
-  .btnPrimary {
-    background: var(--azul-600);
-  }
+:global(:root[data-tema="oscuro"]) .badge {
+  color: var(--oro-300);
+}
+:global(:root[data-tema="oscuro"]) .btnPrimary {
+  background: var(--azul-600);
 }
 
 /* ---------- Estado vacío ---------- */

@@ -428,13 +428,11 @@ a.essCard:hover {
   color: var(--tinta-2);
 }
 
-@media (prefers-color-scheme: dark) {
-  .wisdomAr {
-    color: var(--oro-300);
-  }
-  .wisdomRef {
-    color: var(--oro-300);
-  }
+:global(:root[data-tema="oscuro"]) .wisdomAr {
+  color: var(--oro-300);
+}
+:global(:root[data-tema="oscuro"]) .wisdomRef {
+  color: var(--oro-300);
 }
 
 @media (max-width: 1000px) {

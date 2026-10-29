@@ -47,27 +47,26 @@
   color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --papel: #0b1224;
-    --papel-2: #0f1830;
-    --superficie: #131d38;
-    --tinta: #ece7dc;
-    --tinta-2: #c9c6c0;
-    --tenue: #939bb0;
-    --borde: #243157;
-    --borde-suave: #1c2848;
-    --acento: #6f93e6;
-    --acento-hover: #93b0f0;
-    --enlace: #8fb0f5;
-    --dorado: #e0b95e;
-    --azul-50: #111b35;
-    --azul-100: #1a2a52;
-    --oro-100: #2d2615;
-    --sombra-1: 0 1px 2px rgba(0, 0, 0, 0.4);
-    --sombra-2: 0 14px 34px -14px rgba(0, 0, 0, 0.7);
-    color-scheme: dark;
-  }
+/* Tema oscuro: del ʿišāʾ al fin del fajr (lo pone lib/tema-rezo.js) */
+:root[data-tema="oscuro"] {
+  --papel: #0b1224;
+  --papel-2: #0f1830;
+  --superficie: #131d38;
+  --tinta: #ece7dc;
+  --tinta-2: #c9c6c0;
+  --tenue: #939bb0;
+  --borde: #243157;
+  --borde-suave: #1c2848;
+  --acento: #6f93e6;
+  --acento-hover: #93b0f0;
+  --enlace: #8fb0f5;
+  --dorado: #e0b95e;
+  --azul-50: #111b35;
+  --azul-100: #1a2a52;
+  --oro-100: #2d2615;
+  --sombra-1: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --sombra-2: 0 14px 34px -14px rgba(0, 0, 0, 0.7);
+  color-scheme: dark;
 }
 
 *,

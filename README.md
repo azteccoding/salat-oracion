@@ -172,6 +172,8 @@ import { steps } from "@/data/steps"; // = ./data/steps
 | Cambiar el menú                                       | `constants/site.js` → `NAV_LINKS`                                            |
 | Cambiar el nombre, la descripción o el dominio        | `constants/site.js`                                                          |
 | Cambiar colores, tipografía o espacios generales      | `styles/globals.css`                                                         |
+| Cambiar cuándo se pone el tema claro u oscuro         | `lib/tema-rezo.js` · `components/TemaSegunRezo.jsx`                          |
+| Cambiar la ciudad o configuración de los horarios     | `constants/api.js` → `ISLAMICFINDER_WIDGET_URL`                              |
 | Cambiar el diseño de una sola página                  | `styles/site/<Página>.module.css`                                            |
 
 ---
@@ -509,6 +511,7 @@ Para agregar uno, añade su `<path>` en el objeto `PATHS` de `components/Icon.js
 ### 14. Estilos
 
 - **Colores, tipografías y variables generales** (`--azul-700`, `--oro-500`, `--tinta`, `--radio`…): `styles/globals.css`.
+- **Tema claro y oscuro:** no sigue al sistema operativo, sino a los tiempos de oración de León. Es **claro desde el šurūq** (salida del sol, fin del tiempo del fajr) **hasta que entra el ʿišāʾ**, y oscuro el resto de la noche. Los horarios son los del mismo recuadro de IslamicFinder del inicio (`/api/tiempos-rezo`); mientras llegan, `lib/tema-rezo.js` los calcula con los mismos ángulos (15° / 15°). Los colores oscuros van en `:root[data-tema="oscuro"]` (`globals.css`) y, dentro de un módulo, con `:global(:root[data-tema="oscuro"]) .clase { … }`.
 - **Cada página** tiene su módulo en `styles/site/`. Las clases se importan como objeto:
 
 ```jsx
@@ -577,6 +580,7 @@ npm run subir-semilla
 | `GET /api/noticias/imagen/<slug>`                     | La foto principal de una noticia (guardada en base64 en MongoDB)   |
 | `GET /api/noticias/imagen/<slug>/<bloque>`            | Una foto dentro del texto (`bloque` = su posición en `cuerpo`)     |
 | `GET /api/og?n=3500&t=Título&tema=Purificación`       | Imagen de 1200×630 para redes                                      |
+| `GET /api/tiempos-rezo`                               | Los tiempos del día del recuadro de IslamicFinder, en minutos      |
 
 Desde el navegador se usan las funciones de `services/requests.js`, que nunca lanzan errores:
 
