@@ -32,7 +32,7 @@ export default function NuestroSheij() {
               description: S.resumen,
               image: `${SITE_URL}${S.fotoPrincipal.src}`,
               worksFor: organizacion,
-              address: { "@type": "PostalAddress", addressLocality: "León", addressRegion: "Guanajuato", addressCountry: "MX" },
+              address: { "@type": "PostalAddress", addressCountry: "MX" },
             },
           }),
           migasJsonLd([{ href: "/nuestra-tariqa", label: "Nuestra Tarīqa" }, { label: S.titulo }], "/nuestro-sheij"),

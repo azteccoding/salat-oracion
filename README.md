@@ -1,10 +1,10 @@
 <div align="center">
 
-# Estudiantes del Islam en Guanajuato
+# Estudiantes del Islam en México
 
 **El sitio web de la comunidad: [islamguanajuato.com](https://www.islamguanajuato.com)**
 
-Estudiantes de Guanajuato y Aguascalientes reunidos para aprender y difundir el islam de forma pacífica, tolerante y académica.
+Estudiantes de distintas partes de México reunidos para aprender y difundir el islam de forma pacífica, tolerante y académica.
 
 ![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=nextdotjs)
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=000)
@@ -47,7 +47,7 @@ Estudiantes de Guanajuato y Aguascalientes reunidos para aprender y difundir el 
 | `/imam-ibn-hazm/obras/<slug>`                                                  | Obras de Ibn Ḥazm                                                                                                                                                                                                                                  | `data/ibn-hazm-obras.js`                                       |
 | `/nuestra-tariqa`, `/nuestro-maulana`, `/nuestro-sheij`, `/nuestra-recitacion` | La comunidad                                                                                                                                                                                                                                       | las propias páginas                                            |
 | `/descargas` y `/descargas/<slug>`                                             | PDF para descargar                                                                                                                                                                                                                                 | `data/descargas.js` + `public/pdf/`                            |
-| `/jutba`                                                                       | La juṭba del viernes del Mullah Khalid (León, Gto). No está en el menú: se llega por el botón flotante de audífonos, que aparece en todas las páginas solo los viernes (`components/Layout.jsx` → `BotonJutba`); otro día dice «Vuelve el viernes» | MongoDB, colección `podcasts_khutbah` + audios en Google Drive |
+| `/jutba`                                                                       | La juṭba del viernes del Mullah Khalid. No está en el menú: se llega por el botón flotante de audífonos, que aparece en todas las páginas solo los viernes (`components/Layout.jsx` → `BotonJutba`); otro día dice «Vuelve el viernes» | MongoDB, colección `podcasts_khutbah` + audios en Google Drive |
 | `/editor-fataawa`, `/editor-noticias`, `/editor-jutbas`                        | Editores internos (no salen en el menú ni en Google)                                                                                                                                                                                               | —                                                              |
 | `/sitemap.xml`                                                                 | Mapa del sitio para Google, se genera solo                                                                                                                                                                                                         | `pages/sitemap.xml.js`                                         |
 
@@ -602,7 +602,7 @@ if (!hasExternalError) console.log(data.data.resultados);
 
 ```jsx
 <Seo
-  title="Título de la página" // se le agrega « · Islam Guanajuato»
+  title="Título de la página" // se le agrega « · Estudiantes del Islam»
   description="Resumen de ~150 caracteres."
   image="/og-image.png" // opcional
   type="article" // website | article | profile
@@ -653,6 +653,6 @@ if (!hasExternalError) console.log(data.data.resultados);
 
 <div align="center">
 
-**Estudiantes del Islam en Guanajuato** · León, Guanajuato, México
+**Estudiantes del Islam en México**
 
 </div>

@@ -37,7 +37,7 @@ const QUICK = [
     href: "#horarios",
     icon: "clock",
     title: "Horarios",
-    text: "Las cinco oraciones de hoy en León",
+    text: "Las cinco oraciones de hoy",
   },
   {
     href: "/descargas",
@@ -75,14 +75,14 @@ export default function Home({ latest, noticia }) {
   return (
     <>
       <Seo
-        description="Aprende el islam en español desde León, Guanajuato: cómo rezar paso a paso, wudu y ghusl, fatwas de fiqh ẓāhirī (Ibn Hazm) con sus pruebas, horarios de oración y libros gratuitos."
+        description="Aprende el islam en español desde México: cómo rezar paso a paso, wudu y ghusl, fatwas de fiqh ẓāhirī (Ibn Hazm) con sus pruebas, horarios de oración y libros gratuitos."
         jsonLd={[
           conContexto(organizacion),
           conContexto({
             "@type": "WebSite",
             "@id": `${SITE_URL}/#sitio`,
             name: SITE_NAME,
-            alternateName: "Islam Guanajuato",
+            alternateName: "Estudiantes del Islam",
             url: SITE_URL,
             inLanguage: "es-MX",
             publisher: { "@id": `${SITE_URL}/#organizacion` },
@@ -350,7 +350,7 @@ export default function Home({ latest, noticia }) {
         </div>
         <div>
           <p>
-            Somos estudiantes de Guanajuato y Aguascalientes reunidos para
+            Somos estudiantes de distintas partes de México reunidos para
             aprender y difundir el islam de forma pacífica, tolerante y
             académica. Muchos llegamos al islam desde otras tradiciones y
             sabemos lo que es empezar de cero: por eso explicamos cada término

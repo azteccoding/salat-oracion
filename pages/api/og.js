@@ -19,7 +19,7 @@ const limpiar = (s = "", max = 140) => {
 export default function handler(req) {
   const { searchParams } = new URL(req.url);
   const numero = limpiar(searchParams.get("n") || "", 12);
-  const titulo = limpiar(searchParams.get("t") || "Estudiantes del Islam en Guanajuato");
+  const titulo = limpiar(searchParams.get("t") || "Estudiantes del Islam en México");
   const tema = limpiar(searchParams.get("tema") || "", 60);
   const tamano = titulo.length > 90 ? 52 : titulo.length > 55 ? 62 : 72;
 
@@ -43,7 +43,7 @@ export default function handler(req) {
           <img src={LOGO} width={64} height={64} alt="" />
           <div style={{ display: "flex", flexDirection: "column" }}>
             <span style={{ fontSize: 28, color: "#ffffff" }}>Estudiantes del Islam</span>
-            <span style={{ fontSize: 20, color: "#e6c77a", letterSpacing: 4 }}>EN GUANAJUATO</span>
+            <span style={{ fontSize: 20, color: "#e6c77a", letterSpacing: 4 }}>EN MÉXICO</span>
           </div>
         </div>
 

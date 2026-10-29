@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { SITE_DESCRIPTION, SITE_LOCATION, SITE_NAME } from "@/constants/site";
+import { SITE_DESCRIPTION, SITE_NAME } from "@/constants/site";
 import { FATAAWA_PATH, FATWA_TOPICS } from "@/constants/fataawa";
-import Icon from "./Icon";
 import styles from "@/styles/site/Footer.module.css";
 
 const SiteFooter = () => {
@@ -17,9 +16,6 @@ const SiteFooter = () => {
             <span>{SITE_NAME}</span>
           </Link>
           <p>{SITE_DESCRIPTION}</p>
-          <p className={styles.lugar}>
-            <Icon name="pin" size={16} /> {SITE_LOCATION}
-          </p>
         </div>
 
         <div>
@@ -80,7 +76,6 @@ const SiteFooter = () => {
           <span>
             © {year} {SITE_NAME}
           </span>
-          <span>Hecho con amor en León, Guanajuato</span>
         </div>
       </div>
     </footer>

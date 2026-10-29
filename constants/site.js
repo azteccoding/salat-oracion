@@ -1,16 +1,16 @@
 import { ASSOCIATION_NAME } from "./names";
 
 export const SITE_NAME = ASSOCIATION_NAME;
-export const SITE_SHORT_NAME = "Islam Guanajuato";
+export const SITE_SHORT_NAME = "Estudiantes del Islam";
 export const SITE_DESCRIPTION =
-  "Estudiantes de Guanajuato y Aguascalientes reunidos para aprender y difundir el islam de forma pacífica, tolerante y académica.";
+  "Estudiantes de distintas partes de México reunidos para aprender y difundir el islam de forma pacífica, tolerante y académica.";
 
 // Dominio público del sitio, sin "/" al final. Se usa para las URL canónicas, el sitemap y las
 // imágenes al compartir en redes. Si algún día cambia, basta con editarlo aquí
 // (o definir NEXT_PUBLIC_SITE_URL en Vercel).
 export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.islamguanajuato.com").replace(/\/+$/, "");
 
-export const SITE_LOCATION = "León, Guanajuato, México";
+export const SITE_LOCATION = "México";
 
 export const NAV_LINKS = [
   { href: "/", label: "Inicio" },

@@ -6,7 +6,7 @@ const PrayerTimes = () => (
   <div className={styles.widget}>
     <iframe
       id="iframe-islamicFinder"
-      title="Horarios de oración en León, Guanajuato"
+      title="Horarios de oración"
       loading="lazy"
       scrolling="no"
       src={ISLAMICFINDER_WIDGET_URL}

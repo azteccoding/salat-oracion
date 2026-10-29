@@ -173,7 +173,7 @@ export const NUESTRO_SHEIJ = {
   nombreCompleto: "Mullah Abdulhafez Khalid Jorge",
   nombreArabe: "عبد الحفيظ خالد بن خورخه العياضي المكسيكي",
   resumen:
-    "Maestro de Estudiantes del Islam en Guanajuato, discípulo de maulana Yahya al-Kanadi y autor de «Luz sobre Luz».",
+    "Maestro de Estudiantes del Islam en México, discípulo de maulana Yahya al-Kanadi y autor de «Luz sobre Luz».",
 
   fotoPrincipal: {
     src: "/img/sheij/foto_principal.jpg",
@@ -186,7 +186,7 @@ export const NUESTRO_SHEIJ = {
     {
       titulo: "Heredero de una cadena viva",
       parrafos: [
-        "Mullah Abdulhafez Khalid Jorge —Mullah Khalid para sus hermanos— guía a los Estudiantes del Islam en Guanajuato. Recibió el camino de la tarīqa shadili-darqawi-ʿiyadiya, una línea que, eslabón por eslabón, se remonta a Abu Madyan de Sevilla, al Imam Ali ibn Abu Talib y, por él, a Rasulullah ﷺ.",
+        "Mullah Abdulhafez Khalid Jorge —Mullah Khalid para sus hermanos— guía a los Estudiantes del Islam en México. Recibió el camino de la tarīqa shadili-darqawi-ʿiyadiya, una línea que, eslabón por eslabón, se remonta a Abu Madyan de Sevilla, al Imam Ali ibn Abu Talib y, por él, a Rasulullah ﷺ.",
         "Su maestro directo es maulana Yahya al-Kanadi, que Allah le alargue la vida, discípulo a su vez de maulana ʿIyad ibn Yusuf, el vértice de nuestra tarīqa, que falleció en Guanajuato en 2001. También considera maestro suyo al sheij Shalik, quien guía a su hermano por Allah, Habib el Kashlán.",
       ],
     },

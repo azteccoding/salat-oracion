@@ -9,7 +9,7 @@ export const absoluta = (ruta = "/") => (/^https?:\/\//.test(ruta) ? ruta : `${S
 
 /**
  * Etiquetas para buscadores y redes sociales.
- *   title       Título de la página (se le agrega " · Islam Guanajuato").
+ *   title       Título de la página (se le agrega " · Estudiantes del Islam").
  *   description Resumen de ~150 caracteres para Google.
  *   image       Imagen para compartir (ruta o URL). Por defecto /og-image.png.
  *   type        website | article | profile
@@ -31,7 +31,7 @@ const Seo = ({
   const { asPath } = useRouter();
   const pendiente = pendienteProp || esBorrador(title) || esBorrador(description);
   const desc = esBorrador(description) ? SITE_DESCRIPTION : description;
-  const fullTitle = title ? `${title} · ${SITE_SHORT_NAME}` : `${SITE_NAME} · Islam en Guanajuato, México`;
+  const fullTitle = title ? `${title} · ${SITE_SHORT_NAME}` : `${SITE_NAME} · Aprende el islam en español`;
   const path = (asPath || "/").split(/[?#]/)[0];
   const url = absoluta(path);
   const img = absoluta(image);

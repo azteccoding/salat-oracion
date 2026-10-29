@@ -84,7 +84,7 @@ const SiteHeader = () => {
             <Image src="/img/logo.svg" alt="" width={44} height={44} priority />
             <span className={styles.brandText}>
               <span className={styles.brandName}>Estudiantes del Islam</span>
-              <span className={styles.brandSub}>en Guanajuato</span>
+              <span className={styles.brandSub}>en México</span>
             </span>
           </Link>
 

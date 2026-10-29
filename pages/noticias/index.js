@@ -85,7 +85,7 @@ export default function Noticias({ todas }) {
     <>
       <Seo
         title="Noticias de actualidad"
-        description="Noticias de nuestra comunidad, del islam en México y del mundo islámico, desde León, Guanajuato."
+        description="Noticias de nuestra comunidad, del islam en México y del mundo islámico, desde México."
       />
 
       <PageHero title="Noticias de actualidad" arabic="الأخبار" crumbs={[{ label: "Noticias" }]}>

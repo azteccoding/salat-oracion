@@ -1,7 +1,7 @@
-export const ASSOCIATION_NAME = "Estudiantes del Islam en Guanajuato";
-export const CONGREGATION_NAME = "Musulmanes de Guanajuato";
+export const ASSOCIATION_NAME = "Estudiantes del Islam en México";
+export const CONGREGATION_NAME = "Musulmanes de México";
 export const WELCOME_PAGE_MESSAGE =
-  "Explora la fe y la comunidad musulmana de Guanajuato, México.";
+  "Explora la fe y la comunidad musulmana de México.";
 export const WELCOME_PAGE_CARDS = [
   {
     title: "Conoce el Islam",
@@ -12,14 +12,14 @@ export const WELCOME_PAGE_CARDS = [
   {
     title: "Eventos y Comunidad",
     description:
-      "Participa en eventos y conecta con la comunidad musulmana de Guanajuato.",
+      "Participa en eventos y conecta con la comunidad musulmana de México.",
     url: "/example",
     img: "/example.jpg",
   },
   {
     title: "Ubicación de las musalas",
     description:
-      "Obtén la ubicación en el mapa de las musalas en el estado de Guanajuato.",
+      "Obtén la ubicación en el mapa de las musalas en México.",
     url: "/example",
     img: "/example.jpg",
   },
@@ -33,7 +33,7 @@ export const WELCOME_PAGE_CARDS = [
   {
     title: "Carne halal y productos islámicos",
     description:
-      "Conoce nuestra tienda de artículos islámicos hechos en León, Gto.",
+      "Conoce nuestra tienda de artículos islámicos hechos en México.",
     url: "/example",
     img: "/example.jpg",
   },

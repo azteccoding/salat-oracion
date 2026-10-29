@@ -11,7 +11,7 @@ export const JUTBA_PATH = "/jutba";
 // Quién da las juṭbas, salvo que el documento de MongoDB diga otra cosa ("sheij": "…")
 export const SHEIJ_JUTBA = {
   nombre: "Mullah Khalid",
-  lugar: "León de los Aldama, Guanajuato",
+  lugar: "México",
   foto: "/img/jutba/foto_principal.jpg",
   alt: "El Mullah Khalid, sentado con libros de su biblioteca detrás.",
   link: "",
