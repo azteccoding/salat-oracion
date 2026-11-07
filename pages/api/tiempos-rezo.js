@@ -23,7 +23,7 @@ export default async function handler(req, res) {
     const html = await r.text();
 
     const tiempos = {};
-    const re = /<p>\s*(Fajr|Sunrise|Dhuhr|Asr|Maghrib|Isha)\s*<\/p>[\s\S]*?(\d{1,2}:\d{2}\s*[AP]M)/gi;
+    const re = /<p>\s*(Fajr|Sunrise|Dhuhr|Asr|Maghrib|Isha)\s*<\/?p>[\s\S]*?(\d{1,2}:\d{2}\s*[AP]M)/gi;
     for (const [, nombre, hora] of html.matchAll(re)) {
       const clave = NOMBRES[nombre[0].toUpperCase() + nombre.slice(1).toLowerCase()];
       if (clave && !(clave in tiempos)) tiempos[clave] = aMinutos(hora);
