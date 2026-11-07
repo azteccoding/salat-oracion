@@ -511,7 +511,7 @@ Para agregar uno, añade su `<path>` en el objeto `PATHS` de `components/Icon.js
 ### 14. Estilos
 
 - **Colores, tipografías y variables generales** (`--azul-700`, `--oro-500`, `--tinta`, `--radio`…): `styles/globals.css`.
-- **Tema claro y oscuro:** no sigue al sistema operativo, sino a los tiempos de oración de León. Es **claro desde el šurūq** (salida del sol, fin del tiempo del fajr) **hasta que entra el ʿišāʾ**, y oscuro el resto de la noche. Los horarios son los del mismo recuadro de IslamicFinder del inicio (`/api/tiempos-rezo`); mientras llegan, `lib/tema-rezo.js` los calcula con los mismos ángulos (15° / 15°). Los colores oscuros van en `:root[data-tema="oscuro"]` (`globals.css`) y, dentro de un módulo, con `:global(:root[data-tema="oscuro"]) .clase { … }`.
+- **Tema claro y oscuro:** no sigue al sistema operativo, sino a los tiempos de oración del día. Es **claro desde el šurūq** (salida del sol, fin del tiempo del fajr) **hasta que entra el ʿišāʾ**, y oscuro el resto de la noche. Los horarios son los del mismo recuadro de IslamicFinder del inicio (`/api/tiempos-rezo`); mientras llegan, `lib/tema-rezo.js` los calcula con los mismos ángulos (15° / 15°). Los colores oscuros van en `:root[data-tema="oscuro"]` (`globals.css`) y, dentro de un módulo, con `:global(:root[data-tema="oscuro"]) .clase { … }`.
 - **Cada página** tiene su módulo en `styles/site/`. Las clases se importan como objeto:
 
 ```jsx

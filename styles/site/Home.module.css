@@ -223,20 +223,39 @@
   color: var(--tenue);
 }
 
-.widget {
-  display: flex;
-  justify-content: center;
-  overflow: hidden;
+/* Dorado fijo: resalta igual en el tema claro y en el oscuro */
+.horarios {
+  margin: 0;
+  padding: 6px 16px;
   border-radius: var(--radio-sm);
-  background: #fff;
+  background: linear-gradient(160deg, #efd487, #d3a544);
+  color: #0f2350;
 }
 
-.widget iframe {
-  display: block;
-  width: 100%;
-  max-width: 300px;
-  height: 358px;
-  border: 0;
+.horario {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 9px 0;
+  border-bottom: 1px solid color-mix(in srgb, currentColor 14%, transparent);
+}
+
+.horario:last-child {
+  border-bottom: 0;
+}
+
+.horario dt {
+  font-weight: 600;
+}
+
+.horario dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.horariosAviso {
+  margin: 0;
+  font-size: 15px;
 }
 
 .downloadCard h3 {
