@@ -3,6 +3,7 @@ import "@fontsource-variable/source-serif-4";
 import "@fontsource-variable/source-serif-4/wght-italic.css";
 import "@fontsource/amiri/400.css";
 import "@fontsource/amiri/700.css";
+import "@fontsource/aref-ruqaa/700.css";
 import "../styles/globals.css";
 import Layout from "@/components/Layout";
 

@@ -1,17 +1,58 @@
+import Image from "next/image";
 import Link from "next/link";
 import Icon from "./Icon";
+import TapaLibro, { varianteTapa } from "./TapaLibro";
 import styles from "@/styles/site/Descargas.module.css";
 import ui from "@/styles/site/ui.module.css";
 
-const DownloadCard = ({ item, detailLink = true }) => (
-  <article className={styles.card}>
-    <div className={styles.cover} aria-hidden>
-      <span className="arabe">كتاب</span>
-      <span className={styles.format}>{item.format}</span>
+const TONOS = {
+  azul: styles.tonoCoran,
+  verde: styles.tonoOracion,
+  vino: styles.tonoFiqh,
+};
+
+const Portada = ({ item, sizes }) => (
+  <div className={styles.portada}>
+    <div
+      className={`${styles.libro} ${item.portada ? styles.libroApaisado : TONOS[varianteTapa(item)]}`}
+    >
+      {item.portada ? (
+        <div className={styles.tapa}>
+          <Image src={item.portada} alt="" fill sizes={sizes} />
+        </div>
+      ) : (
+        <TapaLibro item={item} />
+      )}
     </div>
+  </div>
+);
+
+const DownloadCard = ({ item, compact = false }) => (
+  <article className={compact ? styles.tile : styles.card}>
+    {compact ? (
+      <Link href={`/descargas/${item.slug}`} className={styles.enlacePortada} tabIndex={-1} aria-hidden>
+        <Portada item={item} sizes="(max-width: 640px) 100vw, 400px" />
+      </Link>
+    ) : (
+      <div className={styles.portadaGrande} aria-hidden>
+        <Portada item={item} sizes="300px" />
+      </div>
+    )}
     <div className={styles.body}>
-      <h2>{detailLink ? <Link href={`/descargas/${item.slug}`}>{item.title}</Link> : item.title}</h2>
-      <p>{item.description}</p>
+      {compact ? (
+        <>
+          <span className={styles.tag}>{item.categoria}</span>
+          <h2>
+            <Link href={`/descargas/${item.slug}`}>{item.title}</Link>
+          </h2>
+          <p>{item.teaser}</p>
+        </>
+      ) : (
+        <>
+          <h2>{item.title}</h2>
+          <p>{item.description}</p>
+        </>
+      )}
       <div className={styles.actions}>
         <a href={encodeURI(item.file)} download className={`${ui.btn} ${ui.btnPrimary}`}>
           <Icon name="download" size={18} /> Descargar {item.format}

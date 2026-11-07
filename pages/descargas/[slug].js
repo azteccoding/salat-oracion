@@ -12,7 +12,7 @@ export default function Descarga({ item }) {
         <p>{item.description}</p>
       </PageHero>
       <div className={`contenedor ${styles.list}`}>
-        <DownloadCard item={item} detailLink={false} />
+        <DownloadCard item={item} />
       </div>
     </>
   );

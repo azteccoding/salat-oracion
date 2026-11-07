@@ -1,6 +1,11 @@
 export const descargas = [
   {
     slug: "sura-fatiha",
+    tituloCorto: "Sūra al-Fātiḥa",
+    subtitulo: "Taŷwīd y tafsīr",
+    arabe: "سورة الفاتحة",
+    categoria: "Corán y tafsīr",
+    fecha: "2026-09-30",
     title: "Taŷwīd de Sūra al-Fātiḥa y Tafsīr Jalalayn",
     teaser:
       "La recitas diecisiete veces al día. ¿Sabes de verdad lo que le estás diciendo a Allah?",
@@ -12,6 +17,11 @@ export const descargas = [
   },
   {
     slug: "sura-nasr",
+    tituloCorto: "Sūra al-Naṣr",
+    subtitulo: "Taŷwīd y tafsīr",
+    arabe: "سورة النصر",
+    categoria: "Corán y tafsīr",
+    fecha: "2026-09-30",
     title: "Taŷwīd de Sūra al-Naṣr y Tafsīr Jalalayn",
     teaser: "Tres aleyas que anunciaron una victoria… y una despedida.",
     description:
@@ -22,6 +32,11 @@ export const descargas = [
   },
   {
     slug: "La_oracion_segun_Ibn_Hazm",
+    tituloCorto: "La oración",
+    subtitulo: "según Ibn Hazm",
+    arabe: "صفة الصلاة",
+    categoria: "Oración",
+    fecha: "2026-10-01",
     title: "La oración según Ibn Hazm",
     teaser:
       "Deja de rezar «porque así me enseñaron». Reza con la prueba en la mano.",
@@ -33,6 +48,11 @@ export const descargas = [
   },
   {
     slug: "El_witr_segun_Ibn_Hazm",
+    tituloCorto: "El witr",
+    subtitulo: "según Ibn Hazm",
+    arabe: "الوتر",
+    categoria: "Oración",
+    fecha: "2026-10-01",
     title: "El witr según Ibn Hazm",
     teaser:
       "¿8 o 20 rakʿāt? Cada Ramadán la misma discusión. Aquí está la respuesta con pruebas.",
@@ -44,6 +64,11 @@ export const descargas = [
   },
   {
     slug: "El_masbuq_segun_Ibn_Hazm",
+    tituloCorto: "El que llega tarde",
+    subtitulo: "según Ibn Hazm",
+    arabe: "صلاة المسبوق",
+    categoria: "Oración",
+    fecha: "2026-10-01",
     title: "El que llega tarde a la oración según Ibn Hazm",
     teaser: "Entraste y el imam ya iba en el rukūʿ. ¿Esa rakʿa cuenta o no?",
     description:
@@ -54,6 +79,11 @@ export const descargas = [
   },
   {
     slug: "El_oro_de_los_tontos",
+    tituloCorto: "El oro de los tontos",
+    subtitulo: "Dos fatwas",
+    arabe: "النقود",
+    categoria: "Fiqh",
+    fecha: "2026-10-01",
     title: "El oro de los tontos",
     teaser:
       "Te dijeron que debes zakat por tu dinero en el banco. Ibn Hazm no está tan seguro.",
@@ -65,6 +95,11 @@ export const descargas = [
   },
   {
     slug: "La_musica_es_licita_segun_Ibn_Hazm",
+    tituloCorto: "La música es lícita",
+    subtitulo: "según Ibn Hazm",
+    arabe: "الغناء",
+    categoria: "Fiqh",
+    fecha: "2026-10-02",
     title: "La música es lícita según Ibn Hazm",
     teaser:
       "«Quien la rechace, yerra sin duda». La defensa de la música que nadie te ha contado.",
@@ -76,6 +111,11 @@ export const descargas = [
   },
   {
     slug: "Surat_al-Naba_al-Bahr_al-Muḥīt_Mullah_Khalid",
+    tituloCorto: "Sūra al-Nabaʾ",
+    subtitulo: "al-Baḥr al-Muḥīṭ",
+    arabe: "سورة النبأ",
+    categoria: "Corán y tafsīr",
+    fecha: "2026-10-04",
     title: "Traducción del Tafsīr al-Baḥr al-Muḥīt Surat al-Naba'",
     teaser:
       "Por primera vez al español un Tafsīr de la España Musulmana de una de las suras más hermosas del Corán",
@@ -85,6 +125,105 @@ export const descargas = [
     format: "PDF",
     size: "888 KB",
   },
+  {
+    slug: "atlas-tariqa-iyadiya",
+    portada: "/img/portadas/atlas-tariqa-iyadiya.jpg",
+    categoria: "Atlas",
+    fecha: "2026-11-06",
+    title: "Atlas de la ṭarīqa Iyadiya: el hilo de luz",
+    teaser: "Del hogar del Profeta ﷺ hasta nuestro Maulana: la cadena que nos llega, eslabón por eslabón.",
+    description:
+      "Un hilo de luz que nace en una casa de La Meca y llega hasta nosotros. Este atlas sigue la cadena de nuestra ṭarīqa por sus maestros, de Abū Madyan a al-Šāḏilī, Ibn ʿAṭāʾ Allāh y al-Darqāwī, y cuenta la vida de Maulana ʿIyad, que Allah tenga misericordia de él: su búsqueda de maestros, la prueba del texto unida al conocimiento del corazón y las tres plegarias que enseñaba.",
+    file: "/pdf/atlas-tariqa-iyadiya.pdf",
+    format: "PDF",
+    size: "12.1 MB",
+  },
+  {
+    slug: "atlas-ibn-arabi",
+    portada: "/img/portadas/atlas-ibn-arabi.jpg",
+    categoria: "Atlas",
+    fecha: "2026-10-31",
+    title: "Atlas del viaje de Ibn ʿArabī: caminos, luz y poesía",
+    teaser: "De Murcia a Damasco: los caminos del Sheij al-Akbar, con mapas y poesía.",
+    description:
+      "Murcia, Sevilla, Córdoba, Fez, La Meca, Mosul, Damasco. Recorre en mapas la vida de Ibn ʿArabī, que Allah tenga misericordia de él: su encuentro con Ibn Rušd, el ascenso que narró en su Libro del viaje nocturno, la Kaʿba de ladrillos de oro y plata, los versos del Tarŷumān al-ašwāq, la jirqa de Jidr y las obras que dejó al mundo.",
+    file: "/pdf/atlas-ibn-arabi.pdf",
+    format: "PDF",
+    size: "13.9 MB",
+  },
+  {
+    slug: "atlas-ibn-hazm",
+    orden: 2,
+    portada: "/img/portadas/atlas-ibn-hazm.jpg",
+    categoria: "Atlas",
+    fecha: "2026-10-31",
+    title: "El visir, el exilio y la pluma: Atlas de Ibn Hazm",
+    teaser: "Sabio, visir y desterrado: la vida del Imam de Córdoba, de 994 a 1064.",
+    description:
+      "La Córdoba del califato, la fitna que la deshizo, el visir que duró siete semanas, la prisión y el exilio. Sigue en mapas al Imam Ibn Hazm, que Allah tenga misericordia de él, por las ciudades de al-Ándalus: el Collar de la paloma, el debate de Mallorca, la hoguera de Sevilla donde ardieron sus libros y el retiro en Manta Lisham. Con la explicación de su método para leer el texto tal como dice.",
+    file: "/pdf/atlas-ibn-hazm.pdf",
+    format: "PDF",
+    size: "17.1 MB",
+  },
+  {
+    slug: "atlas-moises-y-jidr",
+    portada: "/img/portadas/atlas-moises-y-jidr.jpg",
+    categoria: "Atlas",
+    fecha: "2026-10-31",
+    title: "Atlas del viaje de Moisés y Jidr",
+    teaser: "Del pez perdido a la explicación del muro: la historia de la sura de la Caverna.",
+    description:
+      "Moisés, la paz sea con él, pregunta quién sabe más y emprende un viaje hasta la confluencia de los dos mares. Este atlas recorre en mapas ilustrados las aleyas 60 a 82 de la sura al-Kahf: el pez, la barca, el muchacho, el muro y el tesoro, con el texto coránico, los hadices y los comentaristas, además de quién fue Jidr y lo que esta historia enseña a quien busca aprender.",
+    file: "/pdf/atlas-moises-y-jidr.pdf",
+    format: "PDF",
+    size: "15.1 MB",
+  },
+  {
+    slug: "atlas-batallas-del-profeta",
+    portada: "/img/portadas/atlas-batallas-del-profeta.jpg",
+    orden: 1,
+    categoria: "Atlas",
+    fecha: "2026-10-30",
+    title: "Atlas de las Batallas del Profeta ﷺ",
+    teaser: "Mapas, historia y contexto de cada batalla, del año del Elefante a Tabūk.",
+    description:
+      "Badr, Uḥud, la Trinchera, Jaybar, Muʾta, la conquista de La Meca, Ḥunayn y Tabūk: cada una con su contexto, las aleyas que le corresponden y un mapa táctico para entender qué ocurrió sobre el terreno. Incluye también la tregua de Ḥudaybiya y fotografías de los lugares. Para estudiar la vida del Profeta ﷺ con el mapa delante.",
+    file: "/pdf/atlas-batallas-del-profeta.pdf",
+    format: "PDF",
+    size: "26.1 MB",
+  },
+  {
+    slug: "tafsir-jalalayn-sura-02-baqara",
+    tituloCorto: "Sūra al-Baqara",
+    subtitulo: "Tafsīr al-Ŷalālayn",
+    arabe: "سورة البقرة",
+    categoria: "Corán y tafsīr",
+    fecha: "2026-10-31",
+    title: "Tafsīr al-Ŷalālayn: Sura 2, al-Baqara",
+    teaser: "Las 286 aleyas de la sura más larga del Corán, explicadas una por una.",
+    description:
+      "Traducción literal y anotada, aleya por aleya, del comentario a la sura de la Vaca en el Tafsīr al-Ŷalālayn. Cada pasaje trae el árabe junto a su traducción y su cita, con recuadros que explican el sentido de la aleya y tres apéndices: palabras raras, términos técnicos y lista de nombres. 428 páginas.",
+    file: "/pdf/tafsir-jalalayn-sura-02-baqara.pdf",
+    format: "PDF",
+    size: "12.7 MB",
+  },
+  {
+    slug: "bahr-muhit-sura-24-nur",
+    tituloCorto: "Sūra al-Nūr",
+    subtitulo: "al-Baḥr al-Muḥīṭ",
+    arabe: "سورة النور",
+    categoria: "Corán y tafsīr",
+    fecha: "2026-10-31",
+    title: "al-Baḥr al-Muḥīṭ: Sura 24, al-Nūr",
+    teaser: "La sura de la Luz, en el gran comentario de Abū Ḥayyān de Granada.",
+    description:
+      "El comentario íntegro de Abū Ḥayyān al-Garnāṭī a la sura de la Luz, traducido al español aleya por aleya, con el texto árabe y tres apéndices: palabras raras, términos técnicos y lista de nombres. 195 páginas.",
+    file: "/pdf/bahr-muhit-sura-24-nur.pdf",
+    format: "PDF",
+    size: "10.2 MB",
+  },
 ];
+
+export const categoriasDescargas = ["Atlas", "Corán y tafsīr", "Oración", "Fiqh"];
 
 export const tresDescargasAlAzar = [descargas[0], descargas[2], descargas[7]];
