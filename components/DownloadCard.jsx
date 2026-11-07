@@ -12,8 +12,8 @@ const TONOS = {
   negro: styles.tonoNegro,
 };
 
-const Portada = ({ item, sizes }) => (
-  <div className={styles.portada}>
+export const Portada = ({ item, sizes, className = "" }) => (
+  <div className={`${styles.portada} ${className}`}>
     <div
       className={`${styles.libro} ${item.portada ? styles.libroApaisado : TONOS[varianteTapa(item)]}`}
     >

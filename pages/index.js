@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import HijriDate from "@/components/HijriDate";
+import { Portada } from "@/components/DownloadCard";
 import Icon from "@/components/Icon";
 import PrayerTimes from "@/components/PrayerTimes";
 import Seo from "@/components/Seo";
@@ -311,10 +312,15 @@ export default function Home({ latest, noticia }) {
             </h2>
             {tresDescargasAlAzar.map((d) => (
               <div key={d.slug} className={styles.downloadItem}>
-                <h3>
-                  <Link href={`/descargas/${d.slug}`}>{d.title}</Link>
-                </h3>
-                <p>{d.teaser}</p>
+                <Link href={`/descargas/${d.slug}`} tabIndex={-1} aria-hidden>
+                  <Portada item={d} sizes="96px" className={styles.miniPortada} />
+                </Link>
+                <div>
+                  <h3>
+                    <Link href={`/descargas/${d.slug}`}>{d.title}</Link>
+                  </h3>
+                  <p>{d.teaser}</p>
+                </div>
               </div>
             ))}
             <Link href="/descargas" className={`${ui.btn} ${ui.btnPrimary}`}>

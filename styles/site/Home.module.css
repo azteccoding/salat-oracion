@@ -287,7 +287,16 @@
 }
 
 .downloadItem {
+  display: grid;
+  grid-template-columns: 92px 1fr;
+  gap: 14px;
+  align-items: center;
   margin-bottom: 14px;
+}
+
+.miniPortada {
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radio-sm);
 }
 
 .downloadItem h3 a {
