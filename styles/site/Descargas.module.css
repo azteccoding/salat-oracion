@@ -196,6 +196,10 @@
   background: radial-gradient(circle at 35% 30%, #7a2230, #3f0f19 85%);
 }
 
+.tonoNegro {
+  background: radial-gradient(circle at 35% 30%, #262525, #0c0c0d 85%);
+}
+
 .tapa {
   position: absolute;
   inset: 0;
@@ -233,6 +237,15 @@
   --margen-der: 17%;
   --bloque-izq: 19%;
   --bloque-der: 17%;
+}
+
+.tonoNegro .tapaTexto {
+  --arabe-y: 37%;
+  --bloque-y: 51%;
+  --margen-izq: 21%;
+  --margen-der: 21%;
+  --bloque-izq: 22%;
+  --bloque-der: 22%;
 }
 
 .ornamento {

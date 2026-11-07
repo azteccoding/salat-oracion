@@ -56,6 +56,80 @@ const Marco = ({ filete }) => (
   </g>
 );
 
+const VINO_NEGRA = "#5c1a22";
+const ORO_NEGRA = "#d9b04c";
+
+const bezier = ([a, b, c, d], t) => {
+  const u = 1 - t;
+  return u * u * u * a + 3 * u * u * t * b + 3 * u * t * t * c + t * t * t * d;
+};
+
+const rombo = (x, y, r) => `${x},${y - r} ${x + r},${y} ${x},${y + r} ${x - r},${y}`;
+
+// Banda de arco superior: va del costado al medallón central
+const ARCO_X = [20, 52, 104, 150];
+const ARCO_Y = [84, 30, 22, 62];
+const ROMBOS_ARCO = Array.from({ length: 13 }, (_, i) => {
+  const t = 0.06 + i * 0.075;
+  return { x: +bezier(ARCO_X, t).toFixed(1), y: +(bezier(ARCO_Y, t) + 7).toFixed(1), rojo: i % 2 === 1 };
+});
+
+// Borde exterior de la franja vino en su mitad inferior: de ahí sale la celosía lateral
+const BORDE_X = [45, 57, 42, 31];
+const BORDE_Y = [190, 235, 300, 374];
+const CELOSIA = Array.from({ length: 21 }, (_, fila) => 192 + fila * 9).flatMap((y, fila) => {
+  let t = 0;
+  while (t < 1 && bezier(BORDE_Y, t) < y) t += 0.02;
+  const limite = bezier(BORDE_X, t) - 5;
+  const celdas = [];
+  for (let x = 25 + (fila % 2) * 4.5; x <= limite; x += 9) celdas.push({ x, y, rojo: (fila + Math.round(x)) % 3 === 0 });
+  return celdas;
+});
+
+const MitadNegra = () => (
+  <>
+    <path
+      d="M42 80C32 116 32 152 45 190C57 235 42 300 31 374H47C58 300 73 235 59 190C47 152 47 116 62 62Z"
+      fill={VINO_NEGRA}
+      stroke={ORO_NEGRA}
+      strokeWidth="1.2"
+    />
+    <path d="M20 84C52 30 104 22 150 62" fill="none" stroke={ORO_NEGRA} strokeWidth="1.3" />
+    <path d="M20 98C52 44 104 36 150 76" fill="none" stroke={ORO_NEGRA} strokeWidth="1.3" />
+    {ROMBOS_ARCO.map(({ x, y, rojo }) => (
+      <polygon key={x} points={rombo(x, y, 4.4)} fill={rojo ? "#7e2a2e" : ORO_NEGRA} stroke={ORO_NEGRA} strokeWidth="0.6" />
+    ))}
+    {CELOSIA.map(({ x, y, rojo }) => (
+      <polygon key={`${x}-${y}`} points={rombo(x, y, 3.4)} fill={rojo ? "#7e2a2e" : "none"} stroke={ORO_NEGRA} strokeWidth="0.8" />
+    ))}
+  </>
+);
+
+const TapaNegra = () => (
+  <>
+    <g fill="none" stroke={ORO_NEGRA}>
+      <rect x="9" y="9" width="282" height="382" rx="2" strokeWidth="2.6" />
+      <rect x="14" y="14" width="272" height="372" strokeWidth="0.9" />
+      <rect x="19" y="19" width="262" height="362" strokeWidth="1.4" />
+    </g>
+    <MitadNegra />
+    <g transform="matrix(-1 0 0 1 300 0)">
+      <MitadNegra />
+    </g>
+    <path d="M150 34C155 42 162 45 162 52C162 56 156 58 150 58C144 58 138 56 138 52C138 45 145 42 150 34Z" fill={ORO_NEGRA} fillOpacity="0.2" stroke={ORO_NEGRA} strokeWidth="1" />
+    <g transform="translate(150 68)" fill="none" stroke={ORO_NEGRA} strokeWidth="1">
+      <polygon points={estrella(0, 0, 15, 9.5, 8)} fill="#0d0d0e" />
+      <circle r="5" />
+      <circle r="1.8" fill={ORO_NEGRA} />
+    </g>
+    <path d="M84 338L100 320H200L216 338L200 356H100Z" fill={VINO_NEGRA} stroke={ORO_NEGRA} strokeWidth="1.6" />
+    <path d="M92 338L103 325H197L208 338L197 351H103Z" fill="none" stroke={ORO_NEGRA} strokeWidth="0.8" />
+    <text x="150" y="345" textAnchor="middle" fontFamily="'Aref Ruqaa', serif" fontWeight="700" fontSize="21" fill="#efd487">
+      أبو حيان
+    </text>
+  </>
+);
+
 const FONDOS = {
   azul: (
     <>
@@ -101,9 +175,15 @@ const TapaLibro = ({ item }) => {
   return (
     <div className={`${styles.tapa} ${styles.tapaTexto}`}>
       <svg className={styles.ornamento} viewBox="0 0 300 400" preserveAspectRatio="none" aria-hidden>
-        <Marco filete={FILETES[variante]} />
-        <Esquinas />
-        {FONDOS[variante]}
+        {variante === "negro" ? (
+          <TapaNegra />
+        ) : (
+          <>
+            <Marco filete={FILETES[variante]} />
+            <Esquinas />
+            {FONDOS[variante]}
+          </>
+        )}
       </svg>
       <span className={`arabe ${styles.tituloArabe}`}>{item.arabe}</span>
       <div className={styles.bloqueEspanol}>

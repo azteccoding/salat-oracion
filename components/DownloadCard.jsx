@@ -9,6 +9,7 @@ const TONOS = {
   azul: styles.tonoCoran,
   verde: styles.tonoOracion,
   vino: styles.tonoFiqh,
+  negro: styles.tonoNegro,
 };
 
 const Portada = ({ item, sizes }) => (
