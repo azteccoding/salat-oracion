@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { SITE_URL } from "@/constants/site";
 
 // Imagen para compartir en redes (1200×630), generada al vuelo.
 // Uso: /api/og?n=3500&t=Título de la fatwa&tema=Purificación · Wuḍūʾ
@@ -71,7 +72,7 @@ export default function handler(req) {
         </div>
 
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: 24, color: "#c3cbe2" }}>
-          <span>islamguanajuato.com</span>
+          <span>{SITE_URL.replace(/^https?:\/\/(www\.)?/, "")}</span>
           <span style={{ color: "#e6c77a" }}>{limpiar("Fiqh ẓāhirī · Corán y Sunna")}</span>
         </div>
         <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: 10, background: "linear-gradient(90deg, #9a6e1c, #e6c77a, #9a6e1c)" }} />
