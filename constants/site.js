@@ -8,7 +8,7 @@ export const SITE_DESCRIPTION =
 // Dominio público del sitio, sin "/" al final. Se usa para las URL canónicas, el sitemap y las
 // imágenes al compartir en redes. Si algún día cambia, basta con editarlo aquí
 // (o definir NEXT_PUBLIC_SITE_URL en Vercel).
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.islamguanajuato.com").replace(/\/+$/, "");
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.estudiantesdelislam.org").replace(/\/+$/, "");
 
 export const SITE_LOCATION = "México";
 

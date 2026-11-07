@@ -1,5 +1,5 @@
-# Estudiantes del Islam en México — https://www.islamguanajuato.com
+# Estudiantes del Islam en México — https://www.estudiantesdelislam.org
 User-agent: *
 Allow: /
 
-Sitemap: https://www.islamguanajuato.com/sitemap.xml
+Sitemap: https://www.estudiantesdelislam.org/sitemap.xml
