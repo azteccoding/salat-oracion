@@ -34,22 +34,22 @@ Estudiantes de distintas partes de México reunidos para aprender y difundir el 
 
 ## Qué hay en el sitio
 
-| Ruta                                                                           | Página                                                                                                                                                                                                                                             | De dónde sale el contenido                                     |
-| ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
-| `/`                                                                            | Inicio: horarios de oración, fecha hiŷrī, últimas fatāwá, la noticia más reciente, descargas y corridos                                                                                                                                            | `pages/index.js`, `data/corridos.js`, MongoDB                  |
-| `/salat`                                                                       | Aprende a rezar el ṣalāt, paso a paso según el Muḥallá                                                                                                                                                                                             | `data/steps.js`                                                |
-| `/wudu`                                                                        | El wuḍūʾ (ablución menor)                                                                                                                                                                                                                          | `data/wudu.js`                                                 |
-| `/gusl`                                                                        | El gusl (baño ritual)                                                                                                                                                                                                                              | `data/gusl.js`                                                 |
-| `/fataawa-zahiri-fiqh`                                                         | Buscador de fatāwá según el fiqh ẓāhirī                                                                                                                                                                                                            | MongoDB, colección `fataawa`                                   |
-| `/fataawa-zahiri-fiqh/<slug>-<código>`                                         | Una fatwa                                                                                                                                                                                                                                          | MongoDB                                                        |
-| `/noticias` y `/noticias/<slug>`                                               | Noticias de la comunidad y del mundo islámico                                                                                                                                                                                                      | MongoDB, colección `noticias`                                  |
-| `/imam-ibn-hazm`, `/imam-ibn-hazm/escuela-zahiri`                              | El Imam Ibn Ḥazm y la escuela ẓāhirī                                                                                                                                                                                                               | las propias páginas                                            |
-| `/imam-ibn-hazm/obras/<slug>`                                                  | Obras de Ibn Ḥazm                                                                                                                                                                                                                                  | `data/ibn-hazm-obras.js`                                       |
-| `/nuestra-tariqa`, `/nuestro-maulana`, `/nuestro-sheij`, `/nuestra-recitacion` | La comunidad                                                                                                                                                                                                                                       | las propias páginas                                            |
-| `/descargas` y `/descargas/<slug>`                                             | PDF para descargar                                                                                                                                                                                                                                 | `data/descargas.js` + `public/pdf/`                            |
+| Ruta                                                                           | Página                                                                                                                                                                                                                                 | De dónde sale el contenido                                     |
+| ------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| `/`                                                                            | Inicio: horarios de oración, fecha hiŷrī, últimas fatāwá, la noticia más reciente, descargas y corridos                                                                                                                                | `pages/index.js`, `data/corridos.js`, MongoDB                  |
+| `/salat`                                                                       | Aprende a rezar el ṣalāt, paso a paso según el Muḥallá                                                                                                                                                                                 | `data/steps.js`                                                |
+| `/wudu`                                                                        | El wuḍūʾ (ablución menor)                                                                                                                                                                                                              | `data/wudu.js`                                                 |
+| `/gusl`                                                                        | El gusl (baño ritual)                                                                                                                                                                                                                  | `data/gusl.js`                                                 |
+| `/fataawa-zahiri-fiqh`                                                         | Buscador de fatāwá según el fiqh ẓāhirī                                                                                                                                                                                                | MongoDB, colección `fataawa`                                   |
+| `/fataawa-zahiri-fiqh/<slug>-<código>`                                         | Una fatwa                                                                                                                                                                                                                              | MongoDB                                                        |
+| `/noticias` y `/noticias/<slug>`                                               | Noticias de la comunidad y del mundo islámico                                                                                                                                                                                          | MongoDB, colección `noticias`                                  |
+| `/imam-ibn-hazm`, `/imam-ibn-hazm/escuela-zahiri`                              | El Imam Ibn Ḥazm y la escuela ẓāhirī                                                                                                                                                                                                   | las propias páginas                                            |
+| `/imam-ibn-hazm/obras/<slug>`                                                  | Obras de Ibn Ḥazm                                                                                                                                                                                                                      | `data/ibn-hazm-obras.js`                                       |
+| `/nuestra-tariqa`, `/nuestro-maulana`, `/nuestro-sheij`, `/nuestra-recitacion` | La comunidad                                                                                                                                                                                                                           | las propias páginas                                            |
+| `/descargas` y `/descargas/<slug>`                                             | PDF para descargar                                                                                                                                                                                                                     | `data/descargas.js` + `public/pdf/`                            |
 | `/jutba`                                                                       | La juṭba del viernes del Mullah Khalid. No está en el menú: se llega por el botón flotante de audífonos, que aparece en todas las páginas solo los viernes (`components/Layout.jsx` → `BotonJutba`); otro día dice «Vuelve el viernes» | MongoDB, colección `podcasts_khutbah` + audios en Google Drive |
-| `/editor-fataawa`, `/editor-noticias`, `/editor-jutbas`                        | Editores internos (no salen en el menú ni en Google)                                                                                                                                                                                               | —                                                              |
-| `/sitemap.xml`                                                                 | Mapa del sitio para Google, se genera solo                                                                                                                                                                                                         | `pages/sitemap.xml.js`                                         |
+| `/editor-fataawa`, `/editor-noticias`, `/editor-jutbas`                        | Editores internos (no salen en el menú ni en Google)                                                                                                                                                                                   | —                                                              |
+| `/sitemap.xml`                                                                 | Mapa del sitio para Google, se genera solo                                                                                                                                                                                             | `pages/sitemap.xml.js`                                         |
 
 ---
 
@@ -173,7 +173,7 @@ import { steps } from "@/data/steps"; // = ./data/steps
 | Cambiar el nombre, la descripción o el dominio        | `constants/site.js`                                                          |
 | Cambiar colores, tipografía o espacios generales      | `styles/globals.css`                                                         |
 | Cambiar cuándo se pone el tema claro u oscuro         | `lib/tema-rezo.js` · `components/TemaSegunRezo.jsx`                          |
-| Cambiar la ciudad o configuración de los horarios     | `constants/api.js` → `ISLAMICFINDER_WIDGET_URL`                              |
+| Cambiar los parámetros del recuadro de horarios       | `lib/horarios-rezo.js` · `components/PrayerTimes.jsx`                        |
 | Cambiar el diseño de una sola página                  | `styles/site/<Página>.module.css`                                            |
 
 ---
@@ -511,7 +511,7 @@ Para agregar uno, añade su `<path>` en el objeto `PATHS` de `components/Icon.js
 ### 14. Estilos
 
 - **Colores, tipografías y variables generales** (`--azul-700`, `--oro-500`, `--tinta`, `--radio`…): `styles/globals.css`.
-- **Tema claro y oscuro:** no sigue al sistema operativo, sino a los tiempos de oración del día. Es **claro desde el šurūq** (salida del sol, fin del tiempo del fajr) **hasta que entra el ʿišāʾ**, y oscuro el resto de la noche. Los horarios son los del mismo recuadro de IslamicFinder del inicio (`/api/tiempos-rezo`); mientras llegan, `lib/tema-rezo.js` los calcula con los mismos ángulos (15° / 15°). Los colores oscuros van en `:root[data-tema="oscuro"]` (`globals.css`) y, dentro de un módulo, con `:global(:root[data-tema="oscuro"]) .clase { … }`.
+- **Tema claro y oscuro:** no sigue al sistema operativo, sino a los tiempos de oración del día. Es **claro desde el šurūq** (salida del sol, fin del tiempo del fajr) **hasta que entra el ʿišāʾ**, y oscuro el resto de la noche. `lib/tema-rezo.js` lo calcula en el navegador con los mismos parámetros que el recuadro de horarios, para el lugar que ese recuadro guardó si el visitante compartió su ubicación, o para el centro de la CDMX. Los colores oscuros van en `:root[data-tema="oscuro"]` (`globals.css`) y, dentro de un módulo, con `:global(:root[data-tema="oscuro"]) .clase { … }`.
 - **Cada página** tiene su módulo en `styles/site/`. Las clases se importan como objeto:
 
 ```jsx
@@ -580,7 +580,6 @@ npm run subir-semilla
 | `GET /api/noticias/imagen/<slug>`                     | La foto principal de una noticia (guardada en base64 en MongoDB)   |
 | `GET /api/noticias/imagen/<slug>/<bloque>`            | Una foto dentro del texto (`bloque` = su posición en `cuerpo`)     |
 | `GET /api/og?n=3500&t=Título&tema=Purificación`       | Imagen de 1200×630 para redes                                      |
-| `GET /api/tiempos-rezo`                               | Los tiempos del día del recuadro de IslamicFinder, en minutos      |
 
 Desde el navegador se usan las funciones de `services/requests.js`, que nunca lanzan errores:
 
@@ -648,6 +647,24 @@ if (!hasExternalError) console.log(data.data.resultados);
 | El botón de la juṭba no aparece              | Solo sale los viernes, con la hora de México. Para probarlo otro día en tu computadora: `http://localhost:3000/?probar=1`.                                                                                                                           |
 | Una juṭba no suena                           | El archivo de Google Drive debe estar compartido como «Cualquier persona con el enlace».                                                                                                                                                             |
 | `npm run build` falla en un import           | Revisa mayúsculas y minúsculas del nombre del archivo: en Vercel (Linux) `Icon.jsx` y `icon.jsx` son distintos.                                                                                                                                      |
+
+### Lugares donde faltan horarios
+
+El recuadro calcula el faŷr y el ʿišāʾ con el sol a 15° bajo el horizonte (`lib/horarios-rezo.js`). Más allá de unos 51.6° de latitud, en verano el sol nunca baja tanto, y esos dos tiempos salen como «—». Más allá de unos 65.7° hay días sin salida o sin puesta del sol, y faltan también el šurūq y el magrib. En esas zonas el tema claro/oscuro tampoco es fiable. México queda lejos: su punto más al norte está a unos 32.7°.
+
+![Mapamundi con las zonas donde faltan horarios](docs/zonas-horarios.svg)
+
+| Latitud norte | Días al año sin faŷr ni ʿišāʾ | Días sin salida o puesta |
+| ------------- | ----------------------------: | -----------------------: |
+| 51.6°         |                             7 |                        0 |
+| 55°           |                            65 |                        0 |
+| 60°           |                           105 |                        0 |
+| 66°           |                           140 |                       19 |
+| 70°           |                           162 |                      125 |
+
+En el sur las cifras son casi iguales, con las estaciones al revés.
+
+Para regenerar el mapa: `python scripts/mapa-zonas-horarios.py` (lee el contorno de los continentes de Natural Earth en `world-atlas@2.0.2`).
 
 ---
 

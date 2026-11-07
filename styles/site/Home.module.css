@@ -225,11 +225,38 @@
 
 /* Dorado fijo: resalta igual en el tema claro y en el oscuro */
 .horarios {
+  display: grid;
+  gap: 12px;
+  font-size: 15px;
+}
+
+.horariosCuadro {
   margin: 0;
-  padding: 6px 16px;
+  padding: 4px 16px;
+  border: 1px solid var(--borde);
   border-radius: var(--radio-sm);
-  background: linear-gradient(160deg, #efd487, #d3a544);
-  color: #0f2350;
+  background: var(--superficie);
+  box-shadow: var(--sombra-1);
+}
+
+.horariosLugar {
+  padding: 12px 16px;
+  text-align: center;
+}
+
+.horariosCiudad {
+  margin: 0;
+  color: #1779ba;
+  font-weight: 600;
+}
+
+:global(:root[data-tema="oscuro"]) .horariosCiudad {
+  color: #6cb6e6;
+}
+
+.horariosFecha {
+  margin: 0;
+  color: var(--tinta);
 }
 
 .horario {
@@ -237,25 +264,16 @@
   justify-content: space-between;
   gap: 16px;
   padding: 9px 0;
-  border-bottom: 1px solid color-mix(in srgb, currentColor 14%, transparent);
+  border-bottom: 1px solid var(--borde);
 }
 
 .horario:last-child {
   border-bottom: 0;
 }
 
-.horario dt {
-  font-weight: 600;
-}
-
 .horario dd {
   margin: 0;
   font-variant-numeric: tabular-nums;
-}
-
-.horariosAviso {
-  margin: 0;
-  font-size: 15px;
 }
 
 .downloadCard h3 {
