@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { aplicarTema } from "@/lib/tema-rezo";
 
 // Cambia el tema solo: claro al terminar el tiempo del fajr (šurūq) y
-// oscuro al entrar el ʿišāʾ, con el cálculo de lib/tema-rezo.js.
+// oscuro al entrar el maġrib, con el cálculo de lib/tema-rezo.js.
 // El primer tema lo pone el <script> de _document.js antes de pintar;
 // aquí se revisa cada 30 segundos y al volver a la pestaña.
 const TemaSegunRezo = () => {

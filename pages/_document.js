@@ -1,7 +1,7 @@
 import { Html, Head, Main, NextScript } from "next/document";
 import { aplicarTema } from "@/lib/tema-rezo";
 
-// Pone el tema (claro u oscuro según el fajr y el ʿišāʾ) antes de pintar la página,
+// Pone el tema (claro u oscuro según el šurūq y el maġrib) antes de pintar la página,
 // para que no parpadee. Ver lib/tema-rezo.js y components/TemaSegunRezo.jsx.
 const scriptTema = `try{(${aplicarTema.toString()})()}catch(e){}`;
 

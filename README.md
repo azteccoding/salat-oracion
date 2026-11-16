@@ -511,7 +511,7 @@ Para agregar uno, añade su `<path>` en el objeto `PATHS` de `components/Icon.js
 ### 14. Estilos
 
 - **Colores, tipografías y variables generales** (`--azul-700`, `--oro-500`, `--tinta`, `--radio`…): `styles/globals.css`.
-- **Tema claro y oscuro:** no sigue al sistema operativo, sino a los tiempos de oración del día. Es **claro desde el šurūq** (salida del sol, fin del tiempo del fajr) **hasta que entra el ʿišāʾ**, y oscuro el resto de la noche. `lib/tema-rezo.js` lo calcula en el navegador con los mismos parámetros que el recuadro de horarios, para el lugar que ese recuadro guardó si el visitante compartió su ubicación, o para el centro de la CDMX. Los colores oscuros van en `:root[data-tema="oscuro"]` (`globals.css`) y, dentro de un módulo, con `:global(:root[data-tema="oscuro"]) .clase { … }`.
+- **Tema claro y oscuro:** no sigue al sistema operativo, sino a los tiempos de oración del día. Es **claro desde el šurūq** (salida del sol, fin del tiempo del fajr) **hasta que entra el maġrib**, y oscuro desde el maġrib hasta el šurūq, porque para Ibn Ḥazm la noche empieza con el ocaso (al-Muḥallá, masʾala 636). Cambia en el mismo minuto que muestra el recuadro. `lib/tema-rezo.js` lo calcula en el navegador con los mismos parámetros que el recuadro de horarios, para el lugar que ese recuadro guardó si el visitante compartió su ubicación, o para el centro de la CDMX. Los colores oscuros van en `:root[data-tema="oscuro"]` (`globals.css`) y, dentro de un módulo, con `:global(:root[data-tema="oscuro"]) .clase { … }`.
 - **Cada página** tiene su módulo en `styles/site/`. Las clases se importan como objeto:
 
 ```jsx
@@ -650,7 +650,7 @@ if (!hasExternalError) console.log(data.data.resultados);
 
 ### Lugares donde faltan horarios
 
-El recuadro calcula el faŷr y el ʿišāʾ con el sol a 15° bajo el horizonte (`lib/horarios-rezo.js`). Más allá de unos 51.6° de latitud, en verano el sol nunca baja tanto, y esos dos tiempos salen como «—». Más allá de unos 65.7° hay días sin salida o sin puesta del sol, y faltan también el šurūq y el magrib. En esas zonas el tema claro/oscuro tampoco es fiable. México queda lejos: su punto más al norte está a unos 32.7°.
+El recuadro calcula el faŷr y el ʿišāʾ con el sol a 15° bajo el horizonte (`lib/horarios-rezo.js`). Más allá de unos 51.6° de latitud, en verano el sol nunca baja tanto, y esos dos tiempos salen como «—». Más allá de unos 65.7° hay días sin salida o sin puesta del sol, y faltan también el šurūq y el magrib; solo ahí deja de ser fiable el tema claro/oscuro, que depende de la salida y la puesta del sol. México queda lejos: su punto más al norte está a unos 32.7°.
 
 ![Mapamundi con las zonas donde faltan horarios](docs/zonas-horarios.svg)
 
